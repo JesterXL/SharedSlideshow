@@ -19,6 +19,9 @@ package com.jxl.minimalcomps
 
 	import mx.collections.ArrayCollection;
 	import mx.events.CollectionEvent;
+	import mx.events.CollectionEventKind;
+	import mx.events.PropertyChangeEvent;
+	import mx.graphics.RadialGradient;
 
 	public class DraggableList extends Component
 	{
@@ -256,6 +259,14 @@ package com.jxl.minimalcomps
 
 		private function onItemsChanged(event:CollectionEvent):void
 		{
+			if(event.kind == CollectionEventKind.UPDATE)
+			{
+				var changeEvent:PropertyChangeEvent = event.items[0] as PropertyChangeEvent;
+				var index:int = items.getItemIndex(changeEvent.source);
+				var renderer:IItemRenderer 	= listContent.getChildAt(index) as IItemRenderer;
+				renderer.data = changeEvent.source;
+				return;
+			}
 			// shotgun redraw approach
 			itemsDirty = true;
 			invalidateProperties();

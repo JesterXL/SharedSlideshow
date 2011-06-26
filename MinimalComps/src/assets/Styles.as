@@ -4,6 +4,7 @@ package assets
 	import flash.filters.DropShadowFilter;
 	import flash.filters.GradientBevelFilter;
 	import flash.text.TextFormat;
+	import flash.text.TextFormatAlign;
 
 	import mx.effects.Blur;
 
@@ -23,6 +24,7 @@ package assets
 																		new GradientBevelFilter(1, 90, [0xFFFFFF], [.11], [255], 0, 0, 1)
 
 		];
+		public static const ALERT_MESSAGE:TextFormat 				= new TextFormat("Droid Sans", 14, 0xFFFFFF, false, null, null, null, null, TextFormatAlign.CENTER);
 
 		public static const LOGIN_TITLE:TextFormat					= new TextFormat("Myriad Pro", 21, 0x333333, false);
 		public static const FORM_TITLE:TextFormat 					= new TextFormat("Lucida Grande", 24, 0x333333);

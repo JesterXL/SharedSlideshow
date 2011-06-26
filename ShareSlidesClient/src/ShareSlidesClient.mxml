@@ -12,11 +12,14 @@
 	<fx:Script>
 		<![CDATA[
 			import com.jxl.shareslides.windows.MainWindow;
-			
+
+			import mx.controls.Alert;
+
 			import spark.components.Window;
 			
 			private function init():void
 			{
+			var a:Alert
 				this.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onError);
 				
 				createDebugWindow();

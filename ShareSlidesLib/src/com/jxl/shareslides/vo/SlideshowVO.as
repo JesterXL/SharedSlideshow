@@ -11,6 +11,9 @@ package com.jxl.shareslides.vo
 		
 		[Transient]
 		public var host:Boolean = false;
+
+		[Transient]
+		public var edit:Boolean = false;
 		
 		
 		public function SlideshowVO()

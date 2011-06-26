@@ -3,8 +3,10 @@ package com.jxl.shareslidesmobile.rl.mediators
 {
 
 	import com.jxl.shareslidesmobile.events.controller.LoadLocallySavedSlideshowsEvent;
+	import com.jxl.shareslidesmobile.events.controller.StartSlideshowEvent;
 	import com.jxl.shareslidesmobile.events.model.SavedSlideshowModelEvent;
 	import com.jxl.shareslidesmobile.events.services.SaveSlideshowServiceEvent;
+	import com.jxl.shareslidesmobile.events.view.StartSlideshowViewEvent;
 	import com.jxl.shareslidesmobile.rl.models.SavedSlideshowsModel;
 	import com.jxl.shareslidesmobile.views.mainviews.StartSlideshowView;
 
@@ -31,6 +33,8 @@ package com.jxl.shareslidesmobile.rl.mediators
 			addContextListener(SavedSlideshowModelEvent.SLIDESHOWS_CHANGED, onSlideshowsChanged, SavedSlideshowModelEvent);
 			addContextListener(SaveSlideshowServiceEvent.SLIDESSHOW_SAVED, onSlideshowSaved, SaveSlideshowServiceEvent);
 
+			addViewListener(StartSlideshowViewEvent.DELETE_SLIDESHOW, onDeleteSlideshow, StartSlideshowViewEvent);
+
 			onSlideshowsChanged();
 
 			dispatch(new LoadLocallySavedSlideshowsEvent(LoadLocallySavedSlideshowsEvent.LOAD));
@@ -46,6 +50,11 @@ package com.jxl.shareslidesmobile.rl.mediators
 		{
 			view.onNewSlideshowCreated();
 			dispatch(new LoadLocallySavedSlideshowsEvent(LoadLocallySavedSlideshowsEvent.LOAD));
+		}
+
+		private function onDeleteSlideshow(event:StartSlideshowViewEvent):void
+		{
+			dispatch(event);
 		}
 
 	}

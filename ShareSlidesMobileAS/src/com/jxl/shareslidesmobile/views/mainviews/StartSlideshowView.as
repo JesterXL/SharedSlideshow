@@ -6,15 +6,20 @@ package com.jxl.shareslidesmobile.views.mainviews
 	import com.greensock.easing.Expo;
 	import com.jxl.minimalcomps.DraggableList;
 	import com.jxl.shareslides.vo.SlideshowVO;
+	import com.jxl.shareslidesmobile.controls.Alert;
 	import com.jxl.shareslidesmobile.controls.ArrowButton;
+	import com.jxl.shareslidesmobile.controls.Button;
 	import com.jxl.shareslidesmobile.controls.HeaderBar;
 	import com.jxl.shareslidesmobile.controls.HeaderField;
 	import com.jxl.shareslidesmobile.controls.LabelField;
 	import com.jxl.shareslidesmobile.controls.PlusButton;
 	import com.jxl.shareslidesmobile.controls.SavedSlideshowItemRenderer;
 	import com.jxl.shareslidesmobile.controls.TextHeader;
+	import com.jxl.shareslidesmobile.events.controller.StartSlideshowEvent;
+	import com.jxl.shareslidesmobile.events.view.AlertEvent;
 	import com.jxl.shareslidesmobile.events.view.NewSlideshowViewEvent;
 	import com.jxl.shareslidesmobile.events.view.SavedSlideshowItemRendererEvent;
+	import com.jxl.shareslidesmobile.events.view.StartSlideshowViewEvent;
 	import com.jxl.shareslidesmobile.managers.HistoryManager;
 	import com.jxl.shareslidesmobile.views.MobileView;
 	import com.jxl.shareslidesmobile.views.mainviews.startslideshowviews.NewSlideshowView;
@@ -30,13 +35,17 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 		private var headerBar:HeaderBar;
 		private var headerLabel:HeaderField;
+		private var editButton:Button;
 		private var plusButton:PlusButton;
 		private var header:TextHeader;
 		private var slideshowList:DraggableList;
 		private var newSlideshowView:NewSlideshowView;
+		private var deleteAlert:Alert;
 
 		private var _slideshows:ArrayCollection;
 		private var slideshowsDirty:Boolean;
+		private var editing:Boolean = false;
+		private var slideshowToDelete:SlideshowVO;
 
 
 
@@ -78,6 +87,7 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 			headerBar = new HeaderBar(this);
 			headerLabel = new HeaderField(this, "Slideshows");
+			editButton = new Button(this, "Edit", onToggleEditSlideshows);
 			plusButton = new PlusButton(this, onCreateNewSlideshow);
 
 			header = new TextHeader();
@@ -86,6 +96,7 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 			slideshowList = new DraggableList();
 			addChild(slideshowList);
+			slideshowList.addEventListener(SavedSlideshowItemRendererEvent.DELETE_SLIDESHOW, onDeleteSlideshow);
 			slideshowList.itemRenderer = SavedSlideshowItemRenderer;
 			slideshowList.labelFunction =  function getUserLabel(value:SlideshowVO):String
 			{
@@ -117,7 +128,10 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 			headerBar.width = width;
 
-			headerLabel.x = 8;
+			editButton.x = 8;
+			editButton.y = headerBar.y + (headerBar.height / 2) - (editButton.height / 2);
+
+			headerLabel.x = (width / 2) - ((headerLabel.textWidth + 4) / 2);
 			headerLabel.y =  headerBar.y + (headerBar.height / 2) - (headerLabel.height / 2);
 
 			plusButton.x = (width - plusButton.width - 8);
@@ -144,6 +158,51 @@ package com.jxl.shareslidesmobile.views.mainviews
 			currentState = STATE_MAIN;
 		}
 
+		private function onToggleEditSlideshows(event:MouseEvent):void
+		{
+			if(slideshows == null || slideshows.length < 1)
+				return;
+
+			editing = !editing;
+			var len:int = _slideshows.length;
+			while(len--)
+			{
+				var slideshow:SlideshowVO = _slideshows[len] as SlideshowVO;
+				slideshow.edit = editing;
+				slideshows.itemUpdated(slideshow);
+			}
+
+			if(editing)
+			{
+				editButton.label = "Cancel";
+			}
+			else
+			{
+				editButton.label = "Edit";
+			}
+		}
+
+		private function onDeleteSlideshow(event:SavedSlideshowItemRendererEvent):void
+		{
+			if(deleteAlert == null)
+			{
+				slideshowToDelete = event.slideshow;
+				Alert.yesLabel = "Delete";
+				deleteAlert = Alert.show("Delete slideshow?", "", Alert.CANCEL | Alert.YES, true, onConfirmDeleteSlideshow);
+			}
+		}
+
+		private function onConfirmDeleteSlideshow(event:AlertEvent):void
+		{
+			deleteAlert = null;
+			if(event.detail == Alert.YES)
+			{
+				var evt:StartSlideshowViewEvent = new StartSlideshowViewEvent(StartSlideshowEvent.DELETE_SLIDESHOW);
+				evt.slideshow = slideshowToDelete;
+				slideshowToDelete = null;
+				dispatchEvent(evt);
+			}
+		}
 
 
 		protected override function onEnterState(state:String):void

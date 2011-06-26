@@ -2,6 +2,7 @@ package
 {
 	import com.jxl.shareslides.vo.SlideshowVO;
 	import com.jxl.shareslidesmobile.controls.InputText;
+	import com.jxl.shareslidesmobile.controls.UIGlobals;
 	import com.jxl.shareslidesmobile.managers.HistoryManager;
 	import com.jxl.shareslidesmobile.rl.MainContext;
 	import com.jxl.shareslidesmobile.views.MainView;
@@ -41,8 +42,11 @@ package
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.frameRate = 31;
 			stage.addEventListener(Event.RESIZE, onResize);
-			
+
+			UIGlobals.stage = stage;
+
 			this.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onError);
+
 			debug = new Debug();
 			addChild(debug);
 			Debug.log("Debugger ready.");

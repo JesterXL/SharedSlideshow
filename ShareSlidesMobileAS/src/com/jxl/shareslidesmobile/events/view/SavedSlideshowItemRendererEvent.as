@@ -9,6 +9,7 @@ package com.jxl.shareslidesmobile.events.view
 	{
 
 		public static const JOIN_SLIDESHOW:String = "joinSlideshow";
+		public static const DELETE_SLIDESHOW:String = "deleteSlideshow";
 
 		public var slideshow:SlideshowVO;
 

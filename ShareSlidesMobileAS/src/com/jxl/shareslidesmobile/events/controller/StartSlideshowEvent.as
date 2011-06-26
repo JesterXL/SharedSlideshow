@@ -7,6 +7,7 @@ package com.jxl.shareslidesmobile.events.controller
 	public class StartSlideshowEvent extends Event
 	{
 		public static const START_SLIDESHOW:String 			= "startSlideshow";
+		public static const DELETE_SLIDESHOW:String 		= "deleteSlideshow";
 		
 		public var name:String;
 		public var slides:Array;

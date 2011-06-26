@@ -7,7 +7,10 @@ package com.jxl.shareslidesmobile.rl
 	import com.jxl.shareslidesmobile.events.controller.StartSlideshowEvent;
 	import com.jxl.shareslidesmobile.events.services.ReadSavedSlideshowsServiceEvent;
 	import com.jxl.shareslidesmobile.events.view.NewSlideshowViewEvent;
+	import com.jxl.shareslidesmobile.events.view.StartSlideshowViewEvent;
 	import com.jxl.shareslidesmobile.rl.commands.CreateSlideshowCommand;
+	import com.jxl.shareslidesmobile.rl.commands.DeleteSavedSlideshowCommand;
+	import com.jxl.shareslidesmobile.rl.commands.DeleteSlideshowCommand;
 	import com.jxl.shareslidesmobile.rl.commands.LoadLocallySavedSlideshowsCommand;
 	import com.jxl.shareslidesmobile.rl.commands.SetNameCommand;
 	import com.jxl.shareslidesmobile.rl.commands.StartSlideshowCommand;
@@ -21,6 +24,7 @@ package com.jxl.shareslidesmobile.rl
 	import com.jxl.shareslidesmobile.rl.models.SavedSlideshowsModel;
 	import com.jxl.shareslidesmobile.rl.models.SlideshowModel;
 	import com.jxl.shareslidesmobile.rl.models.TransferModel;
+	import com.jxl.shareslidesmobile.rl.services.DeleteSavedSlideshowService;
 	import com.jxl.shareslidesmobile.rl.services.ReadSavedSlideshowsService;
 	import com.jxl.shareslidesmobile.rl.services.SaveSlideshowService;
 	import com.jxl.shareslidesmobile.views.mainviews.JoinView;
@@ -44,6 +48,7 @@ package com.jxl.shareslidesmobile.rl
 		public override function startup():void
 		{
 			injector.mapClass(ImagesToSlideshowService, ImagesToSlideshowService);
+			injector.mapClass(DeleteSavedSlideshowService, DeleteSavedSlideshowService);
 
 			injector.mapSingleton(NetworkModel);
 			injector.mapSingleton(SlideshowModel);
@@ -66,6 +71,7 @@ package com.jxl.shareslidesmobile.rl
 			commandMap.mapEvent(ReadSavedSlideshowsServiceEvent.READ_SAVED_SLIDESHOWS_COMPLETE, UpdateSavedSlideshowsCommand);
 			commandMap.mapEvent(NewSlideshowViewEvent.CREATE_SLIDESHOW, CreateSlideshowCommand);
 			commandMap.mapEvent(StartSlideshowEvent.START_SLIDESHOW, StartSlideshowCommand, StartSlideshowEvent);
+			commandMap.mapEvent(StartSlideshowViewEvent.DELETE_SLIDESHOW, DeleteSavedSlideshowCommand,  StartSlideshowViewEvent);
 
 			injector.instantiate(LocalNetworkDiscovery);
 

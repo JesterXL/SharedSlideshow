@@ -6,6 +6,7 @@ package com.jxl.shareslidesmobile.controls
 	import flash.display.DisplayObject;
 
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Graphics;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 
@@ -76,7 +77,17 @@ package com.jxl.shareslidesmobile.controls
 		public override function draw():void
 		{
 			super.draw();
+			if(width < 60 || height < 60)
+			{
+				const halfW:Number = width / 2;
+				const halfH:Number = height / 2;
 
+				var g:Graphics = graphics;
+				g.clear();
+				g.beginFill(0x000000, 0);
+				g.drawRect(-halfW, -halfH, width,  height);
+				g.endFill();
+			}
 		}
 
 		private function onRollOver(event:MouseEvent):void
