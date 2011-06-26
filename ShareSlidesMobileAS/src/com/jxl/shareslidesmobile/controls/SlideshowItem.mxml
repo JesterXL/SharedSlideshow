@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 width="100%" height="72"
+		 verticalAlign="middle" xmlns:controls="com.jxl.shareslidesmobile.controls.*">
+	
+	<fx:Metadata>
+		[Event(name="join", type="com.jxl.shareslidesmobile.events.view.SlideshowItemRendererEvent")]
+		[Event(name="deleteSlideshow", type="com.jxl.shareslidesmobile.events.view.SlideshowItemRendererEvent")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.jxl.shareslides.vo.SlideshowVO;
+			import com.jxl.shareslidesmobile.events.view.SlideshowItemRendererEvent;
+			import com.projectcocoon.p2p.vo.ObjectMetadataVO;
+			
+			[Bindable]
+			private var slideshow:SlideshowVO;
+			
+			[Bindable]
+			private var progress:Number;
+			
+			private var _data:Object;
+			
+			[Bindable]
+			public function get data():Object { return _data; }
+			public function set data(value:Object):void
+			{
+				var om:ObjectMetadataVO;
+				if(_data && _data is ObjectMetadataVO)
+				{
+					ObjectMetadataVO(_data).progressSignal.remove(onProgressChanged);
+					ObjectMetadataVO(_data).completedSignal.remove(onProgressChanged);
+				}
+				
+				_data = value;
+				
+				if(value == null)
+				{
+					slideshow = null;
+					currentState = "waiting";
+					return;
+				}
+				
+				if(value is ObjectMetadataVO)
+				{
+					om = value as ObjectMetadataVO;
+					om.progressSignal.add(onProgressChanged);
+					om.completedSignal.add(onCompleted);
+					if(om.isComplete == false || om.progress < 1)
+					{
+						slideshow = null;
+						currentState = "progress";
+						return;
+					}
+					else
+					{
+						slideshow = om.object as SlideshowVO;
+						if(slideshow)
+						{
+							if(slideshow.host == false)
+							{
+								currentState = "host";
+							}
+							else
+							{
+								currentState = "normal";
+							}
+							return;
+						}
+					}
+				}
+			}
+			
+			private function onJoin():void
+			{
+				var event:SlideshowItemRendererEvent 		= new SlideshowItemRendererEvent(SlideshowItemRendererEvent.JOIN);
+				event.slideshow 							= slideshow;
+				dispatchEvent(event);
+			}
+			
+			private function onDelete():void
+			{
+				var event:SlideshowItemRendererEvent 		= new SlideshowItemRendererEvent(SlideshowItemRendererEvent.DELETE_SLIDESHOW);
+				event.slideshow 							= slideshow;
+				dispatchEvent(event);
+			}
+			
+			private function onProgressChanged():void
+			{
+				if(currentState != "progress")
+					currentState = "progress";
+				
+				if(_data && _data is ObjectMetadataVO)
+					progress = ObjectMetadataVO(_data).progress;
+			}
+			
+			private function onCompleted():void
+			{
+				if(_data && _data is ObjectMetadataVO)
+				{
+					var om:ObjectMetadataVO = _data as ObjectMetadataVO;
+					slideshow = om.object as SlideshowVO;
+					if(slideshow)
+					{
+						if(slideshow.host)
+						{
+							currentState = "host";
+						}
+						else
+						{
+							currentState = "normal";
+						}
+					}
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="waiting" />
+		<s:State name="normal" />
+		<s:State name="progress" />
+		<s:State name="host" />
+	</s:states>
+	
+	<s:Label text="{data.info}" excludeFrom="waiting" />
+	<controls:ProgressBar id="progressBar" indeterminate="true" progress="{progress}" includeIn="progress" />
+	
+	
+	<s:Spacer width="100%" excludeFrom="waiting" />
+	<controls:LinkButton label="Join" click="onJoin()" includeIn="normal" />	
+	<controls:LinkButton label="Delete" click="onDelete()" includeIn="host" />	
+	<s:Spacer width="5%" excludeFrom="waiting" />
+	
+</s:HGroup>

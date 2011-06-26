@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" 
+		  width="300" height="400" 
+		  xmlns:skins="com.jxl.shareslides.skins.*" 
+		  xmlns:local="*" 
+		  xmlns:controls="com.jxl.shareslides.controls.*"
+		  creationComplete="init();" 
+		  title="{currentState}"
+		  xmlns:ns="http://com.projectcocoon.p2p">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.jxl.shareslides.events.view.PhoneItemEvent;
+			import com.jxl.shareslides.events.view.SlideItemRendererEvent;
+			import com.jxl.shareslides.services.ImagesToSlideshowService;
+			import com.jxl.shareslides.vo.SlideshowVO;
+			import com.projectcocoon.p2p.events.MessageEvent;
+			
+			import mx.collections.ArrayCollection;
+			
+			[Bindable]
+			private var slides:ArrayCollection;
+			
+			private var file:File;
+			private var directoryFile:File;
+			private var slideshowService:ImagesToSlideshowService;
+			private var groupIDToSendTo:String;
+			
+			private function init():void
+			{
+				Debug.log("SendSlidesWindow::init");
+				currentState = "connecting";
+				slideChannel.connect();
+			}
+			private function onSendSlides(event:PhoneItemEvent):void
+			{
+				if(slides && slides.length > 0)
+				{
+					currentState = "processing";
+					if(slideshowService == null)
+					{
+						slideshowService = new ImagesToSlideshowService();
+						slideshowService.conversionCompleteSignal.add(onSlideshowReady);
+					}
+					groupIDToSendTo = event.client.groupID;
+					slideshowService.getSlideshow(slideshowNameTextInput.text, slides.source);
+				}
+			}
+			
+			private function onSlideshowReady():void
+			{
+				currentState = "main";
+				slideChannel.shareWithClient(slideshowService.slideshow, groupIDToSendTo, slideshowService.slideshow.name);
+			}
+			
+			private function onBrowseForSlides():void
+			{
+				if(file == null)
+				{
+					file = new File();
+					file.addEventListener(Event.SELECT, onBrowseSelected);
+					file.addEventListener(IOErrorEvent.IO_ERROR, onBrowseError);
+					file.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onBrowseError);
+				}
+				
+				try
+				{
+					file.browseForDirectory("Folder with Slide Images");
+				}
+				catch(err:Error)
+				{
+					Debug.error("SendSlidesWindow::onBrowseForSlides: " + err);
+				}
+			}
+			
+			private function onBrowseError(event:ErrorEvent):void
+			{
+				Debug.error("SendSlidesWindow::onBrowseError: " + event);
+			}
+			
+			private function onBrowseSelected(event:Event):void
+			{
+				directoryFile = event.target as File;
+				if(directoryFile)
+				{
+					directoryFile.addEventListener(IOErrorEvent.IO_ERROR, onDirectoryListError, false, 0, true);
+					directoryFile.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onDirectoryListError, false, 0, true);
+					directoryFile.addEventListener(FileListEvent.DIRECTORY_LISTING, onDirectoryListComplete, false, 0, true);
+					
+					directoryFile.getDirectoryListingAsync();
+				}
+			}
+			
+			private function onDirectoryListError(event:ErrorEvent):void
+			{
+				Debug.error("SendSlidesWindow::onDirectoryListError: " + event);
+			}
+			
+			private function onDirectoryListComplete(event:FileListEvent):void
+			{
+				directoryFile.removeEventListener(IOErrorEvent.IO_ERROR, onDirectoryListError);
+				directoryFile.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, onDirectoryListError);
+				directoryFile.removeEventListener(FileListEvent.DIRECTORY_LISTING, onDirectoryListComplete);
+				slides = new ArrayCollection(event.files);
+			}
+			
+			private function onMessage(event:MessageEvent):void
+			{
+				
+			}
+			
+			private function onReconnect():void
+			{
+				currentState = "connecting";
+				slideChannel.connect();
+			}
+			
+			private function onRemoveFile(event:SlideItemRendererEvent):void
+			{
+				slides.removeItemAt(slides.getItemIndex(event.file));
+			}
+		]]>
+	</fx:Script>
+	
+	
+	
+	<fx:Declarations>
+		<ns:LocalNetworkDiscovery id="slideChannel"
+								  autoConnect="false"
+								  groupName="com.jxl.shareslides.transfer"
+								  groupConnected="currentState = 'main'"
+								  groupClosed="currentState = 'disconnected'"
+								  dataReceived="onMessage(event)"/>
+	</fx:Declarations>
+	
+	<s:states>
+		<s:State name="connecting" />
+		<s:State name="disconnected" />
+		<s:State name="main" />
+		<s:State name="processing" />
+	</s:states>
+	
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+	
+	<mx:ProgressBar label="Connecting..." 
+					indeterminate="true" 
+					verticalCenter="0" 
+					horizontalCenter="0" 
+					includeIn="connecting" />
+	
+	<s:VGroup width="100%" includeIn="disconnected">
+		<s:Label text="Disconnected." fontSize="21" />
+		<s:Button label="Reconnect" click="onReconnect()" width="100%" />
+	</s:VGroup>
+	
+	
+	<s:VGroup width="100%" height="100%">
+		<s:Label text="Slides" />
+		<skins:FlashSymbolContainer width="200" height="2">
+			<local:TitleLineSymbol />
+		</skins:FlashSymbolContainer>
+		<controls:SlideList dataProvider="{slides}" removeFile="onRemoveFile(event)" />
+		<s:FormItem label="Slideshow Name:" width="100%">
+			<s:TextInput id="slideshowNameTextInput" width="100%" />
+		</s:FormItem>
+		<s:Button label="Browse" click="onBrowseForSlides()" width="100%" />
+		
+		<s:Label text="Connected Devices" />
+		<skins:FlashSymbolContainer width="200" height="2">
+			<local:TitleLineSymbol />
+		</skins:FlashSymbolContainer>
+		<controls:PhoneList dataProvider="{slideChannel.clients}" sendSlides="onSendSlides(event)" />
+	</s:VGroup>
+	
+	<mx:ProgressBar indeterminate="true"
+					label="Making Slideshow..."
+					verticalCenter="0"
+					horizontalCenter="0"
+					includeIn="processing" />
+	
+	
+	
+	
+</s:Window>

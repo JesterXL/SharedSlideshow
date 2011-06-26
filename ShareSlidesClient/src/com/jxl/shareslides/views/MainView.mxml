@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 width="100%" height="100%"
+		 creationComplete="init()" 
+		 currentState="connecting"
+		 xmlns:ns="http://com.projectcocoon.p2p" 
+		 xmlns:skins="com.jxl.shareslides.skins.*" 
+		 xmlns:local="*" 
+		 xmlns:controls="com.jxl.shareslides.controls.*" xmlns:rl="com.jxl.shareslides.rl.*" xmlns:views="com.jxl.shareslides.views.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.jxl.shareslides.controls.SendSlidesWindow;
+			import com.jxl.shareslides.events.view.SlideshowItemRendererEvent;
+			import com.jxl.shareslides.vo.SlideshowVO;
+			import com.projectcocoon.p2p.events.ClientEvent;
+			import com.projectcocoon.p2p.events.MessageEvent;
+			import com.projectcocoon.p2p.events.ObjectEvent;
+			import com.projectcocoon.p2p.vo.ObjectMetadataVO;
+			
+			import mx.collections.ArrayCollection;
+			
+			import spark.components.Window;
+			
+			
+			
+			[Bindable]
+			private var slideshow:SlideshowVO;
+			
+			// channel.receivedObjects
+			[Bindable]
+			public var slideshows:ArrayCollection;
+			
+			// channel.clients
+			[Bindable]
+			public var clients:ArrayCollection;
+			
+			[Bindable]
+			private var currentSlide:int = 0;
+			
+			private var lastHostSlide:int;
+			
+			[Bindable]
+			private var slideBytes:ByteArray;
+			
+			public function gotoSection(location:String):void
+			{
+				switch(location)
+				{
+					case "Slideshows":
+						currentState = "choose";
+						break;
+					
+					case "Transfer":
+						currentState = "transfer";
+						break;
+				}
+			}
+			
+			public function setConnected(connected:Boolean):void
+			{
+				if(connected)
+				{
+					if(currentState == "connecting" || currentState == "disconnected")
+						currentState = "choose";
+				}
+				else
+				{
+					if(currentState != "connecting")
+						currentState = "disconnected";
+				}
+			}
+			
+			private function init():void
+			{
+				registerClassAlias("com.jxl.shareslides.vo.SlideshowVO", SlideshowVO);
+				
+				move((Screen.mainScreen.bounds.width / 2) - (width / 2), (Screen.mainScreen.bounds.height / 2) - (height / 2));
+
+				Debug.log("MainView::init");
+				/*
+				var shareWin:SendSlidesWindow = new SendSlidesWindow();
+				shareWin.open();
+				shareWin.move(Screen.mainScreen.bounds.width - Screen.mainScreen.bounds.x - shareWin.width, 0);
+				*/
+			}
+			
+			
+			private function onJoinSlideshow(event:SlideshowItemRendererEvent):void
+			{
+				slideshow = event.slideshow;
+				currentState = "slideshow";
+				updateCurrentSlideBytes();
+			}
+			
+			private function onSyncChange():void
+			{
+				if(syncCheckBox.selected)
+				{
+					currentSlide = lastHostSlide;
+					updateCurrentSlideBytes();
+				}
+			}
+			
+			private function nextSlide():void
+			{
+				if(slideshow && slideshow.slideBytes && isNaN(currentSlide) == false && currentSlide + 1 < slideshow.slideBytes.length)
+				{
+					++currentSlide;
+					updateCurrentSlideBytes();
+				}
+			}
+			
+			private function previousSlide():void
+			{
+				if(slideshow && slideshow.slideBytes && isNaN(currentSlide) == false && currentSlide - 1 > -1)
+				{
+					--currentSlide;
+					updateCurrentSlideBytes();
+				}
+			}
+			
+			// utility
+			private function containsSlideshow(slideshowName:String):Boolean
+			{
+				/*
+				if(channel.receivedObjects == null)
+					return false;
+				
+				var len:int = channel.receivedObjects.length;
+				while(len--)
+				{
+					var om:ObjectMetadataVO = channel.receivedObjects.getItemAt(len) as ObjectMetadataVO;
+					if(om.info as String == slideshowName)
+					{
+						return true;
+					}
+				}
+				
+				return false;
+				*/
+				return false;
+			}
+			
+			private function updateCurrentSlideBytes():void
+			{
+				if(slideshow == null || isNaN(currentSlide))
+					return;
+				
+				slideBytes = slideshow.slideBytes[currentSlide] as ByteArray;
+				
+				fadeIn.play();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+	<s:states>
+	<s:State name="connecting" />
+	<s:State name="choose" />
+	<s:State name="slideshow" />
+	<s:State name="transfer" />
+	<s:State name="disconnected" />
+	</s:states>
+	
+	<s:layout>
+		<s:BasicLayout />
+	</s:layout>
+	
+	
+	<s:VGroup width="100%" height="100%" includeIn="choose">
+		<controls:TextHeader label="Slideshows" />
+		<controls:SlideshowList dataProvider="{slideshows}" 
+								joinSlideshow="onJoinSlideshow(event)"/>
+		<controls:TextHeader label="Connected Participants" />
+		<controls:PhoneList dataProvider="{clients}" />
+	</s:VGroup>
+	
+	<controls:BackToSlideshowButton includeIn="slideshow" 
+		click="currentState = 'choose'"
+		left="8" top="8"/>
+	
+	<s:Group width="100%" height="100%" includeIn="slideshow" >
+		<controls:PreviousSlideButton click="previousSlide()" left="8" verticalCenter="0" toolTip="Previous Slide" />
+		<s:Image id="image" source="{slideBytes}" left="88" top="66" right="88" bottom="66" />
+		<controls:NextSlideButton click="nextSlide()" right="8" verticalCenter="0" toolTip="Next Slide"/>
+		<s:HGroup left="8" bottom="8" height="21" verticalAlign="middle" gap="8">
+			<s:Label text="Slide {(currentSlide + 1)} of {slideshow.slideBytes.length}" paddingTop="2" />
+			<skins:FlashSymbolContainer width="1" height="18">
+				<local:DividerLineSymbol />
+			</skins:FlashSymbolContainer>
+			<controls:SyncCheckBox id="syncCheckBox" change="onSyncChange()" label="Sync With Host" toolTip="Keep checked to see the slide the host is currently on." />
+			<skins:FlashSymbolContainer width="1" height="18">
+				<local:DividerLineSymbol />
+			</skins:FlashSymbolContainer>
+			<controls:FullScreenToggleButton toolTip="Toggle Full Screen" />
+		</s:HGroup>
+	</s:Group>
+	
+	<views:TransferView includeIn="transfer" />
+	
+	<fx:Declarations>
+		<s:Power id="power" exponent="4" />
+		<s:Fade id="fadeIn" alphaFrom="0" alphaTo="1" duration="300" easer="{power}" target="{image}" />
+	</fx:Declarations>
+	
+</s:Group>

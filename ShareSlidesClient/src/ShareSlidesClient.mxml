@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx" 
+					   showStatusBar="false"
+					   visible="false"
+					   width="100%" height="100%"
+					   applicationComplete="init();">
+	
+	<fx:Style source="assets/styles/defaults.css" />
+	
+	<fx:Script>
+		<![CDATA[
+			import com.jxl.shareslides.windows.MainWindow;
+			
+			import spark.components.Window;
+			
+			private function init():void
+			{
+				this.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onError);
+				
+				createDebugWindow();
+				
+				var mainWin:MainWindow = new MainWindow();
+				mainWin.open(true);
+			}
+			
+			private function onError(event:UncaughtErrorEvent):void
+			{
+				Debug.error("onError: " + event);
+				if(Capabilities.isDebugger)
+					nativeApplication.exit(event.errorID);
+			}
+			
+			private function createDebugWindow():void
+			{
+				var win:Window = new Window();
+				win.width = 500;
+				win.height = 400;
+				win.type = NativeWindowType.UTILITY;
+				win.addElement(new Debug());
+				win.open();
+				win.move(0, 0);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+	
+	
+</s:WindowedApplication>

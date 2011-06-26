@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		title="Transfer"
+		currentState="connecting">
+	
+	<fx:Metadata>
+		[Event(name="submitName", type="com.jxl.shareslidesmobile.events.view.TransferSlideshowViewEvent")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.jxl.shareslidesmobile.events.view.TransferSlideshowViewEvent;
+			
+			import spark.components.ViewNavigator;
+			
+			[Bindable]
+			public var username:String;
+			
+			public function setConnected(connected:Boolean):void
+			{
+				if(connected == false)
+				{
+					currentState = "connecting";
+				}
+				else
+				{
+					currentState = "ready";
+				}
+			}
+			
+			private function onSubmit():void
+			{
+				Debug.debug("TransferSlideshowView::onSubmit");
+				dispatchEvent(new TransferSlideshowViewEvent(TransferSlideshowViewEvent.SUBMIT_NAME));
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+	
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+	
+	<s:states>
+		<s:State name="connecting" />
+		<s:State name="ready" />
+	</s:states>
+	
+	<s:Label text="Connecting..." includeIn="connecting" horizontalCenter="0" verticalCenter="0" />
+	
+	<s:Form width="100%" includeIn="ready">
+		<s:FormItem width="100%" label="Your Name:">
+			<s:TextInput id="nameTextInput" text="{username}" width="100%" change="username = nameTextInput.text"/>
+		</s:FormItem>
+		<s:FormItem width="100%">
+			<s:Button width="100%" label="Submit" click="onSubmit()" />
+		</s:FormItem>
+	</s:Form>
+	
+</s:View>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:controls="com.jxl.shareslides.controls.*"
+		 xmlns:skins="com.jxl.shareslides.skins.*" 
+		 width="100%" height="60"
+		 xmlns:local="*"
+		 currentState="hidden"
+		 toolTip="{currentState}">
+	
+	<fx:Metadata>
+		[Event(name="sendSlides", type="com.jxl.shareslides.events.view.PhoneItemEvent")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.jxl.shareslides.events.view.PhoneItemEvent;
+			import com.projectcocoon.p2p.vo.ClientVO;
+			
+			private var _data:Object;
+			
+			[Bindable]
+			private var client:ClientVO;
+			
+			public function get data():Object { return _data; }
+			public function set data(value:Object):void
+			{
+				_data = value;
+				
+				if(value == null)
+				{
+					client = null;
+					currentState = "hidden";
+					return;
+				}
+				
+				if(value && value is ClientVO)
+				{
+					client = value as ClientVO;
+					if(client.isLocal == false)
+					{
+						currentState = "client";
+					}
+					else
+					{
+						currentState = "clientYou";
+					}
+					return;
+				}
+			}
+			
+			private function onSendSlides():void
+			{
+				var evt:PhoneItemEvent 	= new PhoneItemEvent(PhoneItemEvent.SEND_SLIDES);
+				evt.client 				= client;
+				dispatchEvent(evt);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="hidden" />
+		<s:State name="client" />
+		<s:State name="clientYou" />
+	</s:states>
+	
+	<s:HGroup width="100%" height="60" verticalAlign="middle">
+		<s:Label text="{client.clientName}"
+				 paddingLeft="16"
+				 fontSize="18" fontWeight="normal" color="#FFFFFF" includeIn="client,clientYou" />
+		<s:Spacer width="100%" />
+		<s:Button label="Send Slides" click="onSendSlides()" includeIn="client" />
+	</s:HGroup>
+	
+	<skins:FlashSymbolContainer>
+		<local:ListDividerSymbol width="{width}" />
+	</skins:FlashSymbolContainer>
+	
+	
+</s:VGroup>

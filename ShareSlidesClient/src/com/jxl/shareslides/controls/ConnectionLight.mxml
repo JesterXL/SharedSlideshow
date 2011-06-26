@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 width="19" height="19" 
+		 currentState="disconnected"
+		 toolTip="Connecting..."
+		 xmlns:skins="com.jxl.shareslides.skins.*" 
+		 xmlns:local="*">
+	
+	<fx:Script>
+		<![CDATA[
+			
+			public function showConnected(connected:Boolean):void
+			{
+				if(connected)
+				{
+					currentState = "connected";
+					toolTip = "Connected.";
+				}
+				else
+				{
+					currentState = "disconnected";
+					toolTip = "Disconnected.";
+				}
+			}
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="disconnected" />
+		<s:State name="connected" />
+	</s:states>
+	
+	<skins:FlashSymbolContainer includeIn="disconnected">
+		<local:LightOffSymbol />
+	</skins:FlashSymbolContainer>
+	
+	<skins:FlashSymbolContainer includeIn="connected">
+		<local:LightOnSymbol />
+	</skins:FlashSymbolContainer>
+	
+</s:Group>

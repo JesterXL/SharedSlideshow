@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:controls="com.jxl.shareslides.controls.*"
+		width="100%" height="100%">
+
+	<fx:Script>
+		<![CDATA[
+		import com.jxl.shareslides.events.view.PhoneItemEvent;
+
+		import mx.collections.ArrayCollection;
+
+		[Bindable]
+		public var clients:ArrayCollection;
+
+		private function onSendSlides(event:PhoneItemEvent):void
+		{
+			dispatchEvent(event);
+		}
+
+
+		]]></fx:Script>
+
+	<controls:TextHeader label="Connected Participants"/>
+	<controls:PhoneTransferList dataProvider="{clients}" sendSlides="onSendSlides(event)" />
+
+</s:VGroup>

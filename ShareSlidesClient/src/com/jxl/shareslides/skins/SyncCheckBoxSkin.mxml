@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The default skin class for the Spark CheckBox component.  
+
+      @see spark.components.CheckBox
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+             xmlns:fb="http://ns.adobe.com/flashbuilder/2009" 
+			 width="160" height="21"
+			 alpha.disabledStates="0.5" 
+			 xmlns:skins="com.jxl.shareslides.skins.*" 
+			 xmlns:local="*">
+	<fx:Metadata>[HostComponent("com.jxl.shareslides.controls.SyncCheckBox")]</fx:Metadata>
+
+    <fx:Script>
+        <![CDATA[
+            /** 
+             * @private 
+             */     
+            private static const focusExclusions:Array = ["labelDisplay"];
+
+            /**
+             * @private
+             */
+            override public function get focusSkinExclusions():Array { return focusExclusions;};
+        ]]>
+    </fx:Script>
+    
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" stateGroups="overStates" />
+        <s:State name="down" stateGroups="downStates" />
+        <s:State name="disabled" stateGroups="disabledStates" />
+        <s:State name="upAndSelected" stateGroups="selectedStates" />
+        <s:State name="overAndSelected" stateGroups="overStates, selectedStates" />
+        <s:State name="downAndSelected" stateGroups="downStates, selectedStates" />
+        <s:State name="disabledAndSelected" stateGroups="disabledStates, selectedStates" />
+    </s:states>
+    
+	<skins:FlashSymbolContainer includeIn="up,over,down,disabled" width="21" height="21">
+		<local:CheckBoxSymbol />
+	</skins:FlashSymbolContainer>
+	
+	<skins:FlashSymbolContainer>
+		<local:CheckBoxSelected includeIn="upAndSelected,overAndSelected,downAndSelected,disabledAndSelected" width="21" height="21" />
+	</skins:FlashSymbolContainer>
+	
+	<!-- Label -->
+	<!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
+	<s:Label id="labelDisplay"
+			 textAlign="start"
+			 verticalAlign="middle"
+			 maxDisplayedLines="1"
+			 fontSize="18"
+			 color="#FFFFFF"
+			 left="29" right="0"
+			 verticalCenter="2" />
+
+</s:SparkSkin>

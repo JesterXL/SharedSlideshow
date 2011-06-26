@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		title="Create A Slideshow"
+		currentState="browse" 
+		xmlns:controls="com.jxl.shareslidesmobile.controls.*"
+		width="100%" height="100%">
+	
+	<fx:Metadata>
+		[Event(name="createSlideshow", type="com.jxl.shareslidesmobile.events.view.CreateSlideshowViewEvent")]
+		[Event(name="cancel", type="com.jxl.shareslidesmobile.events.view.CreateSlideshowViewEvent")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.jxl.shareslidesmobile.events.view.CreateSlideshowViewEvent;
+			
+			import mx.collections.ArrayCollection;
+			
+			private var cameraRoll:CameraRoll;
+			private var file:File;
+			private var stream:FileStream;
+			private var files:Array;
+			
+			[Bindable]
+			private var filesCollection:ArrayCollection;
+			
+			private function onBrowse():void
+			{
+				if(CameraRoll.supportsBrowseForImage)
+				{
+					browseCamera();
+				}
+				else
+				{
+					browseFilesystem();
+				}
+			}
+			
+			private function browseCamera():void
+			{
+				if(cameraRoll == null)
+				{
+					cameraRoll = new CameraRoll();
+					cameraRoll.addEventListener(ErrorEvent.ERROR, onCameraRollError);
+					cameraRoll.addEventListener(MediaEvent.SELECT, onCameraRollSelect);
+				}
+				
+				cameraRoll.browseForImage();
+			}
+			
+			private function onCameraRollError(event:ErrorEvent):void
+			{
+				Debug.error("CreateSlideshowView::onCameraRollError: " + event.text);
+			}
+			
+			private function onCameraRollSelect(event:MediaEvent):void
+			{
+				if(filesCollection == null)
+					filesCollection = new ArrayCollection();
+				
+				if(files == null)
+					files = [];
+				
+				var imagePromise:MediaPromise = event.data;
+				
+				files.push(imagePromise.file);
+				
+				currentState = "slides";
+				filesCollection.addItem(imagePromise.file);
+			}
+			
+			private function onImageFailed(event:IOErrorEvent):void
+			{
+				Debug.error("CreateSlideshowView::onImageFailed: " + event.text);
+			}
+			
+			private function browseFilesystem():void
+			{
+				if(file == null)
+				{
+					file = new File();
+					file.addEventListener(Event.CANCEL, onFileCancel);
+					file.addEventListener(Event.SELECT, onFileSelect);
+					file.addEventListener(IOErrorEvent.IO_ERROR, onFileError);
+				}
+				
+				try
+				{
+					file.browseForDirectory("Slides Folder");
+				}
+				catch(err:Error)
+				{
+					Debug.error("CreateSlideshowView::onBrowse, err: " + err);
+					currentState = "browse";
+				}
+			}
+			
+			private function onFileError(event:IOErrorEvent):void
+			{
+				Debug.error("CreateSlideshowView::onFileError: " + event.text);
+				currentState = "browse";
+			}
+			
+			private function onFileCancel(event:Event):void
+			{
+				currentState = "browse";
+			}
+			
+			private function onFileSelect(event:Event):void
+			{
+				files = file.getDirectoryListing();
+				if(files && files.length > 0)
+				{
+					currentState = "slides";
+					filesCollection = new ArrayCollection(files);
+				}
+			}
+			
+			/*
+			private function browseCamera():void
+			{
+				if(cameraRoll == null)
+				{
+					cameraRoll = new CameraRoll();
+					cameraRoll.addEventListener(ErrorEvent.ERROR, 	onCameraRollError);
+					cameraRoll.addEventListener(Event.CANCEL, 		onCameraRollCancel);
+					cameraRoll.addEventListener(MediaEvent.SELECT, 	onCameraRollSelect);
+				}
+			}
+			*/
+			
+			private function onCreateSlideshow():void
+			{
+				currentState 							= "processing";
+				
+				var event:CreateSlideshowViewEvent 		= new CreateSlideshowViewEvent(CreateSlideshowViewEvent.CREATE_SLIDESHOW);
+				event.name								= nameTextInput.text;
+				event.files								= files;
+				dispatchEvent(event);
+			}
+			
+			private function onCancel():void
+			{
+				dispatchEvent(new CreateSlideshowViewEvent(CreateSlideshowViewEvent.CANCEL));
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+	<s:states>
+		<s:State name="browse" />
+		<s:State name="slides" />
+		<s:State name="processing" />
+	</s:states>
+	
+	<s:Form width="100%" excludeFrom="processing">
+		
+		<s:FormItem label="Name:" width="100%">
+			<s:TextInput id="nameTextInput" width="100%" />
+		</s:FormItem>
+		<s:FormItem label="Slides:" width="100%" height="100%">
+			<s:Button label="Browse" click="onBrowse()" includeIn="browse,slides"/>
+			<s:List dataProvider="{filesCollection}" itemRenderer="com.jxl.shareslidesmobile.controls.SlideItemRenderer" />
+		</s:FormItem>
+		<s:FormItem width="100%">
+			<s:Button label="Create" width="100%" click="onCreateSlideshow()" />
+		</s:FormItem>
+		
+	</s:Form>
+	
+	<s:Label text="Processing..." includeIn="processing" horizontalCenter="0" verticalCenter="0" />
+	
+		
+	
+</s:View>

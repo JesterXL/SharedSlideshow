@@ -1,0 +1,132 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+@namespace controls "com.jxl.shareslides.controls.*";
+@namespace windows "com.jxl.shareslides.windows.*";
+
+/*
+global
+{
+	chromeColor: #294867;
+	color: #FFFFFF;
+	contentBackgroundColor: #39628C;
+	symbolColor: #000000;
+	rollOverColor: #355D89;
+	selectionColor: #294867;
+	focusColor: #333300;
+	accentColor: #6589AD;
+	
+}
+*/
+
+s|WindowedApplication
+{
+	backgroundColor: #000000;
+}
+
+s|Button
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.BlackButtonSkin");
+}
+
+s|TextInput
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.TextInputSkin");
+}
+
+s|FormItem
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.FormItemSkin");
+}
+
+
+controls|JoinButton
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.JoinButtonSkin");
+}
+
+controls|SlideshowList
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.SlideshowListSkin");
+}
+
+controls|PreviousSlideButton
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.PreviousSlideButtonSkin");
+}
+
+controls|NextSlideButton
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.NextSlideButtonSkin");
+}
+
+controls|SyncCheckBox
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.SyncCheckBoxSkin");
+}
+
+controls|BackToSlideshowButton
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.BackToSlideshowButtonSkin");
+}
+
+controls|FullScreenToggleButton
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.FullScreenToggleButtonSkin");
+}
+
+controls|DeleteButton
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.DeleteButtonSkin");
+}
+
+windows|MainWindow
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.MainWindowSkin");
+}
+
+controls|BlackTitleBar
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.BlackTitleBarSkin");
+}
+
+controls|MinimizeButton
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.MinimizeButtonSkin");
+}
+
+controls|CloseButton
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.CloseButtonSkin");
+}
+
+controls|TabLeft
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.TabLeftSkin");
+}
+
+controls|TabRight
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.TabRightSkin");
+}
+
+controls|TabNavigationBar
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.TabNavigationBarSkin");
+}
+
+controls|PhoneList
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.PhoneListSkin");
+}
+
+controls|PhoneTransferList
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.PhoneTransferListSkin");
+}
+
+controls|SlideList
+{
+	skinClass: ClassReference("com.jxl.shareslides.skins.SlideListSkin");
+}
+

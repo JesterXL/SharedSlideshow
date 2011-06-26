@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="false" 
+				xmlns:controls="com.jxl.shareslides.controls.*"
+				width="100%" height="60">
+	
+	<fx:Metadata>
+		[Event(name="removeFile", type="com.jxl.shareslides.events.view.SlideItemRendererEvent")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.jxl.shareslides.events.view.SlideItemRendererEvent;
+			
+			import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			
+			[Bindable]
+			private var file:File;
+			
+			public override function set data(value:Object):void
+			{
+				super.data = value;
+				
+				if(value == null)
+				{
+					file = null;
+					return;
+				}
+				
+				if(value && value is File)
+				{
+					file = value as File;
+				}
+				else
+				{
+					file = null;
+				}
+			}
+			
+			private function onRemoveFile():void
+			{
+				Alert.yesLabel = "Remove Slide";
+				Alert.cancelLabel = "Cancel";
+				Alert.show("Are you sure you wish to remove this file from your list of slides?", "Confirm Remove Slide", Alert.YES | Alert.CANCEL, this, onConfirmRemove, null, Alert.CANCEL);
+			}
+			
+			private function onConfirmRemove(event:CloseEvent):void
+			{
+				if(event.detail == Alert.YES)
+				{
+					var evt:SlideItemRendererEvent 		= new SlideItemRendererEvent(SlideItemRendererEvent.REMOVE_FILE);
+					evt.file 							= file;
+					dispatchEvent(evt);
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:HorizontalLayout verticalAlign="middle" paddingLeft="4" paddingTop="4" paddingRight="4" paddingBottom="4" />
+	</s:layout>
+	
+	<s:Image source="{data.url}" width="60" height="60" toolTip="{data.url}" />
+	<s:Label text="{data.name}" toolTip="{data.name}"
+			 fontSize="18"
+			 color="#FFFFFF"/>
+	<s:Spacer width="100%" />
+	<controls:DeleteButton click="onRemoveFile()" />
+	
+</s:ItemRenderer>

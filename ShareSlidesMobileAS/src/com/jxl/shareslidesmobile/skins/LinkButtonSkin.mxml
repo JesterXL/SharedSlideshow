@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	ZOMG, everyone loves t3h polyg33k!
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/halo">
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/halo";
+		
+		.upStyle {
+			color:        #0000FF;
+		}
+		
+		.overStyle {
+			color:        #009900;
+		}
+		
+		.downStyle {
+			color:        #00FF00;
+		}
+		
+		.disabledStyle {
+			color:        #666666;
+		}
+		
+	</fx:Style>
+	
+	<s:states>
+		<s:State name="up" />
+		<s:State name="over" />
+		<s:State name="down" />
+		<s:State name="disabled" />
+	</s:states>
+	
+	<s:Label
+		id="labelDisplay"
+		styleName.up="upStyle"
+		styleName.over="overStyle"
+		styleName.down="downStyle"
+		styleName.disabled="disabledStyle"/>
+	
+	<s:Rect width="100%" height="1" includeIn="over,up" bottom="0">
+		<s:fill>
+			<s:SolidColor color.over="#009900" color.up="#0000FF"/>
+		</s:fill>
+	</s:Rect>
+	
+</s:Skin>

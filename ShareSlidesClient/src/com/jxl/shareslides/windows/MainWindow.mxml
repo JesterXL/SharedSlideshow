@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" 
+		  width="800" height="600"
+		  systemChrome="none"
+		  maximizable="false" 
+		  xmlns:views="com.jxl.shareslides.views.*"
+		  creationComplete="init()" xmlns:rl="com.jxl.shareslides.rl.*">
+	
+	<fx:Declarations>
+		<rl:MainContext contextView="{this}" />
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			
+			private function init():void
+			{
+				move( (Screen.mainScreen.bounds.width / 2) - (width / 2), (Screen.mainScreen.bounds.height / 2) - (height / 2));
+			}
+		]]>
+	</fx:Script>
+	
+	<views:MainView left="0" top="0" right="0" bottom="0" />
+	
+</s:Window>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ToggleButton xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				useHandCursor="true" buttonMode="true"
+				click="onToggleFullScreen()">
+	
+	<fx:Script>
+		<![CDATA[
+			
+			private function onToggleFullScreen():void
+			{
+				if(stage.displayState == StageDisplayState.NORMAL)
+				{
+					try
+					{
+						stage.displayState = StageDisplayState.FULL_SCREEN;
+					}
+					catch(err:Error)
+					{
+						Debug.error("FullScreenToggleButton::onToggleFullScreen, going to fullscreen: " + err);
+					}
+				}
+				else
+				{
+					try
+					{
+						stage.displayState = StageDisplayState.NORMAL;
+					}
+					catch(err:Error)
+					{
+						Debug.error("FullScreenToggleButton::onToggleFullScreen, going to normal: " + err);
+					}
+				}
+			}
+		]]>
+	</fx:Script>
+	
+</s:ToggleButton>

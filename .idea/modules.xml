@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CocoonP2P/CocoonP2P.iml" filepath="$PROJECT_DIR$/CocoonP2P/CocoonP2P.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DebugWindowv2/DebugWindowv2.iml" filepath="$PROJECT_DIR$/DebugWindowv2/DebugWindowv2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MinimalComps/MinimalComps.iml" filepath="$PROJECT_DIR$/MinimalComps/MinimalComps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShareSlidesClient/ShareSlidesClient.iml" filepath="$PROJECT_DIR$/ShareSlidesClient/ShareSlidesClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShareSlidesLib/ShareSlidesLib.iml" filepath="$PROJECT_DIR$/ShareSlidesLib/ShareSlidesLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShareSlidesMobile/ShareSlidesMobile.iml" filepath="$PROJECT_DIR$/ShareSlidesMobile/ShareSlidesMobile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShareSlidesMobileAS/ShareSlidesMobileAS.iml" filepath="$PROJECT_DIR$/ShareSlidesMobileAS/ShareSlidesMobileAS.iml" />
+      <module fileurl="file://$USER_HOME$/Downloads/robertpenner-as3-signals-e9e2107/robertpenner-as3-signals-e9e2107.iml" filepath="$USER_HOME$/Downloads/robertpenner-as3-signals-e9e2107/robertpenner-as3-signals-e9e2107.iml" />
+    </modules>
+  </component>
+</project>
+

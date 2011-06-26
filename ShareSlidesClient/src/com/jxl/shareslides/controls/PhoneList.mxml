@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:List xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx" 
+		width="100%" height="100%"
+		itemRenderer="com.jxl.shareslides.controls.PhoneItemRenderer">
+	
+	<fx:Metadata>
+		[Event(name="ping", type="com.jxl.shareslides.events.view.PhoneItemEvent")]
+	</fx:Metadata>
+	
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+	
+</s:List>

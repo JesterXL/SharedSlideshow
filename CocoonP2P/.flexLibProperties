@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="com.projectcocoon.p2p.LocalNetworkDiscovery"/>
+    <classEntry path="com.projectcocoon.p2p.NetStatusCode"/>
+    <classEntry path="com.projectcocoon.p2p.command.CommandList"/>
+    <classEntry path="com.projectcocoon.p2p.command.CommandType"/>
+    <classEntry path="com.projectcocoon.p2p.events.AccelerationEvent"/>
+    <classEntry path="com.projectcocoon.p2p.events.ClientEvent"/>
+    <classEntry path="com.projectcocoon.p2p.events.GroupEvent"/>
+    <classEntry path="com.projectcocoon.p2p.events.MessageEvent"/>
+    <classEntry path="com.projectcocoon.p2p.events.ObjectEvent"/>
+    <classEntry path="com.projectcocoon.p2p.managers.GroupManager"/>
+    <classEntry path="com.projectcocoon.p2p.managers.ObjectManager"/>
+    <classEntry path="com.projectcocoon.p2p.util.ClassRegistry"/>
+    <classEntry path="com.projectcocoon.p2p.util.SerializationUtil"/>
+    <classEntry path="com.projectcocoon.p2p.vo.AccelerationVO"/>
+    <classEntry path="com.projectcocoon.p2p.vo.ClientVO"/>
+    <classEntry path="com.projectcocoon.p2p.vo.MessageVO"/>
+    <classEntry path="com.projectcocoon.p2p.vo.ObjectMetadataVO"/>
+    <classEntry path="com.projectcocoon.p2p.util.FileUtil"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests>
+    <namespaceManifestEntry manifest="manifest.xml" namespace="http://com.projectcocoon.p2p"/>
+  </namespaceManifests>
+</flexLibProperties>

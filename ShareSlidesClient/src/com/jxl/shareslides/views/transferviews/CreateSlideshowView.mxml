@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" 
+		  width="100%" height="100%"
+		  currentState="main" xmlns:controls="com.jxl.shareslides.controls.*">
+	
+	<fx:Script>
+		<![CDATA[
+		import com.jxl.shareslides.events.view.CreateSlideshowViewEvent;
+		import com.jxl.shareslides.events.view.SlideItemRendererEvent;
+			import com.jxl.shareslides.services.ImagesToSlideshowService;
+			
+			import mx.collections.ArrayCollection;
+			
+			private var file:File;
+			private var directoryFile:File;
+			
+			[Bindable]
+			private var slides:ArrayCollection;
+			
+			private var slideshowService:ImagesToSlideshowService;
+			
+			private function onBrowseForSlides():void
+			{
+				if(file == null)
+				{
+					file = new File();
+					file.addEventListener(Event.SELECT, onBrowseSelected);
+					file.addEventListener(IOErrorEvent.IO_ERROR, onBrowseError);
+					file.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onBrowseError);
+				}
+				
+				try
+				{
+					file.browseForDirectory("Folder with Slide Images");
+				}
+				catch(err:Error)
+				{
+					Debug.error("CreateSlideshowView::onBrowseForSlides: " + err);
+				}
+			}
+			
+			private function onBrowseError(event:ErrorEvent):void
+			{
+				Debug.error("CreateSlideshowView::onBrowseError: " + event);
+			}
+			
+			private function onBrowseSelected(event:Event):void
+			{
+				directoryFile = event.target as File;
+				if(directoryFile)
+				{
+					directoryFile.addEventListener(IOErrorEvent.IO_ERROR, onDirectoryListError, false, 0, true);
+					directoryFile.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onDirectoryListError, false, 0, true);
+					directoryFile.addEventListener(FileListEvent.DIRECTORY_LISTING, onDirectoryListComplete, false, 0, true);
+					
+					directoryFile.getDirectoryListingAsync();
+				}
+			}
+			
+			private function onDirectoryListError(event:ErrorEvent):void
+			{
+				Debug.error("CreateSlideshowView::onDirectoryListError: " + event);
+			}
+			
+			private function onDirectoryListComplete(event:FileListEvent):void
+			{
+				directoryFile.removeEventListener(IOErrorEvent.IO_ERROR, onDirectoryListError);
+				directoryFile.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, onDirectoryListError);
+				directoryFile.removeEventListener(FileListEvent.DIRECTORY_LISTING, onDirectoryListComplete);
+				slides = new ArrayCollection(event.files);
+			}
+
+			private function onRemoveFile(event:SlideItemRendererEvent):void
+			{
+				slides.removeItemAt(slides.getItemIndex(event.file));
+			}
+			
+			private function onSaveSlideshow():void
+			{
+				if(slides && slides.length > 0)
+				{
+					currentState = "processing";
+					var evt:CreateSlideshowViewEvent = new CreateSlideshowViewEvent(CreateSlideshowViewEvent.SAVE_SLIDESHOW);
+					evt.slideshowName = slideshowNameTextInput.text;
+					evt.slides = slides.source;
+					dispatchEvent(evt);
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="main" />
+		<s:State name="processing" />
+	</s:states>
+	
+	<s:Form width="100%" includeIn="main">
+		<s:FormItem label="Slideshow Name:">
+			<s:TextInput id="slideshowNameTextInput" width="100%" />
+		</s:FormItem>
+		<s:FormItem>
+			<s:Button label="Browse" click="onBrowseForSlides()" />
+		</s:FormItem>
+	</s:Form>
+	<controls:TextHeader label="Slides" includeIn="main"/>
+	<controls:SlideList dataProvider="{slides}" removeFile="onRemoveFile(event)" includeIn="main"/>
+	
+	<s:HGroup width="100%">
+		<s:Spacer width="10%" />
+		<s:Button label="Save" click="onSaveSlideshow()" 
+				  width="100%"
+				  includeIn="main" />
+		<s:Spacer width="10%" />
+	</s:HGroup>
+	
+	<s:Spacer height="20" includeIn="main" />
+	
+	<s:Group width="100%" height="100%" includeIn="processing">
+		<mx:ProgressBar indeterminate="true"
+						color="#FFFFFF"
+						fontSize="18"
+						label="Making Slideshow..."
+						verticalCenter="0"
+						 horizontalCenter="0"/>
+	</s:Group>
+	
+	
+</s:VGroup>

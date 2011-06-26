@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				width="100%" height="72"
+				xmlns:controls="com.jxl.shareslidesmobile.controls.*">
+	
+	<fx:Script>
+		<![CDATA[
+			
+			
+			private var file:File;
+			private var bitmapData:BitmapData;
+			
+			public override function set data(value:Object):void
+			{
+				super.data = value;
+				
+				if(value && value is File)
+				{
+					bitmapData = null;
+					file = value as File;
+					
+					icon.source = file.url;
+					textLabel.text = file.name;
+				}
+				else if(value && value is BitmapData)
+				{
+					file = null;
+					bitmapData = value as BitmapData;
+					
+					icon.source = bitmapData;
+					textLabel.text = "";
+				}
+				else if(value && value is ByteArray)
+				{
+					file = null;
+					bitmapData = null;
+					textLabel.text = "";
+					icon.source = value;
+				}
+				else
+				{
+					icon.source = null;
+					textLabel.text = "";
+				}
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:HorizontalLayout verticalAlign="bottom"/>
+	</s:layout>
+	
+	<s:Image id="icon" height="100%" width="20%" />
+	
+	<s:Label id="textLabel" width="100%" />
+	
+	
+</s:ItemRenderer>
