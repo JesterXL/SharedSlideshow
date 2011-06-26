@@ -13,15 +13,13 @@ package com.jxl.shareslidesmobile.views
 	import flash.events.MouseEvent;
 	import flash.text.Font;
 
-	public class MainView extends Component
+	public class MainView extends MobileView
 	{
 		private static const STATE_JOIN:String 					= "join";
 		private static const STATE_START:String 				= "start";
 		private static const STATE_TRANSFER:String 				= "transfer";
 		private static const STATE_CHANGE_LOG:String 			= "changeLog";
 		private static const STATE_SUBMIT_BUG:String 			= "submitBug";
-
-		private static const TRANSITION_SPEED:Number 			= .7;
 
 		private var background:BackgroundSymbol;
 		private var bottomButtonBar:BottomButtonBar;
@@ -82,6 +80,8 @@ package com.jxl.shareslidesmobile.views
 
 			if(startSlideshowView)
 				startSlideshowView.setSize(width,  height - bottomButtonBar.height);
+
+			setChildIndex(bottomButtonBar, numChildren - 1);
 		}
 
 		private function onButtonBarClicked(event:BottomButtonBarEvent):void
@@ -122,8 +122,7 @@ package com.jxl.shareslidesmobile.views
 					if(joinView.parent == null)
 						addChild(joinView);
 
-					joinView.x = width;
-					TweenLite.to(joinView, TRANSITION_SPEED, {x: 0, ease: Expo.easeOut});
+					transitionInView(joinView);
 					break;
 
 				case STATE_START:
@@ -133,8 +132,7 @@ package com.jxl.shareslidesmobile.views
 					if(startSlideshowView.parent == null)
 						addChild(startSlideshowView);
 
-					startSlideshowView.x = width;
-					TweenLite.to(startSlideshowView, TRANSITION_SPEED, {x: 0, ease: Expo.easeOut});
+					transitionInView(startSlideshowView);
 					break;
 
 				case STATE_TRANSFER:
@@ -157,14 +155,11 @@ package com.jxl.shareslidesmobile.views
 			switch(oldState)
 			{
 				case STATE_JOIN:
-					//if(joinView)
-						//removeChild(joinView);
-
-					TweenLite.to(joinView, TRANSITION_SPEED, {x: -width, ease: Expo.easeOut, onComplete:onTransitionOutComplete, onCompleteParams: [joinView]});
+					transitionOutView(joinView);
 					break;
 
 				case STATE_START:
-					TweenLite.to(startSlideshowView, TRANSITION_SPEED, {x: -width, ease: Expo.easeOut, onComplete:onTransitionOutComplete, onCompleteParams: [startSlideshowView]});
+					transitionOutView(startSlideshowView);
 					break;
 
 				case STATE_TRANSFER:
@@ -179,11 +174,6 @@ package com.jxl.shareslidesmobile.views
 
 					break;
 			}
-		}
-
-		private function onTransitionOutComplete(view:Component):void
-		{
-			removeChild(view);
 		}
 
 		private function onClicked(event:MouseEvent):void

@@ -28,6 +28,7 @@ package com.jxl.shareslidesmobile.views.mainviews.startslideshowviews
 
 	import flash.media.CameraRoll;
 	import flash.media.MediaPromise;
+	import flash.system.Capabilities;
 
 	import mx.collections.ArrayCollection;
 
@@ -41,7 +42,6 @@ package com.jxl.shareslidesmobile.views.mainviews.startslideshowviews
 
 		private var cameraRoll:CameraRoll;
 		private var file:File;
-		private var stream:FileStream;
 		private var files:Array;
 
 		private var background:BackgroundSymbol;
@@ -53,6 +53,7 @@ package com.jxl.shareslidesmobile.views.mainviews.startslideshowviews
 		private var nameInputText:InputText;
 		private var slidesLabelField:LabelField;
 		private var browseButton:Button;
+		private var browseFolderButton:Button;
 		private var slidesTextHeader:TextHeader;
 		private var slidesList:DraggableList;
 		private var progress:ProgressIndicator;
@@ -72,6 +73,14 @@ package com.jxl.shareslidesmobile.views.mainviews.startslideshowviews
 			height = 800;
 
 			currentState = STATE_BROWSE;
+
+			this.addEventListener(Event.ADDED_TO_STAGE, onAdded);
+		}
+
+		private function onAdded(event:Event):void
+		{
+			currentState = STATE_BROWSE;
+			reset();
 		}
 
 		protected override function addChildren():void
@@ -97,6 +106,9 @@ package com.jxl.shareslidesmobile.views.mainviews.startslideshowviews
 			slidesLabelField = new LabelField(this, "Slides:");
 
 			browseButton = new Button(this, "Browse", onBrowse);
+
+			if(Capabilities.version.toLowerCase().indexOf("and") != -1)
+				browseFolderButton = new Button(this, "Browse Folder", onBrowseFolder);
 
 			slidesTextHeader = new TextHeader(null, "Slides");
 
@@ -143,6 +155,9 @@ package com.jxl.shareslidesmobile.views.mainviews.startslideshowviews
 			browseButton.x = slidesLabelField.x;
 			browseButton.y = slidesLabelField.y + slidesLabelField.height + 8;
 
+			if(browseFolderButton)
+				browseFolderButton.move(browseButton.x + browseButton.width + 8, browseButton.y);
+
 			slidesTextHeader.y = browseButton.y + browseButton.height + 8;
 			slidesTextHeader.width = width;
 
@@ -172,13 +187,41 @@ package com.jxl.shareslidesmobile.views.mainviews.startslideshowviews
 			}
 		}
 
+		private function onBrowseFolder(event:MouseEvent):void
+		{
+			browseCameraFolder();
+		}
+
+		private function removeCameraListeners():void
+		{
+			 if(cameraRoll)
+			 {
+				cameraRoll.removeEventListener(ErrorEvent.ERROR, onCameraRollError);
+				cameraRoll.removeEventListener(MediaEvent.SELECT, onCameraRollSelect);
+			 	cameraRoll.removeEventListener(MediaEvent.SELECT, onCameraRollSelectFolder);
+			 }
+		}
+
 		private function browseCamera():void
 		{
+			removeCameraListeners();
 			if(cameraRoll == null)
 			{
 				cameraRoll = new CameraRoll();
 				cameraRoll.addEventListener(ErrorEvent.ERROR, onCameraRollError);
 				cameraRoll.addEventListener(MediaEvent.SELECT, onCameraRollSelect);
+			}
+
+			cameraRoll.browseForImage();
+		}
+
+		private function browseCameraFolder():void
+		{
+			if(cameraRoll == null)
+			{
+				cameraRoll = new CameraRoll();
+				cameraRoll.addEventListener(ErrorEvent.ERROR, onCameraRollError);
+				cameraRoll.addEventListener(MediaEvent.SELECT, onCameraRollSelectFolder);
 			}
 
 			cameraRoll.browseForImage();
@@ -191,17 +234,30 @@ package com.jxl.shareslidesmobile.views.mainviews.startslideshowviews
 
 		private function onCameraRollSelect(event:MediaEvent):void
 		{
-			if(filesCollection == null)
-				filesCollection = new ArrayCollection();
-
 			if(files == null)
 				files = [];
 
+			if(filesCollection == null)
+				filesCollection = new ArrayCollection(files);
+
 			var imagePromise:MediaPromise = event.data;
 
-			files.push(imagePromise.file);
-
 			filesCollection.addItem(imagePromise.file);
+
+			slidesList.items = filesCollection;
+		}
+
+		private function onCameraRollSelectFolder(event:MediaEvent):void
+		{
+			var file:File = event.data.file;
+			if(file.isDirectory == false)
+				file = file.parent;
+			files = file.getDirectoryListing();
+			if(files && files.length > 0)
+			{
+				filesCollection = new ArrayCollection(files);
+				slidesList.items = filesCollection;
+			}
 		}
 
 		private function onImageFailed(event:IOErrorEvent):void
@@ -284,7 +340,7 @@ package com.jxl.shareslidesmobile.views.mainviews.startslideshowviews
 			switch(state)
 			{
 				case STATE_BROWSE:
-					safeAddChildren(cancelButton, saveButton, nameLabelField, nameInputText, slidesLabelField, browseButton, slidesTextHeader, slidesList);
+					safeAddChildren(cancelButton, saveButton, nameLabelField, nameInputText, slidesLabelField, browseButton, browseFolderButton, slidesTextHeader, slidesList);
 				break;
 
 				case STATE_PROCESSING:
@@ -308,7 +364,7 @@ package com.jxl.shareslidesmobile.views.mainviews.startslideshowviews
 			switch(oldState)
 			{
 				case STATE_BROWSE:
-					safeRemoveChildren(cancelButton, saveButton, nameLabelField, nameInputText, slidesLabelField, browseButton, slidesTextHeader, slidesList);
+					safeRemoveChildren(cancelButton, saveButton, nameLabelField, nameInputText, slidesLabelField, browseButton, browseFolderButton, slidesTextHeader, slidesList);
 
 				break;
 
@@ -342,6 +398,17 @@ package com.jxl.shareslidesmobile.views.mainviews.startslideshowviews
 				if(child && child.parent == null)
 					addChild(child);
 			}
+		}
+
+		private function reset():void
+		{
+			if(filesCollection)
+				filesCollection.removeAll();
+
+			if(files)
+				files.length = 0;
+
+			nameInputText.text = "";
 		}
 	}
 }

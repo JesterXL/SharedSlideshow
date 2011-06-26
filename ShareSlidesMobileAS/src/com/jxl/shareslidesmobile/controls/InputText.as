@@ -5,6 +5,8 @@ package com.jxl.shareslidesmobile.controls
 
 	import com.bit101.components.Component;
 
+	import flash.events.KeyboardEvent;
+
 	import flash.text.TextFieldType;
 
 	//import assets.images.InputTextBackground;
@@ -27,7 +29,7 @@ package com.jxl.shareslidesmobile.controls
 		private var textField:TextField;
 		private var clickField:TextField;
 
-		private var _text:String;
+		private var _text:String = "";
 		private var textDirty:Boolean = false;
 
 
@@ -40,7 +42,7 @@ package com.jxl.shareslidesmobile.controls
 		{
 			if(value !== _text)
 			{
-				_text = value;
+				_text = (value != null) ? value : "";
 				textDirty = true;
 				invalidateProperties();
 			}
@@ -57,6 +59,8 @@ package com.jxl.shareslidesmobile.controls
 			super.init();
 
 			setSize(224, 47);
+
+			this.name = "inputText";
 		}
 
 		protected override function addChildren():void
@@ -84,6 +88,8 @@ package com.jxl.shareslidesmobile.controls
 			clickField.addEventListener(Event.PASTE, onClickFieldCutOrPaste);
 			clickField.addEventListener(TextEvent.TEXT_INPUT, onClickFieldChange);
 			clickField.alpha = 0;
+
+
 		}
 
 		protected override function commitProperties():void
@@ -94,6 +100,7 @@ package com.jxl.shareslidesmobile.controls
 			{
 				textDirty = false;
 				textField.text = _text;
+				clickField.text = _text;
 			}
 		}
 

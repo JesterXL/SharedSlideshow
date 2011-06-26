@@ -39,9 +39,7 @@ package com.jxl.shareslidesmobile.rl.commands
 		{
 			Debug.log("CreateSlideshowCommand::onSlideshowReady");
 			saveSlideshowService.saveSlideshow(slideshowService.slideshow);
-			var evt:StartSlideshowEvent = new StartSlideshowEvent(StartSlideshowEvent.START_SLIDESHOW);
-			evt.slideshow = slideshowService.slideshow;
-			dispatch(evt);
+			finish();
 		}
 
 	}

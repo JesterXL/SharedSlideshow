@@ -71,7 +71,17 @@ package
 
 		private function onError(event:UncaughtErrorEvent):void
 		{
-			Debug.error("Error: " + event);
+			Debug.error("Error: " + event.error);
+			try
+			{
+				throw new Error("asdf");
+			}
+			catch(err:Error)
+			{
+				var stack:String = err.getStackTrace();
+				if(stack != null && stack != "")
+					Debug.error(stack);
+			}
 		}
 
 		private function onResize(event:Event=null):void

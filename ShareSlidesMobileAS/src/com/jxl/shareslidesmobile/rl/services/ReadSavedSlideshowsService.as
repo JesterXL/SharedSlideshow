@@ -28,6 +28,10 @@ package com.jxl.shareslidesmobile.rl.services
 
 		public function readSavedSlideshows():void
 		{
+			currentFile = null;
+			currentStream = null;
+			slideshows = [];
+
 			if(file == null)
 			{
 				file = File.userDirectory;
@@ -114,9 +118,6 @@ package com.jxl.shareslidesmobile.rl.services
 				slideshow = currentStream.readObject() as SlideshowVO;
 				if(slideshow)
 				{
-					if(slideshows == null)
-						slideshows = [];
-
 					slideshows.push(slideshow);
 				}
 			}

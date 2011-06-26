@@ -50,6 +50,8 @@ package com.jxl.shareslidesmobile.controls
 
 			width = 480;
 			height = 65;
+
+			cacheAsBitmap = true;
 		}
 
 		protected override function addChildren():void

@@ -12,6 +12,11 @@ package com.jxl.shareslidesmobile.controls
 	{
 
 
+		public override function set text(value:String):void
+		{
+			 super.text = (value != null) ? value : "";
+		}
+
 		public function LabelField(parent:DisplayObjectContainer=null, defaultText:String = "")
 		{
 			super();

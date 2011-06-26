@@ -26,11 +26,8 @@ package com.jxl.shareslidesmobile.rl.services
 		{
 			this.slideshow = slideshow;
 
-			if(file == null)
-			{
-				file = File.userDirectory;
-				file = file.resolvePath("slideshows");
-			}
+			file = File.userDirectory;
+			file = file.resolvePath("slideshows");
 
 			if(file.exists == false)
 			{
@@ -50,17 +47,19 @@ package com.jxl.shareslidesmobile.rl.services
 			if(stream == null)
 			{
 				stream = new FileStream();
-				stream.addEventListener(Event.COMPLETE, onFileOpenComplete);
 				stream.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
 			}
 
 			try
 			{
-				stream.openAsync(file,  FileMode.WRITE);
+				stream.open(file,  FileMode.WRITE);
+				stream.writeObject(slideshow);
+				stream.close();
+				dispatch(new SaveSlideshowServiceEvent(SaveSlideshowServiceEvent.SLIDESSHOW_SAVED));
 			}
 			catch(err:Error)
 			{
-				Debug.error("SaveSlideshowService::saveSlideshow, openAsync error: " + err);
+				Debug.error("SaveSlideshowService::saveSlideshow, open error: " + err);
 			}
 		}
 
@@ -69,18 +68,5 @@ package com.jxl.shareslidesmobile.rl.services
 			Debug.error("SaveSlideshowService::onIOError: " + event.text);
 		}
 
-		private function onFileOpenComplete(event:Event):void
-		{
-			try
-			{
-				stream.writeObject(slideshow);
-				stream.close();
-				dispatch(new SaveSlideshowServiceEvent(SaveSlideshowServiceEvent.SLIDESSHOW_SAVED));
-			}
-			catch(err:Error)
-			{
-				Debug.error("SaveSlideshowService::onFileOpenComplete, err: " + err);
-			}
-		}
 	}
 }

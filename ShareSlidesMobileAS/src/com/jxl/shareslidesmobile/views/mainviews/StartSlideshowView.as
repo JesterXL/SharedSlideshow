@@ -10,25 +10,27 @@ package com.jxl.shareslidesmobile.views.mainviews
 	import com.jxl.shareslidesmobile.controls.HeaderBar;
 	import com.jxl.shareslidesmobile.controls.HeaderField;
 	import com.jxl.shareslidesmobile.controls.LabelField;
+	import com.jxl.shareslidesmobile.controls.PlusButton;
 	import com.jxl.shareslidesmobile.controls.SavedSlideshowItemRenderer;
 	import com.jxl.shareslidesmobile.controls.TextHeader;
 	import com.jxl.shareslidesmobile.events.view.NewSlideshowViewEvent;
 	import com.jxl.shareslidesmobile.events.view.SavedSlideshowItemRendererEvent;
 	import com.jxl.shareslidesmobile.managers.HistoryManager;
+	import com.jxl.shareslidesmobile.views.MobileView;
 	import com.jxl.shareslidesmobile.views.mainviews.startslideshowviews.NewSlideshowView;
 
 	import flash.events.MouseEvent;
 
 	import mx.collections.ArrayCollection;
 
-	public class StartSlideshowView extends Component
+	public class StartSlideshowView extends MobileView
 	{
 		private static const STATE_MAIN:String = "main";
 		private static const STATE_NEW:String = "new";
 
 		private var headerBar:HeaderBar;
 		private var headerLabel:HeaderField;
-		private var arrowButton:ArrowButton;
+		private var plusButton:PlusButton;
 		private var header:TextHeader;
 		private var slideshowList:DraggableList;
 		private var newSlideshowView:NewSlideshowView;
@@ -55,6 +57,11 @@ package com.jxl.shareslidesmobile.views.mainviews
 			super();
 		}
 
+		public function onNewSlideshowCreated():void
+		{
+			currentState = STATE_MAIN;
+		}
+
 		protected override function init():void
 		{
 			super.init();
@@ -71,7 +78,7 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 			headerBar = new HeaderBar(this);
 			headerLabel = new HeaderField(this, "Slideshows");
-			arrowButton = new ArrowButton(this, onCreateNewSlideshow);
+			plusButton = new PlusButton(this, onCreateNewSlideshow);
 
 			header = new TextHeader();
 			addChild(header);
@@ -113,8 +120,8 @@ package com.jxl.shareslidesmobile.views.mainviews
 			headerLabel.x = 8;
 			headerLabel.y =  headerBar.y + (headerBar.height / 2) - (headerLabel.height / 2);
 
-			arrowButton.x = (width - arrowButton.width - 8);
-			arrowButton.y = headerBar.y + (headerBar.height / 2) - (arrowButton.height / 2);
+			plusButton.x = (width - plusButton.width - 8);
+			plusButton.y = headerBar.y + (headerBar.height / 2) - (plusButton.height / 2);
 
 			header.width = width;
 			header.y = headerBar.y + headerBar.height;
@@ -122,6 +129,8 @@ package com.jxl.shareslidesmobile.views.mainviews
 			slideshowList.y = header.y + header.height;
 			slideshowList.setSize(width,  height - slideshowList.y);
 
+			if(newSlideshowView)
+				newSlideshowView.setSize(width, height);
 		}
 
 		private function onCreateNewSlideshow(event:MouseEvent):void
@@ -130,10 +139,12 @@ package com.jxl.shareslidesmobile.views.mainviews
 			HistoryManager.addHistory(this, onCancelNewSlideshow);
 		}
 
-		private function onCancelNewSlideshow(evnet:NewSlideshowViewEvent=null):void
+		private function onCancelNewSlideshow(event:NewSlideshowViewEvent=null):void
 		{
 			currentState = STATE_MAIN;
 		}
+
+
 
 		protected override function onEnterState(state:String):void
 		{
@@ -153,10 +164,10 @@ package com.jxl.shareslidesmobile.views.mainviews
 					if(newSlideshowView.parent == null)
 						addChild(newSlideshowView);
 
-					newSlideshowView.y = height;
-					TweenLite.to(newSlideshowView, .7, {y: 0, ease: Expo.easeOut});
+					transitionInView(newSlideshowView, TRANSITION_DIRECTION_TOP);
 				break;
 			}
+			draw();
 		}
 
 		protected override function onExitState(oldState:String):void
@@ -169,16 +180,9 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 				case STATE_NEW:
 					if(newSlideshowView && newSlideshowView.parent)
-					{
-						TweenLite.to(newSlideshowView, .7, {y: stage.stageHeight, ease: Expo.easeOut, onComplete:onTransitionOutComplete, onCompleteParams: [newSlideshowView]});
-					}
+						transitionOutView(newSlideshowView, TRANSITION_DIRECTION_TOP);
 				break;
 			}
-		}
-
-		private function onTransitionOutComplete(view:Component):void
-		{
-			removeChild(view);
 		}
 	}
 }
