@@ -8,9 +8,14 @@ package com.jxl.shareslidesmobile.views.mainviews
 	import com.jxl.shareslidesmobile.controls.LabelField;
 	import com.jxl.shareslidesmobile.events.view.SlideshowViewEvent;
 
+	import flash.display.DisplayObjectContainer;
+
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 
 	import flash.events.TransformGestureEvent;
+	import flash.system.Capabilities;
+	import flash.ui.Keyboard;
 
 	import flash.utils.ByteArray;
 
@@ -31,7 +36,19 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 		private var imageLoader:ImageLoader;
 		private var labelField:LabelField;
-		public var syncCheckBox:Checkbox;
+		private var syncCheckBox:Checkbox;
+
+		public function get sync():Boolean
+		{
+			if(syncCheckBox)
+			{
+				return syncCheckBox.selected;
+			}
+			else
+			{
+				return true;
+			}
+		}
 
 		public function get currentSlide():int { return _currentSlide; }
 		public function set currentSlide(value:int):void
@@ -49,11 +66,9 @@ package com.jxl.shareslidesmobile.views.mainviews
 			invalidateProperties();
 		}
 
-		public var slideBytes:ByteArray;
-
-		public function SlideshowView()
+		public function SlideshowView(parent:DisplayObjectContainer = null)
 		{
-			super();
+			super(parent);
 		}
 
 		protected override function init():void
@@ -62,35 +77,58 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 			width = 480;
 			height = 800;
+
+			currentState = STATE_SLIDESHOW;
+			onAdded();
 		}
 
 		protected override function addChildren():void
 		{
 			super.addChildren();
 
-			/*
-			<s:Image source="{slideBytes}"
-			 gestureSwipe="onImageSwipe(event)"
-			 width="100%" height="100%"/>
-
-
-	<s:Label text="{(currentSlide + 1)} of {slideshow.slideBytes.length}" />
-
-	<s:CheckBox id="syncCheckBox" label="Sync to Host" includeIn="slideshow" change="onSyncChange()" />
-			*/
-
 			imageLoader = new ImageLoader(this);
 			imageLoader.addEventListener(TransformGestureEvent.GESTURE_SWIPE, onImageSwipe);
 			imageLoader.scaleContent = true;
+
+
+
 
 			labelField = new LabelField();
 			addChild(labelField);
 			labelField.text = "--";
 
-			syncCheckBox = new Checkbox(this);
+			syncCheckBox = new Checkbox();
 			syncCheckBox.label = "Sync To Host";
+			syncCheckBox.selected = true;
 			syncCheckBox.addEventListener(Event.CHANGE, onSyncChange);
 
+		}
+
+		private function onAdded(event:Event=null):void
+		{
+			Debug.debug("SlideshowView::onAdded");
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown, false, 0, true);
+		}
+
+		private function onRemoved(event:Event):void
+		{
+			Debug.debug("SlideshowView::onRemoved");
+
+		}
+
+		private function onKeyDown(event:KeyboardEvent):void
+		{
+			Debug.debug("SlideshowView::onKeyDown");
+			switch(event.keyCode)
+			{
+				case Keyboard.LEFT:
+					previousSlide();
+				break;
+
+				case Keyboard.RIGHT:
+					nextSlide();
+				break;
+			}
 		}
 
 		protected override function commitProperties():void
@@ -108,6 +146,15 @@ package com.jxl.shareslidesmobile.views.mainviews
 					currentSlideDirty = true;
 				}
 
+				if(slideshow && slideshow.host)
+				{
+					currentState = STATE_HOST;
+				}
+				else
+				{
+					currentState = STATE_SLIDESHOW;
+				}
+
 				updateCurrentSlideBytes();
 			}
 
@@ -120,21 +167,9 @@ package com.jxl.shareslidesmobile.views.mainviews
 			}
 		}
 
-		public function setHost(host:Boolean):void
-		{
-			if(host)
-			{
-				currentState = "host";
-			}
-			else
-			{
-				currentState = "slideshow";
-			}
-		}
-
 		private function onImageSwipe(event:TransformGestureEvent):void
 		{
-			if(currentState == "slideshow" && syncCheckBox.selected)
+			if(currentState == STATE_SLIDESHOW && syncCheckBox.selected)
 				return;
 
 			if(event.offsetX == 1)
@@ -172,7 +207,7 @@ package com.jxl.shareslidesmobile.views.mainviews
 			if(_slideshow == null || isNaN(_currentSlide))
 				return;
 
-			slideBytes = _slideshow.slideBytes[_currentSlide] as ByteArray;
+			var slideBytes:ByteArray = _slideshow.slideBytes[_currentSlide] as ByteArray;
 			/*
 			Debug.debug("SlieshowView::updateCurrentSlideBytes");
 			Debug.debug("\tcurrentSlide: " + currentSlide);
@@ -180,6 +215,7 @@ package com.jxl.shareslidesmobile.views.mainviews
 			if(slideBytes)
 				Debug.debug("\tslideBytes.length: " + slideBytes.length);
 			*/
+			imageLoader.source = slideBytes;
 		}
 
 		private function onSyncChange(event:Event):void
@@ -215,21 +251,29 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 		protected override function onEnterState(state:String):void
 		{
-			if(state == STATE_SLIDESHOW)
+			switch(state)
 			{
-				if(syncCheckBox.parent == null)
-					addChild(syncCheckBox);
+				case STATE_SLIDESHOW:
+					if(syncCheckBox.parent == null)
+						addChild(syncCheckBox);
 
-				draw();
+				break;
+
+				case STATE_HOST:
+				break;
+
 			}
+			draw();
 		}
 
 		protected override function onExitState(oldState:String):void
 		{
-			if(oldState == STATE_SLIDESHOW)
+			switch(oldState)
 			{
-				if(syncCheckBox.parent)
-					removeChild(syncCheckBox);
+				case STATE_SLIDESHOW:
+					if(syncCheckBox.parent)
+						removeChild(syncCheckBox);
+				break;
 			}
 		}
 

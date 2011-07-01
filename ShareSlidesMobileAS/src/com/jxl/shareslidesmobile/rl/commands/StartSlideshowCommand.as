@@ -129,7 +129,6 @@ package com.jxl.shareslidesmobile.rl.commands
 			Debug.log("StartSlideshowCommand::onCompletedLoadingFiles");
 			slideshowModel.slideshow 	= slideshow;
 			slideshowModel.currentSlide = 0;
-			slideshowModel.host 		= true;
 			networkModel.localNetworkDiscovery.shareWithAll(slideshowModel.slideshow, slideshowModel.slideshow.name);
 			finish();
 		}

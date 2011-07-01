@@ -8,6 +8,7 @@ package com.jxl.shareslidesmobile.events.view
 	public class StartSlideshowViewEvent extends Event
 	{
 		public static const DELETE_SLIDESHOW:String = "deleteSlideshow";
+		public static const START_SLIDESHOW:String = "startSlideshow";
 
 		public var slideshow:SlideshowVO;
 

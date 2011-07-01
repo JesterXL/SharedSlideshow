@@ -6,9 +6,7 @@ package com.jxl.shareslidesmobile.events.model
 	{
 		
 		public static const SLIDESHOW_CHANGED:String 		= "slideshowChanged";
-		public static const HOST_CHANGED:String 			= "hostChanged";
 		public static const CURRENT_SLIDE_CHANGED:String 	= "currentSlideChanged";
-		public static const SLIDESHOWS_CHANGED:String 		= "slideshowsChanged";
 		
 		public function SlideshowModelEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
 		{

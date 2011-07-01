@@ -2,17 +2,28 @@ package com.jxl.shareslidesmobile.rl
 {
 
 	import com.jxl.shareslides.services.ImagesToSlideshowService;
+	import com.jxl.shareslidesmobile.events.controller.DeleteSlideshowEvent;
+	import com.jxl.shareslidesmobile.events.controller.JoinSlideshowEvent;
 	import com.jxl.shareslidesmobile.events.controller.LoadLocallySavedSlideshowsEvent;
+	import com.jxl.shareslidesmobile.events.controller.SetCurrentSlideEvent;
 	import com.jxl.shareslidesmobile.events.controller.SetNameEvent;
 	import com.jxl.shareslidesmobile.events.controller.StartSlideshowEvent;
+	import com.jxl.shareslidesmobile.events.model.NetworkModelEvent;
 	import com.jxl.shareslidesmobile.events.services.ReadSavedSlideshowsServiceEvent;
 	import com.jxl.shareslidesmobile.events.view.NewSlideshowViewEvent;
 	import com.jxl.shareslidesmobile.events.view.StartSlideshowViewEvent;
+	import com.jxl.shareslidesmobile.rl.commands.AskIfClientNeedsSlideshowCommand;
 	import com.jxl.shareslidesmobile.rl.commands.CreateSlideshowCommand;
 	import com.jxl.shareslidesmobile.rl.commands.DeleteSavedSlideshowCommand;
 	import com.jxl.shareslidesmobile.rl.commands.DeleteSlideshowCommand;
+	import com.jxl.shareslidesmobile.rl.commands.HostChangedCurrentSlideCommand;
+	import com.jxl.shareslidesmobile.rl.commands.JoinSlideshowCommand;
 	import com.jxl.shareslidesmobile.rl.commands.LoadLocallySavedSlideshowsCommand;
+	import com.jxl.shareslidesmobile.rl.commands.ObjectAnnouncedCommand;
+	import com.jxl.shareslidesmobile.rl.commands.RequestSlideshowIfNeededCommand;
+	import com.jxl.shareslidesmobile.rl.commands.SetCurrentSlideCommand;
 	import com.jxl.shareslidesmobile.rl.commands.SetNameCommand;
+	import com.jxl.shareslidesmobile.rl.commands.ShareSlideshowWithClientCommand;
 	import com.jxl.shareslidesmobile.rl.commands.StartSlideshowCommand;
 	import com.jxl.shareslidesmobile.rl.commands.UpdateSavedSlideshowsCommand;
 	import com.jxl.shareslidesmobile.rl.mediators.JoinViewMediator;
@@ -65,6 +76,13 @@ package com.jxl.shareslidesmobile.rl
 			mediatorMap.mapView(SlideshowView, SlideshowViewMediator);
 			mediatorMap.mapView(StartSlideshowView, StartSlideshowViewMediator);
 			mediatorMap.mapView(NewSlideshowView, NewSlideshowViewMediator);
+			/*
+			mediatorMap.mapView(ShareSlidesMobile, ShareSlidesMobileMediator);
+			mediatorMap.mapView(SetNameView, SetNameViewMediator);
+			mediatorMap.mapView(JoinOrCreateSlideshowView, JoinOrCreateSlideshowViewMediator);
+			mediatorMap.mapView(CreateSlideshowView, CreateSlideshowViewMediator);
+			mediatorMap.mapView(TransferSlideshowView, TransferSlideshowViewMediator);
+			*/
 
 			commandMap.mapEvent(SetNameEvent.SET_NAME, SetNameCommand, SetNameEvent);
 			commandMap.mapEvent(LoadLocallySavedSlideshowsEvent.LOAD, LoadLocallySavedSlideshowsCommand);
@@ -72,35 +90,18 @@ package com.jxl.shareslidesmobile.rl
 			commandMap.mapEvent(NewSlideshowViewEvent.CREATE_SLIDESHOW, CreateSlideshowCommand);
 			commandMap.mapEvent(StartSlideshowEvent.START_SLIDESHOW, StartSlideshowCommand, StartSlideshowEvent);
 			commandMap.mapEvent(StartSlideshowViewEvent.DELETE_SLIDESHOW, DeleteSavedSlideshowCommand,  StartSlideshowViewEvent);
-
-			injector.instantiate(LocalNetworkDiscovery);
-
-			/*
-
-
-			
-
-			commandMap.mapEvent(DeleteSlideshowEvent.DELETE_SLIDESHOW, DeleteSlideshowCommand, DeleteSlideshowEvent);
-			commandMap.mapEvent(SetNameEvent.SET_NAME, SetNameCommand, SetNameEvent);
-			commandMap.mapEvent(JoinSlideshowEvent.JOIN_SLIDESHOW, JoinSlideshowCommand);
+			commandMap.mapEvent(JoinSlideshowEvent.JOIN_SLIDESHOW, JoinSlideshowCommand, JoinSlideshowEvent);
+			commandMap.mapEvent(NetworkModelEvent.OBJECT_ANNOUNCED, ObjectAnnouncedCommand, NetworkModelEvent);
+			//commandMap.mapEvent(DeleteSlideshowEvent.DELETE_SLIDESHOW, DeleteSlideshowCommand, DeleteSlideshowEvent);
 			commandMap.mapEvent(SetCurrentSlideEvent.SET_CURRENT_SLIDE_EVENT, SetCurrentSlideCommand);
 			commandMap.mapEvent(SetCurrentSlideEvent.HOST_UPDATED_CURRENT_SLIDE, HostChangedCurrentSlideCommand);
 			commandMap.mapEvent(NetworkModelEvent.CLIENT_ADDED, AskIfClientNeedsSlideshowCommand);
 			commandMap.mapEvent(NetworkModelEvent.RECEIVED_REQUEST_SLIDESHOW_MESSAGE, RequestSlideshowIfNeededCommand);
 			commandMap.mapEvent(NetworkModelEvent.CLIENT_NEEDS_SLIDESHOW, ShareSlideshowWithClientCommand);
-			commandMap.mapEvent(NetworkModelEvent.OBJECT_ANNOUNCED, ObjectAnnouncedCommand);
-			
-			mediatorMap.mapView(ShareSlidesMobile, ShareSlidesMobileMediator);
-			mediatorMap.mapView(SetNameView, SetNameViewMediator);
-			mediatorMap.mapView(JoinOrCreateSlideshowView, JoinOrCreateSlideshowViewMediator);
-			
-			mediatorMap.mapView(CreateSlideshowView, CreateSlideshowViewMediator);
 
-			
-			mediatorMap.mapView(TransferSlideshowView, TransferSlideshowViewMediator);
-			
+			injector.instantiate(LocalNetworkDiscovery);
 
-			*/
+
 			
 			super.startup();
 		}

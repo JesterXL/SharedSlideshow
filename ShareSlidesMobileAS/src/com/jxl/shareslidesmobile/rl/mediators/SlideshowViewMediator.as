@@ -16,14 +16,7 @@ package com.jxl.shareslidesmobile.rl.mediators
 		
 		[Inject]
 		public var slideshowModel:SlideshowModel;
-		
-		[PostConstruct]
-		public function init():void
-		{
-			eventMap.mapListener(eventDispatcher, SlideshowModelEvent.SLIDESHOW_CHANGED, onSlideshowChanged, SlideshowModelEvent);
-			eventMap.mapListener(eventDispatcher, SlideshowModelEvent.CURRENT_SLIDE_CHANGED, onCurrentSlideChanged, SlideshowModelEvent);
-			eventMap.mapListener(eventDispatcher, SlideshowModelEvent.HOST_CHANGED, onHostChanged, SlideshowModelEvent);
-		}
+
 		
 		public function SlideshowViewMediator()
 		{
@@ -36,11 +29,13 @@ package com.jxl.shareslidesmobile.rl.mediators
 			
 			onSlideshowChanged();
 			onCurrentSlideChanged();
-			onHostChanged();
+
+			addContextListener(SlideshowModelEvent.SLIDESHOW_CHANGED, onSlideshowChanged, SlideshowModelEvent);
+			addContextListener(SlideshowModelEvent.CURRENT_SLIDE_CHANGED, onCurrentSlideChanged, SlideshowModelEvent);
 			
-			this.addViewListener(SlideshowViewEvent.NEXT_IMAGE, onNextImage, SlideshowViewEvent);
-			this.addViewListener(SlideshowViewEvent.PREVIOUS_IMAGE, onPreviousImage, SlideshowViewEvent);
-			this.addViewListener(SlideshowViewEvent.SYNC_CHANGE, onSyncChange, SlideshowViewEvent);
+			addViewListener(SlideshowViewEvent.NEXT_IMAGE, onNextImage, SlideshowViewEvent);
+			addViewListener(SlideshowViewEvent.PREVIOUS_IMAGE, onPreviousImage, SlideshowViewEvent);
+			addViewListener(SlideshowViewEvent.SYNC_CHANGE, onSyncChange, SlideshowViewEvent);
 		}
 		
 		private function onSlideshowChanged(event:SlideshowModelEvent=null):void
@@ -50,13 +45,8 @@ package com.jxl.shareslidesmobile.rl.mediators
 		
 		private function onCurrentSlideChanged(event:SlideshowModelEvent=null):void
 		{
-			if(view.syncCheckBox.selected)
+			if(view.sync)
 				view.currentSlide = slideshowModel.currentSlide;
-		}
-		
-		private function onHostChanged(event:SlideshowModelEvent=null):void
-		{
-			view.setHost(slideshowModel.host);
 		}
 		
 		private function onNextImage(event:SlideshowViewEvent):void
@@ -75,7 +65,7 @@ package com.jxl.shareslidesmobile.rl.mediators
 		
 		private function onSyncChange(event:SlideshowViewEvent):void
 		{
-			if(view.syncCheckBox.selected)
+			if(view.sync)
 				view.currentSlide = slideshowModel.currentSlide;
 		}
 	}

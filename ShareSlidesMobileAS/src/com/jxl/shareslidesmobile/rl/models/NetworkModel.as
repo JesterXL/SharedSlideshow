@@ -30,9 +30,13 @@ package com.jxl.shareslidesmobile.rl.models
 		public function set connected(value:Boolean):void
 		{
 			_connected = value;
-			if(value == true)
+			if(_connected)
 			{
 				dispatch(new NetworkModelEvent(NetworkModelEvent.GROUP_CONNECTED));
+			}
+			else
+			{
+				dispatch(new NetworkModelEvent(NetworkModelEvent.GROUP_DISCONNECTED));
 			}
 		}
 		

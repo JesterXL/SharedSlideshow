@@ -210,9 +210,9 @@ package com.jxl.shareslidesmobile.controls
 
 			if(buttons.length < 1) return;
 
-			const btn_space:Number = 10;
+			const btn_space:Number = 4;
 			var button:Button = buttons[buttons.length - 1];
-			var btnTop:Number = height - 8 - button.height;
+			var btnTop:Number = height - 4 - button.height;
 			var btnLeft: uint = (width / 2) - (((button.width * buttons.length) + (btn_space * (buttons.length - 1))) / 2);
 			var len:int = buttons.length;
 			for (var index:uint = 0; index < len; index++)

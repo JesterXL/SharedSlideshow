@@ -25,7 +25,7 @@ package com.jxl.shareslidesmobile.controls
 			this.mouseChildren = tabChildren = true;
 			buttonMode = useHandCursor = true;
 
-			addEventListener(MouseEvent.CLICK, onJoin);
+			addEventListener(MouseEvent.CLICK, onStart);
 		}
 
 		protected override function addChildren():void
@@ -90,9 +90,9 @@ package com.jxl.shareslidesmobile.controls
 
 		}
 
-		private function onJoin(event:MouseEvent):void
+		private function onStart(event:MouseEvent):void
 		{
-			var evt:SavedSlideshowItemRendererEvent = new SavedSlideshowItemRendererEvent(SavedSlideshowItemRendererEvent.JOIN_SLIDESHOW);
+			var evt:SavedSlideshowItemRendererEvent = new SavedSlideshowItemRendererEvent(SavedSlideshowItemRendererEvent.START_SLIDESHOW);
 			evt.slideshow = data as SlideshowVO;
 			dispatchEvent(evt);
 		}

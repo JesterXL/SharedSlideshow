@@ -207,6 +207,28 @@ package com.bit101.components
 			queuedMethods.push(new Method(this, methodToCall, rest));
 			addEventListener(Event.ENTER_FRAME, onQueuedMethods);
 		}
+
+		protected function safeRemoveChildren(... list):void
+		{
+			var len:int = list.length;
+			while(len--)
+			{
+				var child:DisplayObject = list[len] as DisplayObject;
+				if(child && child.parent)
+					removeChild(child);
+			}
+		}
+
+		protected function safeAddChildren(... list):void
+		{
+			var len:int = list.length;
+			while(len--)
+			{
+				var child:DisplayObject = list[len] as DisplayObject;
+				if(child && child.parent == null)
+					addChild(child);
+			}
+		}
 		
 		///////////////////////////////////
 		// event handlers

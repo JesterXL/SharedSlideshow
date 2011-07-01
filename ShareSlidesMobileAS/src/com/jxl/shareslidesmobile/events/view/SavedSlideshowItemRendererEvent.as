@@ -8,7 +8,7 @@ package com.jxl.shareslidesmobile.events.view
 	public class SavedSlideshowItemRendererEvent extends Event
 	{
 
-		public static const JOIN_SLIDESHOW:String = "joinSlideshow";
+		public static const START_SLIDESHOW:String = "startSlideshow";
 		public static const DELETE_SLIDESHOW:String = "deleteSlideshow";
 
 		public var slideshow:SlideshowVO;

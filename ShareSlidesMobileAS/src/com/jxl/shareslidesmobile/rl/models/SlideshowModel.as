@@ -23,25 +23,11 @@ package com.jxl.shareslidesmobile.rl.models
 			dispatch(new SlideshowModelEvent(SlideshowModelEvent.SLIDESHOW_CHANGED));
 		}
 		
-		public function get host():Boolean { return _host; }
-		public function set host(value:Boolean):void
-		{
-			_host = value;
-			dispatch(new SlideshowModelEvent(SlideshowModelEvent.HOST_CHANGED));
-		}
-		
 		public function get currentSlide():int { return _currentSlide; }
 		public function set currentSlide(value:int):void
 		{
 			_currentSlide = value;
 			dispatch(new SlideshowModelEvent(SlideshowModelEvent.CURRENT_SLIDE_CHANGED));
-		}
-
-		public function get slideshows():ArrayCollection { return _slideshows; }
-		public function set slideshows(value:ArrayCollection):void
-		{
-			_slideshows = value;
-			dispatch(new SlideshowModelEvent(SlideshowModelEvent.SLIDESHOWS_CHANGED));
 		}
 		
 		public function containsSlideshow(name:String):Boolean

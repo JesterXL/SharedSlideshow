@@ -14,6 +14,7 @@ package com.jxl.shareslidesmobile.views.mainviews
 	import com.jxl.shareslidesmobile.controls.LabelField;
 	import com.jxl.shareslidesmobile.controls.PlusButton;
 	import com.jxl.shareslidesmobile.controls.SavedSlideshowItemRenderer;
+	import com.jxl.shareslidesmobile.controls.SlideshowItem;
 	import com.jxl.shareslidesmobile.controls.TextHeader;
 	import com.jxl.shareslidesmobile.events.controller.StartSlideshowEvent;
 	import com.jxl.shareslidesmobile.events.view.AlertEvent;
@@ -30,8 +31,9 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 	public class StartSlideshowView extends MobileView
 	{
-		private static const STATE_MAIN:String = "main";
-		private static const STATE_NEW:String = "new";
+		private static const STATE_MAIN:String 	= "main";
+		private static const STATE_NEW:String 	= "new";
+		private static const STATE_HOST:String 	= "host";
 
 		private var headerBar:HeaderBar;
 		private var headerLabel:HeaderField;
@@ -41,11 +43,14 @@ package com.jxl.shareslidesmobile.views.mainviews
 		private var slideshowList:DraggableList;
 		private var newSlideshowView:NewSlideshowView;
 		private var deleteAlert:Alert;
+		private var confirmAlert:Alert;
+		private var slideshowView:SlideshowView;
 
 		private var _slideshows:ArrayCollection;
 		private var slideshowsDirty:Boolean;
 		private var editing:Boolean = false;
 		private var slideshowToDelete:SlideshowVO;
+		private var slideshowToStart:SlideshowVO;
 
 
 
@@ -96,8 +101,9 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 			slideshowList = new DraggableList();
 			addChild(slideshowList);
-			slideshowList.addEventListener(SavedSlideshowItemRendererEvent.DELETE_SLIDESHOW, onDeleteSlideshow);
 			slideshowList.itemRenderer = SavedSlideshowItemRenderer;
+			slideshowList.addEventListener(SavedSlideshowItemRendererEvent.DELETE_SLIDESHOW, onDeleteSlideshow);
+			slideshowList.addEventListener(SavedSlideshowItemRendererEvent.START_SLIDESHOW, onStartSlideshow);
 			slideshowList.labelFunction =  function getUserLabel(value:SlideshowVO):String
 			{
 				if(value)
@@ -145,6 +151,9 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 			if(newSlideshowView)
 				newSlideshowView.setSize(width, height);
+
+			if(slideshowView)
+				slideshowView.setSize(width,  height);
 		}
 
 		private function onCreateNewSlideshow(event:MouseEvent):void
@@ -204,13 +213,59 @@ package com.jxl.shareslidesmobile.views.mainviews
 			}
 		}
 
+		private function onStartSlideshow(event:SavedSlideshowItemRendererEvent):void
+		{
+			if(confirmAlert == null)
+			{
+				slideshowToStart = event.slideshow;
+				Alert.yesLabel = "Start Slideshow";
+				confirmAlert = Alert.show("Do you want to host & start the slideshow called '" + slideshowToStart.name + "'?", "", Alert.CANCEL | Alert.YES,  true, onConfirmStartSlideshow);
+			}
+		}
+
+		private function onConfirmStartSlideshow(event:AlertEvent):void
+		{
+			confirmAlert = null;
+			if(event.detail == Alert.YES)
+			{
+				HistoryManager.addHistory(this, onBackFromSlideshow);
+
+				var evt:StartSlideshowViewEvent = new StartSlideshowViewEvent(StartSlideshowEvent.START_SLIDESHOW);
+				evt.slideshow = slideshowToStart;
+				slideshowToStart = null;
+				dispatchEvent(evt);
+
+				currentState = STATE_HOST;
+			}
+		}
+
+		private function onBackFromSlideshow():void
+		{
+			currentState = STATE_MAIN;
+		}
 
 		protected override function onEnterState(state:String):void
 		{
 			switch(state)
 			{
 				case STATE_MAIN:
+					if(headerBar.parent == null)
+						addChild(headerBar);
 
+					if(headerLabel.parent == null)
+						addChild(headerLabel);
+
+					if(editButton.parent == null)
+						addChild(editButton);
+
+					if(plusButton.parent == null)
+						addChild(plusButton);
+
+					if(header.parent == null)
+						addChild(header);
+
+					if(slideshowList.parent == null)
+						addChild(slideshowList);
 				break;
 
 				case STATE_NEW:
@@ -225,6 +280,18 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 					transitionInView(newSlideshowView, TRANSITION_DIRECTION_TOP);
 				break;
+
+				case STATE_HOST:
+					if(slideshowView == null)
+					{
+						slideshowView = new SlideshowView(this);
+					}
+
+					if(slideshowView.parent == null)
+						addChild(slideshowView);
+
+				transitionInView(slideshowView);
+				break;
 			}
 			draw();
 		}
@@ -234,12 +301,34 @@ package com.jxl.shareslidesmobile.views.mainviews
 			switch(oldState)
 			{
 				case STATE_MAIN:
+					if(headerBar.parent)
+						removeChild(headerBar);
+
+					if(headerLabel.parent)
+						removeChild(headerLabel);
+
+					if(editButton.parent)
+						removeChild(editButton);
+
+					if(plusButton.parent)
+						removeChild(plusButton);
+
+					if(header.parent)
+						removeChild(header);
+
+					if(slideshowList.parent)
+						removeChild(slideshowList);
 
 				break;
 
 				case STATE_NEW:
 					if(newSlideshowView && newSlideshowView.parent)
 						transitionOutView(newSlideshowView, TRANSITION_DIRECTION_TOP);
+				break;
+
+				case STATE_HOST:
+					if(slideshowView && slideshowView.parent)
+						transitionOutView(slideshowView);
 				break;
 			}
 		}

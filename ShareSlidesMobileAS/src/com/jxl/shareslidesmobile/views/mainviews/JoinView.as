@@ -3,7 +3,11 @@ package com.jxl.shareslidesmobile.views.mainviews
 	import com.bit101.components.Component;
 	import com.jxl.minimalcomps.DraggableList;
 	import com.jxl.shareslidesmobile.controls.DefaultDroidItemRenderer;
+	import com.jxl.shareslidesmobile.controls.SlideshowItemRenderer;
 	import com.jxl.shareslidesmobile.controls.TextHeader;
+	import com.jxl.shareslidesmobile.events.view.SlideshowItemRendererEvent;
+	import com.jxl.shareslidesmobile.managers.HistoryManager;
+	import com.jxl.shareslidesmobile.views.MobileView;
 	import com.jxl.shareslidesmobile.views.mainviews.joinviewclasses.SetNameView;
 	import com.projectcocoon.p2p.vo.ClientVO;
 
@@ -11,14 +15,18 @@ package com.jxl.shareslidesmobile.views.mainviews
 	import mx.events.CollectionEvent;
 
 
-	public class JoinView extends Component
+	public class JoinView extends MobileView
 	{
+
+		private static const STATE_JOIN:String = "join";
+		private static const STATE_SLIDESHOW:String = "slideshow";
 
 		private var slideshowHeader:TextHeader;
 	    private var participantsHeader:TextHeader;
 		private var slideshowsList:DraggableList;
 		private var participantsList:DraggableList;
 		private var setNameView:SetNameView;
+		private var slideshowView:SlideshowView;
 
 		private var _slideshows:ArrayCollection;
 		private var slideshowsDirty:Boolean = false;
@@ -61,6 +69,8 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 			width = 480;
 			height = 735;
+
+			currentState = STATE_JOIN;
 		}
 
 		protected override function addChildren():void
@@ -73,7 +83,8 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 			slideshowsList = new DraggableList();
 			addChild(slideshowsList);
-			slideshowsList.itemRenderer = DefaultDroidItemRenderer;
+			slideshowsList.itemRenderer = SlideshowItemRenderer;
+			slideshowsList.addEventListener(SlideshowItemRendererEvent.JOIN, onJoin);
 
 			participantsHeader = new TextHeader();
 			addChild(participantsHeader);
@@ -143,6 +154,58 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 			setNameView.x = (width / 2) - (setNameView.width / 2);
 			setNameView.y = participantsList.y + participantsList.height + MARGIN;
+
+			if(slideshowView)
+				slideshowView.setSize(width,  height);
 		}
+
+		private function onJoin(event:SlideshowItemRendererEvent):void
+		{
+			HistoryManager.addHistory(this, onBackFromSlideshow);
+			currentState = STATE_SLIDESHOW;
+		}
+
+		private function onBackFromSlideshow():void
+		{
+			currentState = STATE_JOIN;
+		}
+
+		protected override function onEnterState(state:String):void
+		{
+			switch(state)
+			{
+				case STATE_JOIN:
+					safeAddChildren(slideshowHeader, participantsHeader, slideshowsList, participantsList, setNameView, slideshowView);
+
+				break;
+
+				case STATE_SLIDESHOW:
+					if(slideshowView == null)
+						slideshowView = new SlideshowView(this);
+
+					if(slideshowView.parent == null)
+						addChild(slideshowView);
+
+					transitionInView(slideshowView);
+				break;
+			}
+			draw();
+		}
+
+		protected override function onExitState(oldState:String):void
+		{
+			switch(oldState)
+			{
+				case STATE_JOIN:
+				   safeRemoveChildren(slideshowHeader, participantsHeader, slideshowsList, participantsList, setNameView, slideshowView);
+				break;
+
+				case STATE_SLIDESHOW:
+				    if(slideshowView && slideshowView.parent)
+						transitionOutView(slideshowView);
+				break;
+			}
+		}
+
 	}
 }

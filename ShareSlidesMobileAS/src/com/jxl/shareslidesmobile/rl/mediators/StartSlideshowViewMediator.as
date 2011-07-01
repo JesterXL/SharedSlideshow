@@ -34,6 +34,7 @@ package com.jxl.shareslidesmobile.rl.mediators
 			addContextListener(SaveSlideshowServiceEvent.SLIDESSHOW_SAVED, onSlideshowSaved, SaveSlideshowServiceEvent);
 
 			addViewListener(StartSlideshowViewEvent.DELETE_SLIDESHOW, onDeleteSlideshow, StartSlideshowViewEvent);
+			addViewListener(StartSlideshowViewEvent.START_SLIDESHOW, onStartSlideshow, StartSlideshowViewEvent);
 
 			onSlideshowsChanged();
 
@@ -55,6 +56,13 @@ package com.jxl.shareslidesmobile.rl.mediators
 		private function onDeleteSlideshow(event:StartSlideshowViewEvent):void
 		{
 			dispatch(event);
+		}
+
+		private function onStartSlideshow(event:StartSlideshowViewEvent):void
+		{
+			var evt:StartSlideshowEvent = new StartSlideshowEvent(StartSlideshowEvent.START_SLIDESHOW);
+			evt.slideshow = event.slideshow;
+			dispatch(evt);
 		}
 
 	}

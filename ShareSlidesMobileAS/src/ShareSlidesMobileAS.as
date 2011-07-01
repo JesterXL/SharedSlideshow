@@ -2,6 +2,7 @@ package
 {
 	import com.jxl.shareslides.vo.SlideshowVO;
 	import com.jxl.shareslidesmobile.controls.InputText;
+	import com.jxl.shareslidesmobile.controls.ProgressBar;
 	import com.jxl.shareslidesmobile.controls.UIGlobals;
 	import com.jxl.shareslidesmobile.managers.HistoryManager;
 	import com.jxl.shareslidesmobile.rl.MainContext;
@@ -50,7 +51,8 @@ package
 			debug = new Debug();
 			addChild(debug);
 			Debug.log("Debugger ready.");
-			
+
+
 			registerClassAlias("com.jxl.shareslides.vo.SlideshowVO", SlideshowVO);
 			//initialViewNavigator.pushView(SetNameView);
 
@@ -65,10 +67,12 @@ package
 
 			mainContext = new MainContext(this);
 			
-			//Debug.log("os: " + Capabilities.os);
-			//Debug.log("playerType: " + Capabilities.playerType);
-			//Debug.log("version: " + Capabilities.version);
-			//Debug.log("debugger: " + Capabilities.isDebugger);
+			Debug.log("os: " + Capabilities.os);
+			Debug.log("playerType: " + Capabilities.playerType);
+			Debug.log("version: " + Capabilities.version);
+			Debug.log("debugger: " + Capabilities.isDebugger);
+
+			this.addEventListener(Event.DEACTIVATE, onDeactivate);
 		}
 
 
@@ -93,6 +97,11 @@ package
 			Debug.debug("w: " + stage.stageWidth + ", h: " + stage.stageHeight);
 			if(mainView)
 				mainView.setSize(stage.stageWidth, stage.stageHeight);
+		}
+
+		private function onDeactivate(event:Event):void
+		{
+			//NativeApplication.nativeApplication.exit();
 		}
 	}
 }

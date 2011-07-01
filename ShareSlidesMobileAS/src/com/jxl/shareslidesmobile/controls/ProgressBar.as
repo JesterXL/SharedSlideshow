@@ -1,11 +1,13 @@
 package com.jxl.shareslidesmobile.controls
 {
+	import com.bit101.components.Component;
+
 	import flash.display.Graphics;
 	import flash.display.MovieClip;
 	
 	import mx.core.UIComponent;
 	
-	public class ProgressBar extends UIComponent
+	public class ProgressBar extends Component
 	{
 		private var symbol:ProgressBarSymbol;
 		
@@ -33,18 +35,19 @@ package com.jxl.shareslidesmobile.controls
 		public function ProgressBar()
 		{
 			super();
-			init();
 		}
 		
-		private function init():void
+		protected override function init():void
 		{
+			super.init();
+
 			width = 100;
 			height = 16;
 		}
 		
-		protected override function createChildren():void
+		protected override function addChildren():void
 		{
-			super.createChildren();
+			super.addChildren();
 			
 			symbol = new ProgressBarSymbol();
 			addChild(symbol);
@@ -62,7 +65,7 @@ package com.jxl.shareslidesmobile.controls
 				{
 					symbol.gotoAndStop(1);
 					progressDirty = false;
-					this.invalidateDisplayList();
+					this.invalidateDraw();
 				}
 				else
 				{
@@ -78,16 +81,9 @@ package com.jxl.shareslidesmobile.controls
 			}
 		}
 		
-		protected override function measure():void
+		public override function draw():void
 		{
-			measuredWidth = measuredMinWidth = 100;
-			measuredHeight = measuredMinHeight = 16;
-		}
-		
-		
-		protected override function updateDisplayList(w:Number, h:Number):void
-		{
-			super.updateDisplayList(w, h);
+			super.draw();
 			
 			if(this.indeterminate)
 			{

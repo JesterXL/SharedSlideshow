@@ -27,16 +27,14 @@ package com.jxl.shareslidesmobile.managers
 			{
 				if(event.keyCode == Keyboard.BACK)
 				{
-					event.preventDefault();
-					back();
+					handleBack(event);
 				}
 			}
 			else
 			{
 				if(event.keyCode == Keyboard.BACKSPACE)
 				{
-					event.preventDefault();
-					back();
+					handleBack(event);
 				}
 			}
 		}
@@ -59,6 +57,15 @@ package com.jxl.shareslidesmobile.managers
 			else
 			{
 				throw new Error("Unknown HistoryVO.");
+			}
+		}
+
+		private static function handleBack(event:KeyboardEvent):void
+		{
+			if(histories.length > 0)
+			{
+				event.preventDefault();
+				back();
 			}
 		}
 

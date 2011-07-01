@@ -30,6 +30,7 @@ package com.jxl.shareslides.rl.mediators
 			addContextListener(NavigationEvent.NAVIGATION_CHANGE, onNavChange, NavigationEvent);
 			addContextListener(NetworkModelEvent.CLIENTS_CHANGE, onClientsChange, NetworkModelEvent);
 			addContextListener(NetworkModelEvent.RECEIVED_OBJECTS_CHANGE, onReceivedObjectsChange, NetworkModelEvent);
+			addContextListener(StartSlideshowViewEvent.START_SLIDESHOW, onStartSlideshow, StartSlideshowViewEvent);
 			
 			mainView.setConnected(networkModel.connected);
 			

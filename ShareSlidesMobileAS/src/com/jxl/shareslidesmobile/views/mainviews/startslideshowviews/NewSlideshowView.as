@@ -378,27 +378,7 @@ package com.jxl.shareslidesmobile.views.mainviews.startslideshowviews
 			}
 		}
 
-		private function safeRemoveChildren(... list):void
-		{
-			var len:int = list.length;
-			while(len--)
-			{
-				var child:DisplayObject = list[len] as DisplayObject;
-				if(child && child.parent)
-					removeChild(child);
-			}
-		}
 
-		private function safeAddChildren(... list):void
-		{
-			var len:int = list.length;
-			while(len--)
-			{
-				var child:DisplayObject = list[len] as DisplayObject;
-				if(child && child.parent == null)
-					addChild(child);
-			}
-		}
 
 		private function reset():void
 		{
