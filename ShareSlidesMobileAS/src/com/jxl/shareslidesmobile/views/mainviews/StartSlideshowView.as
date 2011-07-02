@@ -18,22 +18,29 @@ package com.jxl.shareslidesmobile.views.mainviews
 	import com.jxl.shareslidesmobile.controls.TextHeader;
 	import com.jxl.shareslidesmobile.events.controller.StartSlideshowEvent;
 	import com.jxl.shareslidesmobile.events.view.AlertEvent;
+	import com.jxl.shareslidesmobile.events.view.ConfirmPasscodeViewEvent;
 	import com.jxl.shareslidesmobile.events.view.NewSlideshowViewEvent;
 	import com.jxl.shareslidesmobile.events.view.SavedSlideshowItemRendererEvent;
 	import com.jxl.shareslidesmobile.events.view.StartSlideshowViewEvent;
 	import com.jxl.shareslidesmobile.managers.HistoryManager;
 	import com.jxl.shareslidesmobile.views.MobileView;
+	import com.jxl.shareslidesmobile.views.mainviews.startslideshowviews.ConfirmPasscodeView;
 	import com.jxl.shareslidesmobile.views.mainviews.startslideshowviews.NewSlideshowView;
+
+	import flash.events.Event;
 
 	import flash.events.MouseEvent;
 
 	import mx.collections.ArrayCollection;
+
+	import spark.components.View;
 
 	public class StartSlideshowView extends MobileView
 	{
 		private static const STATE_MAIN:String 	= "main";
 		private static const STATE_NEW:String 	= "new";
 		private static const STATE_HOST:String 	= "host";
+		private static const STATE_CONFIRM:String = "confirm";
 
 		private var headerBar:HeaderBar;
 		private var headerLabel:HeaderField;
@@ -45,6 +52,7 @@ package com.jxl.shareslidesmobile.views.mainviews
 		private var deleteAlert:Alert;
 		private var confirmAlert:Alert;
 		private var slideshowView:SlideshowView;
+		private var confirmView:ConfirmPasscodeView;
 
 		private var _slideshows:ArrayCollection;
 		private var slideshowsDirty:Boolean;
@@ -73,7 +81,7 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 		public function onNewSlideshowCreated():void
 		{
-			currentState = STATE_MAIN;
+			setCurrentState(STATE_MAIN);
 		}
 
 		protected override function init():void
@@ -83,7 +91,7 @@ package com.jxl.shareslidesmobile.views.mainviews
 			width = 480;
 			height = 800;
 
-			currentState = STATE_MAIN;
+			setCurrentState(STATE_MAIN);
 		}
 
 		protected override function addChildren():void
@@ -158,13 +166,13 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 		private function onCreateNewSlideshow(event:MouseEvent):void
 		{
-			currentState = STATE_NEW;
+			setCurrentState(STATE_NEW);
 			HistoryManager.addHistory(this, onCancelNewSlideshow);
 		}
 
 		private function onCancelNewSlideshow(event:NewSlideshowViewEvent=null):void
 		{
-			currentState = STATE_MAIN;
+			setCurrentState(STATE_MAIN);
 		}
 
 		private function onToggleEditSlideshows(event:MouseEvent):void
@@ -206,7 +214,7 @@ package com.jxl.shareslidesmobile.views.mainviews
 			deleteAlert = null;
 			if(event.detail == Alert.YES)
 			{
-				var evt:StartSlideshowViewEvent = new StartSlideshowViewEvent(StartSlideshowEvent.DELETE_SLIDESHOW);
+				var evt:StartSlideshowViewEvent = new StartSlideshowViewEvent(StartSlideshowViewEvent.DELETE_SLIDESHOW);
 				evt.slideshow = slideshowToDelete;
 				slideshowToDelete = null;
 				dispatchEvent(evt);
@@ -215,6 +223,17 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 		private function onStartSlideshow(event:SavedSlideshowItemRendererEvent):void
 		{
+			slideshowToStart = event.slideshow;
+			if(slideshowToStart.hasPasscode())
+			{
+				setCurrentState(STATE_CONFIRM);
+			}
+			else
+			{
+				startSlideshow();
+			}
+			return;
+
 			if(confirmAlert == null)
 			{
 				slideshowToStart = event.slideshow;
@@ -228,20 +247,54 @@ package com.jxl.shareslidesmobile.views.mainviews
 			confirmAlert = null;
 			if(event.detail == Alert.YES)
 			{
-				HistoryManager.addHistory(this, onBackFromSlideshow);
-
-				var evt:StartSlideshowViewEvent = new StartSlideshowViewEvent(StartSlideshowEvent.START_SLIDESHOW);
-				evt.slideshow = slideshowToStart;
-				slideshowToStart = null;
-				dispatchEvent(evt);
-
-				currentState = STATE_HOST;
+				startSlideshow();
 			}
+		}
+
+		private function onSubmitPasscode(event:ConfirmPasscodeViewEvent):void
+		{
+			if(event.passcode == slideshowToStart.passcode)
+			{
+				startSlideshow();
+			}
+			else
+			{
+				Alert.okLabel = "OK";
+				Alert.show("Passcode does not match.", "Error", Alert.OK);
+			}
+		}
+
+		private function startSlideshow():void
+		{
+			HistoryManager.addHistory(this, onBackFromSlideshow);
+
+			var evt:StartSlideshowViewEvent = new StartSlideshowViewEvent(StartSlideshowEvent.START_SLIDESHOW);
+			evt.slideshow = slideshowToStart;
+			slideshowToStart = null;
+			dispatchEvent(evt);
+
+			setCurrentState(STATE_HOST);
 		}
 
 		private function onBackFromSlideshow():void
 		{
-			currentState = STATE_MAIN;
+			setCurrentState(STATE_MAIN);
+		}
+
+		private function setCurrentState(state:String):void
+		{
+			if(state == STATE_MAIN && currentState == STATE_HOST)
+			{
+				try
+				{
+					throw new Error("asdf");
+				}
+				catch(err:Error)
+				{
+					Debug.debug(err.getStackTrace());
+				}
+			}
+			currentState = state;
 		}
 
 		protected override function onEnterState(state:String):void
@@ -292,9 +345,23 @@ package com.jxl.shareslidesmobile.views.mainviews
 
 				transitionInView(slideshowView);
 				break;
+
+				case STATE_CONFIRM:
+					if(confirmView == null)
+					{
+						confirmView = new ConfirmPasscodeView(this);
+						confirmView.addEventListener(ConfirmPasscodeViewEvent.SUBMIT_PASSCODE, onSubmitPasscode);
+					}
+
+					if(confirmView.parent == null)
+						addChild(confirmView);
+
+					transitionInView(confirmView);
+				break;
 			}
 			draw();
 		}
+
 
 		protected override function onExitState(oldState:String):void
 		{
@@ -329,8 +396,25 @@ package com.jxl.shareslidesmobile.views.mainviews
 				case STATE_HOST:
 					if(slideshowView && slideshowView.parent)
 						transitionOutView(slideshowView);
+
+				break;
+
+				case STATE_CONFIRM:
+				     if(confirmView && confirmView.parent)
+					 	transitionOutView(confirmView);
 				break;
 			}
+		}
+
+		protected override function transitionOutViewComplete(view:Component, direction:String = TRANSITION_DIRECTION_LEFT):void
+		{
+			super.transitionOutViewComplete(view, direction);
+
+			if(view == confirmView)
+				confirmView = null;
+
+			if(view == slideshowView)
+				slideshowView = null;
 		}
 	}
 }

@@ -34,7 +34,6 @@ package com.jxl.shareslidesmobile.rl
 	import com.jxl.shareslidesmobile.rl.models.NetworkModel;
 	import com.jxl.shareslidesmobile.rl.models.SavedSlideshowsModel;
 	import com.jxl.shareslidesmobile.rl.models.SlideshowModel;
-	import com.jxl.shareslidesmobile.rl.models.TransferModel;
 	import com.jxl.shareslidesmobile.rl.services.DeleteSavedSlideshowService;
 	import com.jxl.shareslidesmobile.rl.services.ReadSavedSlideshowsService;
 	import com.jxl.shareslidesmobile.rl.services.SaveSlideshowService;
@@ -63,7 +62,6 @@ package com.jxl.shareslidesmobile.rl
 
 			injector.mapSingleton(NetworkModel);
 			injector.mapSingleton(SlideshowModel);
-			injector.mapSingleton(TransferModel);
 			injector.mapSingleton(SavedSlideshowsModel);
 
 			injector.mapSingleton(ReadSavedSlideshowsService);

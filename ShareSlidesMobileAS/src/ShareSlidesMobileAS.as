@@ -52,9 +52,17 @@ package
 			addChild(debug);
 			Debug.log("Debugger ready.");
 
-
 			registerClassAlias("com.jxl.shareslides.vo.SlideshowVO", SlideshowVO);
 			//initialViewNavigator.pushView(SetNameView);
+
+			  /*
+			var slideshow:SlideshowVO = new SlideshowVO();
+			var result:Boolean = slideshow.encryptPasscode("abc");
+			Debug.debug("result: " + result);
+			var pass:String = slideshow.decryptPasscode("abc");
+			Debug.debug("pass: " + pass);
+			return;
+			*/
 
 			HistoryManager.initialize();
 

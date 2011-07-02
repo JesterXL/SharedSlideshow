@@ -51,6 +51,8 @@ package com.jxl.shareslidesmobile.views.mainviews.startslideshowviews
 		private var saveButton:Button;
 		private var nameLabelField:LabelField;
 		private var nameInputText:InputText;
+		private var passcodeLabelField:LabelField;
+		private var passcodeInputText:InputText;
 		private var slidesLabelField:LabelField;
 		private var browseButton:Button;
 		private var browseFolderButton:Button;
@@ -103,6 +105,10 @@ package com.jxl.shareslidesmobile.views.mainviews.startslideshowviews
 
 			nameInputText = new InputText(this);
 
+			passcodeLabelField = new LabelField(this, "Passcode:");
+
+			passcodeInputText = new InputText(this);
+
 			slidesLabelField = new LabelField(this, "Slides:");
 
 			browseButton = new Button(this, "Browse", onBrowse);
@@ -149,8 +155,15 @@ package com.jxl.shareslidesmobile.views.mainviews.startslideshowviews
 			nameInputText.y = nameLabelField.y + nameLabelField.textHeight + 4 + 8;
 			nameInputText.width = width * .8 - nameInputText.x;
 
+			passcodeLabelField.x = nameInputText.x;
+			passcodeLabelField.y = nameInputText.y + nameInputText.height + 8;
+
+			passcodeInputText.x = passcodeLabelField.x;
+			passcodeInputText.y = passcodeLabelField.y + passcodeLabelField.textHeight + 4 + 8;
+			passcodeInputText.width = width * .8 - nameInputText.x;
+
 			slidesLabelField.x = nameLabelField.x;
-			slidesLabelField.y = nameInputText.y + nameInputText.height + 8;
+			slidesLabelField.y = passcodeInputText.y + passcodeInputText.height + 8;
 
 			browseButton.x = slidesLabelField.x;
 			browseButton.y = slidesLabelField.y + slidesLabelField.height + 8;
@@ -327,6 +340,7 @@ package com.jxl.shareslidesmobile.views.mainviews.startslideshowviews
 			var evt:NewSlideshowViewEvent 			= new NewSlideshowViewEvent(NewSlideshowViewEvent.CREATE_SLIDESHOW);
 			evt.name								= nameInputText.text;
 			evt.files								= files;
+			evt.passcode							= passcodeInputText.text;
 			dispatchEvent(evt);
 		}
 

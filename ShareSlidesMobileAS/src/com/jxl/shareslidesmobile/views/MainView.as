@@ -17,7 +17,6 @@ package com.jxl.shareslidesmobile.views
 	{
 		private static const STATE_JOIN:String 					= "join";
 		private static const STATE_START:String 				= "start";
-		private static const STATE_TRANSFER:String 				= "transfer";
 		private static const STATE_CHANGE_LOG:String 			= "changeLog";
 		private static const STATE_SUBMIT_BUG:String 			= "submitBug";
 
@@ -40,16 +39,6 @@ package com.jxl.shareslidesmobile.views
 			height 	= 800;
 
 			currentState = STATE_JOIN;
-
-			addEventListener(MouseEvent.CLICK, onClicked);
-
-			var fonts:Array = Font.enumerateFonts();
-			var len:int = fonts.length;
-			for(var index:int = 0; index < len; index++)
-			{
-				var font:Font = fonts[index] as Font;
-				Debug.log("name: " + font.fontName + ", style: " + font.fontStyle + ", type: " + font.fontType)
-			}
 		}
 		
 		protected override function addChildren():void
@@ -63,7 +52,6 @@ package com.jxl.shareslidesmobile.views
 			addChild(bottomButtonBar);
 			bottomButtonBar.addEventListener(BottomButtonBarEvent.JOIN_SLIDESHOW, onButtonBarClicked);
 			bottomButtonBar.addEventListener(BottomButtonBarEvent.START_SLIDESHOW, onButtonBarClicked);
-			bottomButtonBar.addEventListener(BottomButtonBarEvent.TRANSFER, onButtonBarClicked);
 			bottomButtonBar.addEventListener(BottomButtonBarEvent.CHANGE_LOG, onButtonBarClicked);
 			bottomButtonBar.addEventListener(BottomButtonBarEvent.SUBMIT_BUG, onButtonBarClicked);
 		}
@@ -94,10 +82,6 @@ package com.jxl.shareslidesmobile.views
 
 				case BottomButtonBarEvent.START_SLIDESHOW:
 					currentState = STATE_START;
-					break;
-
-				case BottomButtonBarEvent.TRANSFER:
-					currentState = STATE_TRANSFER;
 					break;
 
 				case BottomButtonBarEvent.CHANGE_LOG:
@@ -135,10 +119,6 @@ package com.jxl.shareslidesmobile.views
 					transitionInView(startSlideshowView);
 					break;
 
-				case STATE_TRANSFER:
-
-					break;
-
 				case STATE_CHANGE_LOG:
 
 					break;
@@ -162,10 +142,6 @@ package com.jxl.shareslidesmobile.views
 					transitionOutView(startSlideshowView);
 					break;
 
-				case STATE_TRANSFER:
-
-					break;
-
 				case STATE_CHANGE_LOG:
 
 					break;
@@ -176,43 +152,5 @@ package com.jxl.shareslidesmobile.views
 			}
 		}
 
-		private function onClicked(event:MouseEvent):void
-		{
-			//Debug.log(event.target.name);
-		}
 	}
 }
-
-
-
-/*
-import com.jxl.shareslidesmobile.events.view.CreateSlideshowViewEvent;
-import com.jxl.shareslidesmobile.events.view.SlideshowItemRendererEvent;
-import com.jxl.shareslidesmobile.events.view.MainViewEvent;
-
-import mx.collections.ArrayCollection;
-
-[Bindable]
-public var slideshows:ArrayCollection;
-
-private function onCreateSlideshow():void
-{
-	currentState = "create";
-}
-
-private function onCancelCreateSlideshow():void
-{
-	currentState = "main";
-}
-
-private function onSlideshowCreated(event:CreateSlideshowViewEvent):void
-{
-	currentState = "slideshow";
-}
-
-private function onJoinSlideshow(event:SlideshowItemRendererEvent):void
-{
-	currentState = "slideshow";
-}
-
-*/

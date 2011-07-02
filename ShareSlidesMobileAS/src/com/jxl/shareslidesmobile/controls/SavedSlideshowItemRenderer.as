@@ -24,16 +24,13 @@ package com.jxl.shareslidesmobile.controls
 
 			this.mouseChildren = tabChildren = true;
 			buttonMode = useHandCursor = true;
-
-			addEventListener(MouseEvent.CLICK, onStart);
 		}
 
 		protected override function addChildren():void
 		{
 			super.addChildren();
 
-			arrowButton = new ArrowButton();
-			addChild(arrowButton);
+			arrowButton = new ArrowButton(this, onStart);
 		}
 
 		protected override function commitProperties():void

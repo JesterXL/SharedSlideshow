@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CocoonP2P/CocoonP2P.iml" filepath="$PROJECT_DIR$/CocoonP2P/CocoonP2P.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Crypto/Crypto.iml" filepath="$PROJECT_DIR$/Crypto/Crypto.iml" />
       <module fileurl="file://$PROJECT_DIR$/DebugWindowv2/DebugWindowv2.iml" filepath="$PROJECT_DIR$/DebugWindowv2/DebugWindowv2.iml" />
       <module fileurl="file://$PROJECT_DIR$/MinimalComps/MinimalComps.iml" filepath="$PROJECT_DIR$/MinimalComps/MinimalComps.iml" />
       <module fileurl="file://$PROJECT_DIR$/ShareSlidesClient/ShareSlidesClient.iml" filepath="$PROJECT_DIR$/ShareSlidesClient/ShareSlidesClient.iml" />

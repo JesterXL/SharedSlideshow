@@ -63,12 +63,9 @@ package com.jxl.shareslidesmobile.rl.models
 			localNetworkDiscovery.groupName = "com.jxl.shareslides";
 			localNetworkDiscovery.addEventListener(GroupEvent.GROUP_CONNECTED, onGroupConnected);
 			localNetworkDiscovery.addEventListener(GroupEvent.GROUP_CLOSED, onGroupClosed);
-			
-			localNetworkDiscovery.addEventListener(ObjectEvent.OBJECT_COMPLETE, onObjectComplete);
-			localNetworkDiscovery.addEventListener(ObjectEvent.OBJECT_PROGRESS, onObjectProgress);
+
 			localNetworkDiscovery.addEventListener(ObjectEvent.OBJECT_ANNOUNCED, onObjectAnnounced);
 
-			
 			localNetworkDiscovery.addEventListener("sharedObjectsChange", onSharedObjectsChanged);
 			localNetworkDiscovery.addEventListener("receivedObjectsChange", onReceivedObjectsChanged);
 			localNetworkDiscovery.addEventListener("clientsConnectedChange", onClientsConnectedChanged);
@@ -111,24 +108,9 @@ package com.jxl.shareslidesmobile.rl.models
 			Debug.error("NetworkModel::onGroupClosed");
 			connected = false;
 		}
-		
-		private function onObjectProgress(event:ObjectEvent):void
-		{
-			Debug.log("NetworkModel::onObjectProgress");
-			//event.metadata.progressSignal.dispatch();
-		}
-		
-		private function onObjectComplete(event:ObjectEvent):void
-		{
-			Debug.log("NetworkModel::onObjectComplete");
-			//event.metadata.completedSignal.dispatch();
-		}
-		
+
 		private function onObjectAnnounced(event:ObjectEvent):void
 		{
-			Debug.info("NetworkModel::onObjectAnnounced");
-			//this.localNetworkDiscovery.requestObject(event.metadata);
-			//return;
 			var evt:NetworkModelEvent = new NetworkModelEvent(NetworkModelEvent.OBJECT_ANNOUNCED);
 			evt.metadata = event.metadata;
 			dispatch(evt);
@@ -184,27 +166,30 @@ package com.jxl.shareslidesmobile.rl.models
 				Debug.info("\tmessage: " + event.message.data.message);
 			
 			var networkModelEvent:NetworkModelEvent;
-			if(event.message.data && event.message.data.message == "setCurrentSlide")
+			switch(event.message.data.message)
 			{
-				var evt:SetCurrentSlideEvent = new SetCurrentSlideEvent(SetCurrentSlideEvent.HOST_UPDATED_CURRENT_SLIDE);
-				evt.currentSlide = event.message.data.currentSlide;
-				dispatch(evt);
-				
-			}
-			else if(event.message.data && event.message.data.message == "doYouNeedSlideshow")
-			{
-				networkModelEvent = new NetworkModelEvent(NetworkModelEvent.RECEIVED_REQUEST_SLIDESHOW_MESSAGE);
-				networkModelEvent.message = event.message;
-				dispatch(networkModelEvent);
-			}
-			else if(event.message.data && event.message.data.message == "doYouNeedSlideshowAck")
-			{
-				if(event.message.data.request == true)
-				{
-					networkModelEvent = new NetworkModelEvent(NetworkModelEvent.CLIENT_NEEDS_SLIDESHOW);
+				case "setCurrentSlide":
+					var evt:SetCurrentSlideEvent = new SetCurrentSlideEvent(SetCurrentSlideEvent.HOST_UPDATED_CURRENT_SLIDE);
+					evt.currentSlide = event.message.data.currentSlide;
+					dispatch(evt);
+				break;
+
+				case "doYouNeedSlideshow":
+				    networkModelEvent = new NetworkModelEvent(NetworkModelEvent.RECEIVED_REQUEST_SLIDESHOW_MESSAGE);
 					networkModelEvent.message = event.message;
 					dispatch(networkModelEvent);
-				}
+				break;
+
+				case "doYouNeedSlideshowAck":
+					if(event.message.data.request == true)
+					{
+						networkModelEvent = new NetworkModelEvent(NetworkModelEvent.CLIENT_NEEDS_SLIDESHOW);
+						networkModelEvent.message = event.message;
+						dispatch(networkModelEvent);
+					}
+				break;
+
+
 			}
 		}
 	}

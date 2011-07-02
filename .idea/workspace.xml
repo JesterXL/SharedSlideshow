@@ -66,8 +66,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="field_breakpoints_viewId" value="TABLE" />
+      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -77,7 +77,17 @@
     </favorites_list>
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="NewSlideshowView.as" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/startslideshowviews/NewSlideshowView.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="165" column="83" selection-start="5019" selection-end="5019" vertical-scroll-proportion="0.6703911">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -87,22 +97,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/managers/HistoryManager.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/model/NetworkModelEvent.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/models/NetworkModel.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/commands/SetNameCommand.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/controls/SkinButton.as" />
         <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/MainContext.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/startslideshowviews/NewSlideshowView.as" />
-        <option value="$PROJECT_DIR$/MinimalComps/src/com/bit101/components/Component.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/JoinView.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/controls/ProgressBar.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/view/ConfirmPasscodeViewEvent.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/startslideshowviews/ConfirmPasscodeView.as" />
+        <option value="$PROJECT_DIR$/Crypto/src/crypto/Pad.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesLib/src/com/jxl/shareslides/crypto/AES.as" />
         <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/ShareSlidesMobileAS.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/model/SlideshowModelEvent.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/models/SlideshowModel.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/mediators/SlideshowViewMediator.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/commands/StartSlideshowCommand.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesLib/src/com/jxl/shareslides/vo/SlideshowVO.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesLib/src/com/jxl/shareslides/services/ImagesToSlideshowService.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/controller/StartSlideshowEvent.as" />
         <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/SlideshowView.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/mediators/JoinViewMediator.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/controls/SlideshowItemRenderer.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/view/SavedSlideshowItemRendererEvent.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/controls/SavedSlideshowItemRenderer.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/StartSlideshowView.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/startslideshowviews/NewSlideshowView.as" />
       </list>
     </option>
   </component>
@@ -153,6 +163,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Favorites" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -278,7 +289,67 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="transferviews" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesMobileAS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shareslidesmobile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mainviews" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="startslideshowviews" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesMobileAS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shareslidesmobile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mainviews" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="joinviewclasses" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -304,9 +375,60 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesMobileAS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shareslidesmobile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesMobileAS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shareslidesmobile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="commands" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Favorites" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -316,26 +438,27 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="preferences.sourceCode.JavaScript / ECMAScript / ActionScript" />
+    <property name="options.lastSelected" value="preferences.keymap" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateActionScriptClassDialog.DESTINATION_PACKAGE_RECENT_KEY">
-      <recent name="com.jxl.shareslidesmobile.rl.commands" />
-      <recent name="com.jxl.shareslides.rl.commands" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/skins" />
       <recent name="$PROJECT_DIR$/DebugWindowv2/src" />
       <recent name="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/controls" />
       <recent name="$PROJECT_DIR$/ShareSlidesMobileAS/libs" />
+    </key>
+    <key name="CreateActionScriptClassDialog.DESTINATION_PACKAGE_RECENT_KEY">
+      <recent name="com.jxl.shareslidesmobile.events.view" />
+      <recent name="com.jxl.shareslidesmobile.rl.commands" />
+      <recent name="com.jxl.shareslides.rl.commands" />
     </key>
   </component>
   <component name="RunManager" selected="AIR Mobile.ShareSlidesMobileAS">
@@ -350,6 +473,12 @@
       </method>
     </configuration>
     <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" adl_options="" air_descriptor_path="" air_program_params="" air_publisher_id="" air_root_dir_path="" air_run_mode="AppDescriptor" browser_family="FIREFOX" class_name="" debugger_sdk="Module SDK" html_or_swf_file_path="" launcher_type="OSDefault" main_class_name="" method_name="" module_name="" output_log_level="" package_name="" player_path="/Applications/Flash Player.app/Contents/MacOS/Flash Player" port="0" run_mode="HtmlOrSwfFile" run_trusted="false" scope="Class" socket_policy_port="0" url_to_launch="http://">
+      <method>
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="FlexRunConfigurationType" factoryName="Flex" browser_family="FIREFOX" debugger_sdk="Module SDK" html_or_swf_file_path="" launcher_type="OSDefault" main_class_name="" module_name="" player_path="/Applications/Flash Player.app/Contents/MacOS/Flash Player" run_mode="HtmlOrSwfFile" run_trusted="false" url_to_launch="http://">
       <method>
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
@@ -371,13 +500,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="FlexRunConfigurationType" factoryName="Flex" browser_family="FIREFOX" debugger_sdk="Module SDK" html_or_swf_file_path="" launcher_type="OSDefault" main_class_name="" module_name="" player_path="/Applications/Flash Player.app/Contents/MacOS/Flash Player" run_mode="HtmlOrSwfFile" run_trusted="false" url_to_launch="http://">
-      <method>
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="AirRunConfigurationType" factoryName="AIR" adl_options="" air_descriptor_path="" air_program_params="" air_publisher_id="" air_root_dir_path="" air_run_mode="AppDescriptor" browser_family="FIREFOX" debugger_sdk="Module SDK" html_or_swf_file_path="" launcher_type="OSDefault" main_class_name="" module_name="" player_path="/Applications/Flash Player.app/Contents/MacOS/Flash Player" run_mode="HtmlOrSwfFile" run_trusted="false" url_to_launch="http://">
+    <configuration default="true" type="AirMobileRunConfigurationType" factoryName="AIR Mobile" adl_options="" air_descriptor_path="$PROJECT_DIR$/ShareSlidesMobileAS/src/ShareSlidesMobileAS-app.xml" air_program_params="" air_publisher_id="" air_root_dir_path="$PROJECT_DIR$/ShareSlidesMobileAS/bin-debug" air_run_mode="AppDescriptor" browser_family="FIREFOX" debugger_sdk="Module SDK" html_or_swf_file_path="" launcher_type="OSDefault" main_class_name="" module_name="CocoonAccelerometer-0.8" player_path="/Applications/Flash Player.app/Contents/MacOS/Flash Player" run_mode="HtmlOrSwfFile" run_trusted="false" url_to_launch="http://">
+      <option name="airMobileRunMode" value="AppDescriptor" />
+      <option name="airMobileRunTarget" value="Emulator" />
+      <option name="debugTransport" value="USB" />
+      <option name="emulator" value="NexusOne" />
+      <option name="existingPackagePath" value="" />
+      <option name="filesToPackage">
+        <list />
+      </option>
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="mobilePackageFileName" value="" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="usbDebugPort" value="7936" />
       <method>
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
@@ -400,21 +537,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="AirMobileRunConfigurationType" factoryName="AIR Mobile" adl_options="" air_descriptor_path="$PROJECT_DIR$/ShareSlidesMobileAS/src/ShareSlidesMobileAS-app.xml" air_program_params="" air_publisher_id="" air_root_dir_path="$PROJECT_DIR$/ShareSlidesMobileAS/bin-debug" air_run_mode="AppDescriptor" browser_family="FIREFOX" debugger_sdk="Module SDK" html_or_swf_file_path="" launcher_type="OSDefault" main_class_name="" module_name="CocoonAccelerometer-0.8" player_path="/Applications/Flash Player.app/Contents/MacOS/Flash Player" run_mode="HtmlOrSwfFile" run_trusted="false" url_to_launch="http://">
-      <option name="airMobileRunMode" value="AppDescriptor" />
-      <option name="airMobileRunTarget" value="Emulator" />
-      <option name="debugTransport" value="USB" />
-      <option name="emulator" value="NexusOne" />
-      <option name="existingPackagePath" value="" />
-      <option name="filesToPackage">
-        <list />
-      </option>
-      <option name="fullScreenHeight" value="0" />
-      <option name="fullScreenWidth" value="0" />
-      <option name="mobilePackageFileName" value="" />
-      <option name="screenHeight" value="0" />
-      <option name="screenWidth" value="0" />
-      <option name="usbDebugPort" value="7936" />
+    <configuration default="true" type="AirRunConfigurationType" factoryName="AIR" adl_options="" air_descriptor_path="" air_program_params="" air_publisher_id="" air_root_dir_path="" air_run_mode="AppDescriptor" browser_family="FIREFOX" debugger_sdk="Module SDK" html_or_swf_file_path="" launcher_type="OSDefault" main_class_name="" module_name="" player_path="/Applications/Flash Player.app/Contents/MacOS/Flash Player" run_mode="HtmlOrSwfFile" run_trusted="false" url_to_launch="http://">
       <method>
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
@@ -477,15 +600,15 @@
     <editor active="false" />
     <layout>
       <window_info id="Robotlegs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24753867" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32489452" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32348806" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32957748" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24364407" sideWeight="0.814346" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5112676" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28672317" sideWeight="0.814346" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.51054853" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18565401" sideWeight="0.0" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -539,114 +662,114 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/startslideshowviews/NewSlideshowView.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/commands/CreateSlideshowCommand.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="44" selection-start="1454" selection-end="1454" vertical-scroll-proportion="-7.412943">
+        <state line="34" column="35" selection-start="983" selection-end="983" vertical-scroll-proportion="0.75454545">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///Applications/Adobe Flash Builder 4.5/sdks/4.5.0/frameworks/projects/framework/src/mx/core/UIComponent.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/startslideshowviews/ConfirmPasscodeView.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1420" column="13" selection-start="46155" selection-end="46155" vertical-scroll-proportion="0.3326886">
+        <state line="14" column="106" selection-start="636" selection-end="636" vertical-scroll-proportion="-1.0181818">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/view/StartSlideshowViewEvent.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="0" selection-start="670" selection-end="670" vertical-scroll-proportion="0.4827586">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/controller/StartSlideshowEvent.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="79" selection-start="247" selection-end="247" vertical-scroll-proportion="0.16363636">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/services/DeleteSavedSlideshowServiceEvent.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="28" selection-start="168" selection-end="168" vertical-scroll-proportion="0.15861027">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/services/DeleteSavedSlideshowService.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="102" selection-start="725" selection-end="725" vertical-scroll-proportion="0.4481132">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/commands/DeleteSavedSlideshowCommand.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="32" selection-start="751" selection-end="751" vertical-scroll-proportion="0.5278592">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/MainContext.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="74" selection-start="5273" selection-end="5273" vertical-scroll-proportion="0.49695122">
+        <state line="89" column="81" selection-start="5059" selection-end="5059" vertical-scroll-proportion="0.47408536">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/commands/JoinSlideshowCommand.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/mediators/StartSlideshowViewMediator.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="334" selection-end="334" vertical-scroll-proportion="0.19794722">
+        <state line="38" column="31" selection-start="1363" selection-end="1382" vertical-scroll-proportion="0.114503816">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CocoonP2P/src/com/projectcocoon/p2p/managers/GroupManager.as">
+    <entry file="file://$PROJECT_DIR$/MinimalComps/src/com/bit101/components/Component.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="188" column="73" selection-start="6241" selection-end="6241" vertical-scroll-proportion="0.22421524">
+        <state line="367" column="28" selection-start="9304" selection-end="9304" vertical-scroll-proportion="0.34078214">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/ShareSlidesMobileAS.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/MobileView.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="61" selection-start="1609" selection-end="1609" vertical-scroll-proportion="0.39589444">
+        <state line="63" column="27" selection-start="1997" selection-end="1997" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/controls/ProgressBar.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/StartSlideshowView.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="75" column="28" selection-start="1534" selection-end="1547" vertical-scroll-proportion="0.5439883">
+        <state line="150" column="31" selection-start="4552" selection-end="4552" vertical-scroll-proportion="0.44227007">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/model/SlideshowModelEvent.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/controls/SavedSlideshowItemRenderer.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="17" selection-start="93" selection-end="93" vertical-scroll-proportion="0.10909091">
+        <state line="85" column="36" selection-start="1631" selection-end="1631" vertical-scroll-proportion="0.51955307">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/models/SlideshowModel.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/view/SavedSlideshowItemRendererEvent.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="9" selection-start="720" selection-end="720" vertical-scroll-proportion="0.43636364">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/commands/StartSlideshowCommand.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="130" column="44" selection-start="3634" selection-end="3634" vertical-scroll-proportion="0.60088694">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CocoonP2P/src/com/projectcocoon/p2p/managers/ObjectManager.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="17" selection-start="1062" selection-end="1062" vertical-scroll-proportion="-3.1849315">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/controls/SlideshowItemRenderer.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="53" selection-start="2109" selection-end="2109" vertical-scroll-proportion="0.24545455">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/mediators/JoinViewMediator.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="61" selection-start="1572" selection-end="1593" vertical-scroll-proportion="0.3909091">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/JoinView.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="56" selection-start="2235" selection-end="2235" vertical-scroll-proportion="0.21818182">
+        <state line="19" column="8" selection-start="516" selection-end="516" vertical-scroll-proportion="0.46363637">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/SlideshowView.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="188" column="39" selection-start="4374" selection-end="4374" vertical-scroll-proportion="0.15264188">
+        <state line="107" column="32" selection-start="2731" selection-end="2731" vertical-scroll-proportion="0.18590999">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/mediators/SlideshowViewMediator.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/startslideshowviews/NewSlideshowView.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="38" selection-start="1204" selection-end="1204" vertical-scroll-proportion="0.14909092">
+        <state line="165" column="83" selection-start="5019" selection-end="5019" vertical-scroll-proportion="0.6703911">
           <folding />
         </state>
       </provider>
@@ -703,7 +826,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>ShareSlidesMobileAS</last-edited>
+          <last-edited>ShareSlidesLib</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

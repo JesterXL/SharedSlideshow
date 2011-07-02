@@ -119,6 +119,9 @@ package com.jxl.shareslidesmobile.views.mainviews
 		private function onKeyDown(event:KeyboardEvent):void
 		{
 			Debug.debug("SlideshowView::onKeyDown");
+			if(stage == null)
+				return;
+
 			switch(event.keyCode)
 			{
 				case Keyboard.LEFT:

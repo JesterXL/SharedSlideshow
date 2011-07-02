@@ -19,7 +19,6 @@ import flash.events.MouseEvent;
 		private var background:ButtonBarSymbol;
 		private var joinButton:IconButton;
 		private var startButton:IconButton;
-		private var transferButton:IconButton;
 		private var changeLogButton:IconButton;
 		private var bugButton:IconButton;
 		private var lastSelected:IconButton;
@@ -60,12 +59,6 @@ import flash.events.MouseEvent;
 			startButton.icon = IconStartSymbol;
 			startButton.addEventListener(MouseEvent.CLICK, onButtonClick);
 
-			transferButton = new IconButton();
-			addChild(transferButton);
-			transferButton.label = "Transfer";
-			transferButton.icon = IconTransferSymbol;
-			transferButton.addEventListener(MouseEvent.CLICK, onButtonClick);
-
 			changeLogButton = new IconButton();
 			addChild(changeLogButton);
 			changeLogButton.icon = IconChangeLogSymbol;
@@ -96,12 +89,11 @@ import flash.events.MouseEvent;
 			if(buttonWidth > width)
 				Debug.warn("BottomButtonBar::draw, dude, no room.");
 
-			joinButton.width = startButton.width = transferButton.width = transferButton.width = changeLogButton.width = bugButton.width = buttonWidth;
+			joinButton.width = startButton.width = changeLogButton.width = bugButton.width = buttonWidth;
 
 			joinButton.move(difference, height - joinButton.height);
 			startButton.move(joinButton.x + joinButton.width + difference, height - startButton.height);
-			transferButton.move(startButton.x + startButton.width + difference, height - transferButton.height);
-			changeLogButton.move(transferButton.x + transferButton.width + difference, height - changeLogButton.height);
+			changeLogButton.move(startButton.x + startButton.width + difference, height - changeLogButton.height);
 			bugButton.move(changeLogButton.x + changeLogButton.width + difference, height - bugButton.height);
 
 			var len:int = dividersHolder.numChildren;
@@ -137,10 +129,6 @@ import flash.events.MouseEvent;
 
 				case startButton:
 					dispatchEvent(new BottomButtonBarEvent(BottomButtonBarEvent.START_SLIDESHOW));
-					break;
-
-				case transferButton:
-					dispatchEvent(new BottomButtonBarEvent(BottomButtonBarEvent.TRANSFER));
 					break;
 
 				case changeLogButton:

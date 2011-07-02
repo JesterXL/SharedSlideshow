@@ -32,7 +32,7 @@ package com.jxl.shareslidesmobile.controls
 		{
 			super(parent);
 
-			if(clickHandler)
+			if(clickHandler != null)
 				addEventListener(MouseEvent.CLICK, clickHandler);
 
 			upClass = upSkin;

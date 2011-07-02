@@ -28,12 +28,13 @@ package com.jxl.shareslides.services
 			super();
 		}
 		
-		public function getSlideshow(name:String, files:Array):void
+		public function getSlideshow(name:String, files:Array, passcode:String):void
 		{
 			Debug.log("ImagesToSlideshowService::getSlideshow");
 			slideshow								 	= new SlideshowVO();
 			slideshow.name 								= name;
 			slideshow.slides							= files;
+			slideshow.passcode							= passcode;
 			
 			var len:int = slideshow.slides.length;
 			streams = [];

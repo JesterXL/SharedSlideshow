@@ -17,6 +17,7 @@ package com.jxl.shareslidesmobile.events.view
 		{
 			super(type, bubbles, cancelable);
 		}
+
 	}
 }
 

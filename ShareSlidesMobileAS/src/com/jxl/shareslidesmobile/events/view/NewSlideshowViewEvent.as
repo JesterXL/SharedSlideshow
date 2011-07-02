@@ -11,6 +11,7 @@ package com.jxl.shareslidesmobile.events.view
 
 		public var name:String;
 		public var files:Array;
+		public var passcode:String;
 
 
 		public function NewSlideshowViewEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = true)
@@ -23,6 +24,7 @@ package com.jxl.shareslidesmobile.events.view
 			var event:NewSlideshowViewEvent = new NewSlideshowViewEvent(type, bubbles, cancelable);
 			event.name = name;
 			event.files = files;
+			event.passcode = passcode;
 			return event;
 		}
 	}

@@ -32,7 +32,7 @@ package com.jxl.shareslidesmobile.rl.commands
 		{
 			Debug.log("CreateSlideshowCommand::execute");
 			slideshowService.conversionCompleteSignal.add(onSlideshowReady);
-			slideshowService.getSlideshow(event.name, event.files);
+			slideshowService.getSlideshow(event.name, event.files, event.passcode);
 		}
 
 		private function onSlideshowReady():void
