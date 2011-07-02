@@ -1,9 +1,9 @@
-package com.jxl.shareslidesmobile.rl.commands
+package com.jxl.shareslides.rl.commands
 {
-	import com.jxl.shareslidesmobile.events.model.NetworkModelEvent;
-	import com.jxl.shareslidesmobile.rl.models.NetworkModel;
-	import com.jxl.shareslidesmobile.rl.models.SlideshowModel;
-	
+	import com.jxl.shareslides.events.model.NetworkModelEvent;
+	import com.jxl.shareslides.rl.models.NetworkModel;
+	import com.jxl.shareslides.rl.models.SlideshowModel;
+
 	import org.robotlegs.mvcs.Command;
 	
 	public class RequestSlideshowIfNeededCommand extends Command

@@ -12,6 +12,7 @@ package com.jxl.shareslides.events.view
 
 		public var slideshowName:String;
 		public var slides:Array;
+		public var passcode:String;
 
 		public function CreateSlideshowViewEvent(type:String,  bubbles:Boolean = false, cancelable:Boolean = true)
 		{
@@ -23,6 +24,7 @@ package com.jxl.shareslides.events.view
 			var evt:CreateSlideshowViewEvent = new CreateSlideshowViewEvent(type,  bubbles, cancelable);
 			evt.slides = slides;
 			evt.slideshowName = slideshowName;
+			evt.passcode = passcode;
 			return evt;
 		}
 

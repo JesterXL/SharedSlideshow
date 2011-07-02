@@ -33,7 +33,7 @@
 					ObjectMetadataVO(_data).progressSignal.remove(onProgressChanged);
 					ObjectMetadataVO(_data).completedSignal.remove(onProgressChanged);
 				}
-				
+
 				_data = value;
 				
 				if(value == null)
@@ -72,21 +72,21 @@
 					}
 				}
 			}
-			
+
 			private function onProgressChanged():void
 			{
 				if(currentState != "progress")
 					currentState = "progress";
-				
+
 				if(_data && _data is ObjectMetadataVO)
 					progress = ObjectMetadataVO(_data).progress;
-				
+
 				progressBar.mode = "manual";
 				progressBar.indeterminate = false;
 				progressBar.setProgress(progress, 1);
 				progressBar.label = "Downloading " + (Math.floor(progress * 100)) + "%";
 			}
-			
+
 			private function onCompleted():void
 			{
 				if(_data && _data is ObjectMetadataVO)
@@ -113,7 +113,7 @@
 				evt.slideshow 						= slideshow;
 				dispatchEvent(evt);
 			}
-			
+
 			private function setNormal():void
 			{
 				currentState = "normal";
@@ -133,7 +133,7 @@
 		<s:Label text="{data.info}" fontSize="18" color="#FFFFFF" paddingTop="2" />
 		<mx:ProgressBar indeterminate="true" id="progressBar" label="Waiting..." includeIn="waiting,progress" />
 		<s:Spacer width="100%" />
-		<controls:JoinButton includeIn="normal" click="onJoin()" toolTip="{currentState}" />
+		<s:Button includeIn="normal" click="onJoin()" toolTip="{currentState}" label="Join"/>
 	</s:HGroup>
 	
 	<skins:FlashSymbolContainer bottom="0">

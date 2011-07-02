@@ -60,7 +60,7 @@
 		
 		<controls:TabNavigationBar>
 			<controls:dataProvider>
-				<s:ArrayCollection source="['Slideshows', 'Transfer']" />
+				<s:ArrayCollection source="['Slideshows', 'Create']" />
 			</controls:dataProvider>
 		</controls:TabNavigationBar>
 

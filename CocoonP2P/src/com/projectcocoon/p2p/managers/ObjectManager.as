@@ -69,7 +69,9 @@ package com.projectcocoon.p2p.managers
 			var metadata:ObjectMetadataVO = getMetaData(data, info);
 			
 			data.position = 0;
-			
+
+			metadata.object = value;
+
 			// split up the bytes into chunks and store them in a Vector
 			var chunks:uint = metadata.chunks;
 			var dataVector:Vector.<ByteArray> = initializeDataVector(chunks);

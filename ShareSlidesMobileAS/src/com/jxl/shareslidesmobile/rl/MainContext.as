@@ -93,7 +93,7 @@ package com.jxl.shareslidesmobile.rl
 			//commandMap.mapEvent(DeleteSlideshowEvent.DELETE_SLIDESHOW, DeleteSlideshowCommand, DeleteSlideshowEvent);
 			commandMap.mapEvent(SetCurrentSlideEvent.SET_CURRENT_SLIDE_EVENT, SetCurrentSlideCommand);
 			commandMap.mapEvent(SetCurrentSlideEvent.HOST_UPDATED_CURRENT_SLIDE, HostChangedCurrentSlideCommand);
-			commandMap.mapEvent(NetworkModelEvent.CLIENT_ADDED, AskIfClientNeedsSlideshowCommand);
+			commandMap.mapEvent(NetworkModelEvent.CLIENT_UPDATED, AskIfClientNeedsSlideshowCommand);
 			commandMap.mapEvent(NetworkModelEvent.RECEIVED_REQUEST_SLIDESHOW_MESSAGE, RequestSlideshowIfNeededCommand);
 			commandMap.mapEvent(NetworkModelEvent.CLIENT_NEEDS_SLIDESHOW, ShareSlideshowWithClientCommand);
 

@@ -1,17 +1,14 @@
-package com.jxl.shareslidesmobile.rl.commands
+package com.jxl.shareslides.rl.commands
 {
+	import com.jxl.shareslides.events.model.NetworkModelEvent;
+	import com.jxl.shareslides.rl.models.NetworkModel;
+	import com.jxl.shareslides.rl.models.SlideshowModel;
 	import com.jxl.shareslides.vo.SlideshowVO;
-	import com.jxl.shareslidesmobile.events.model.NetworkModelEvent;
-	import com.jxl.shareslidesmobile.rl.models.NetworkModel;
-	import com.jxl.shareslidesmobile.rl.models.SlideshowModel;
-	
+
 	import org.robotlegs.mvcs.Command;
 	
 	public class ShareSlideshowWithClientCommand extends Command
 	{
-		[Inject]
-		public var slideshowModel:SlideshowModel;
-		
 		[Inject]
 		public var networkModel:NetworkModel;
 		
@@ -25,7 +22,7 @@ package com.jxl.shareslidesmobile.rl.commands
 		
 		public override function execute():void
 		{
-			Debug.log("ShareSlideshowWithClientCommand::execute");
+			Debug.log("ShareSlideshowWithClientCommand::execute, slideshowName: " + event.message.data.slideshowName);
 
 			var slideshow:SlideshowVO = networkModel.getSlideshowByName(event.message.data.slideshowName);
 			Debug.log("\tslideshow found by that name: " + slideshow);

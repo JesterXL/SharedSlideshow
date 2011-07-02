@@ -19,7 +19,6 @@
 			
 			private function init():void
 			{
-			var a:Alert
 				this.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onError);
 				
 				createDebugWindow();

@@ -1,12 +1,16 @@
 package com.jxl.shareslides.rl.models
 {
+	import com.jxl.shareslides.events.controller.SetCurrentSlideEvent;
 	import com.jxl.shareslides.events.model.NetworkModelEvent;
+	import com.jxl.shareslides.vo.SlideshowVO;
 	import com.projectcocoon.p2p.LocalNetworkDiscovery;
 	import com.projectcocoon.p2p.events.ClientEvent;
 	import com.projectcocoon.p2p.events.GroupEvent;
 	import com.projectcocoon.p2p.events.MessageEvent;
 	import com.projectcocoon.p2p.events.ObjectEvent;
-	
+	import com.projectcocoon.p2p.vo.ClientVO;
+	import com.projectcocoon.p2p.vo.ObjectMetadataVO;
+
 	import flash.events.Event;
 	
 	import org.robotlegs.mvcs.Actor;
@@ -48,9 +52,15 @@ package com.jxl.shareslides.rl.models
 			localNetworkDiscovery.addEventListener(MessageEvent.DATA_RECEIVED, onMessage);
 			localNetworkDiscovery.addEventListener(ObjectEvent.OBJECT_ANNOUNCED, onObjectAnnounced);	
 			//localNetworkDiscovery.addEventListener("clientsChange", onClientsChanged);
-			//localNetworkDiscovery.addEventListener(ClientEvent.CLIENT_ADDED, onClientsChanged);
+			localNetworkDiscovery.addEventListener(ClientEvent.CLIENT_ADDED, onClientAdded);
+			localNetworkDiscovery.addEventListener(ClientEvent.CLIENT_UPDATE, onClientUpdated);
 			localNetworkDiscovery.addEventListener("receivedObjectsChange", onReceivedObjectsChange);
 			localNetworkDiscovery.connect();
+		}
+
+		public function shareSlideshow(slideshow:SlideshowVO):void
+		{
+			localNetworkDiscovery.shareWithAll(slideshow, slideshow.name);
 		}
 		
 		private function onConnected(event:GroupEvent):void
@@ -65,9 +75,36 @@ package com.jxl.shareslides.rl.models
 		
 		private function onMessage(event:MessageEvent):void
 		{
-			var evt:NetworkModelEvent 	= new NetworkModelEvent(NetworkModelEvent.MESSAGE);
-			evt.message 				= event.message;
-			dispatch(evt);
+			Debug.info("NetworkModel::onMessageEvent");
+			if(event.message.data)
+				Debug.info("\tmessage: " + event.message.data.message);
+
+			var networkModelEvent:NetworkModelEvent;
+			switch(event.message.data.message)
+			{
+				case "setCurrentSlide":
+					var evt:SetCurrentSlideEvent = new SetCurrentSlideEvent(SetCurrentSlideEvent.HOST_UPDATED_CURRENT_SLIDE);
+					evt.currentSlide = event.message.data.currentSlide;
+					dispatch(evt);
+				break;
+
+				case "doYouNeedSlideshow":
+				    networkModelEvent = new NetworkModelEvent(NetworkModelEvent.RECEIVED_REQUEST_SLIDESHOW_MESSAGE);
+					networkModelEvent.message = event.message;
+					dispatch(networkModelEvent);
+				break;
+
+				case "doYouNeedSlideshowAck":
+					if(event.message.data.request == true)
+					{
+						networkModelEvent = new NetworkModelEvent(NetworkModelEvent.CLIENT_NEEDS_SLIDESHOW);
+						networkModelEvent.message = event.message;
+						dispatch(networkModelEvent);
+					}
+				break;
+
+
+			}
 		}
 		
 		private function onObjectAnnounced(event:ObjectEvent):void
@@ -75,14 +112,80 @@ package com.jxl.shareslides.rl.models
 			localNetworkDiscovery.requestObject(event.metadata);
 		}
 		
-		private function onClientsChanged(event:Event):void
+		private function onClientAdded(event:ClientEvent):void
 		{
-			dispatch(new NetworkModelEvent(NetworkModelEvent.CLIENTS_CHANGE));
+			Debug.log("NetworkModel::onClientAdded");
+			if(event.client.isLocal)
+				return;
+
+			Debug.log("\tnot local, dispatching client added event");
+			var evt:NetworkModelEvent 		= new NetworkModelEvent(NetworkModelEvent.CLIENT_ADDED);
+			evt.client 						= event.client;
+			dispatch(evt);
+		}
+
+		private function onClientUpdated(event:ClientEvent):void
+		{
+			Debug.log("NetworkModel::onClientUpdated");
+			if(event.client.isLocal)
+				return;
+
+			Debug.log("\tnot local, dispatching client added event");
+			var evt:NetworkModelEvent 		= new NetworkModelEvent(NetworkModelEvent.CLIENT_UPDATE);
+			evt.client 						= event.client;
+			dispatch(evt);
 		}
 		
 		private function onReceivedObjectsChange(event:Event):void
 		{
 			dispatch(new NetworkModelEvent(NetworkModelEvent.RECEIVED_OBJECTS_CHANGE));
 		}
+
+		public function containsSlideshow(slideshowName:String):Boolean
+		{
+			if(localNetworkDiscovery.receivedObjects == null)
+				return false;
+
+			var len:int = localNetworkDiscovery.receivedObjects.length;
+			while(len--)
+			{
+				var om:ObjectMetadataVO = localNetworkDiscovery.receivedObjects.getItemAt(len) as ObjectMetadataVO;
+				if(om.info as String == slideshowName)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		public function getSlideshowByName(slideshowName:String):SlideshowVO
+		{
+			if(localNetworkDiscovery.receivedObjects == null)
+				return null;
+
+			var len:int = localNetworkDiscovery.receivedObjects.length;
+			while(len--)
+			{
+				var om:ObjectMetadataVO = localNetworkDiscovery.receivedObjects.getItemAt(len) as ObjectMetadataVO;
+				if(om.info as String == slideshowName)
+				{
+					return om.object as SlideshowVO;
+				}
+			}
+
+			len = localNetworkDiscovery.sharedObjects.length;
+			while(len--)
+			{
+				var om:ObjectMetadataVO = localNetworkDiscovery.sharedObjects.getItemAt(len) as ObjectMetadataVO;
+				if(om.info as String == slideshowName)
+				{
+					return om.object as SlideshowVO;
+				}
+			}
+
+			return null;
+		}
+
 	}
 }

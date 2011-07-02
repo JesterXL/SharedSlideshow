@@ -8,29 +8,26 @@
 package com.jxl.shareslides.rl.commands
 {
 	import com.jxl.shareslides.events.view.PhoneItemEvent;
+	import com.jxl.shareslides.rl.models.NetworkModel;
 	import com.jxl.shareslides.rl.models.SlideshowModel;
-	import com.jxl.shareslides.rl.models.TransferModel;
 
 	import org.robotlegs.mvcs.Command;
 
-	public class SendSlideshowCommand extends Command
+	public class ShareSlideshowCommand extends Command
 	{
 		[Inject]
-		public var event:PhoneItemEvent;
-
-		[Inject]
-		public var transferModel:TransferModel;
+		public var networkModel:NetworkModel;
 
 		[Inject]
 		public var slideshowModel:SlideshowModel;
 
-		public function SendSlideshowCommand()
+		public function ShareSlideshowCommand()
 		{
 		}
 
 		public override function execute():void
 		{
-			transferModel.sendSlideshow(slideshowModel.builtSlidehow, event.client);
+			networkModel.shareSlideshow(slideshowModel.builtSlidehow);
 		}
 
 

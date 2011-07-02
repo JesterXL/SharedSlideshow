@@ -84,6 +84,7 @@
 					currentState = "processing";
 					var evt:CreateSlideshowViewEvent = new CreateSlideshowViewEvent(CreateSlideshowViewEvent.SAVE_SLIDESHOW);
 					evt.slideshowName = slideshowNameTextInput.text;
+					evt.passcode = passcodeTextInput.text;
 					evt.slides = slides.source;
 					dispatchEvent(evt);
 				}
@@ -98,10 +99,13 @@
 	</s:states>
 	
 	<s:Form width="100%" includeIn="main">
-		<s:FormItem label="Slideshow Name:">
+		<s:FormItem label="Slideshow Name:" required="true">
 			<s:TextInput id="slideshowNameTextInput" width="100%" />
 		</s:FormItem>
-		<s:FormItem>
+		<s:FormItem label="Passcode:">
+			<s:TextInput id="passcodeTextInput" width="100%" displayAsPassword="true" />
+		</s:FormItem>
+		<s:FormItem required="true">
 			<s:Button label="Browse" click="onBrowseForSlides()" />
 		</s:FormItem>
 	</s:Form>

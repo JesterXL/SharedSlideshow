@@ -2,23 +2,29 @@ package com.jxl.shareslides.rl
 {
 	import com.jxl.shareslides.controls.ConnectionLight;
 	import com.jxl.shareslides.controls.TabNavigationBar;
+	import com.jxl.shareslides.events.controller.SetCurrentSlideEvent;
 	import com.jxl.shareslides.events.model.NetworkModelEvent;
+	import com.jxl.shareslides.events.model.SlideshowModelEvent;
 	import com.jxl.shareslides.events.view.CreateSlideshowViewEvent;
+	import com.jxl.shareslides.events.view.MainViewEvent;
 	import com.jxl.shareslides.events.view.PhoneItemEvent;
-	import com.jxl.shareslides.rl.commands.MessageCommand;
+	import com.jxl.shareslides.rl.commands.AskIfClientNeedsSlideshowCommand;
+	import com.jxl.shareslides.rl.commands.JoinSlideshowCommand;
+	import com.jxl.shareslides.rl.commands.RequestSlideshowIfNeededCommand;
 	import com.jxl.shareslides.rl.commands.SaveSlideshowCommand;
-	import com.jxl.shareslides.rl.commands.SendSlideshowCommand;
+	import com.jxl.shareslides.rl.commands.ShareSlideshowCommand;
+	import com.jxl.shareslides.rl.commands.ShareSlideshowWithClientCommand;
+	import com.jxl.shareslides.rl.commands.UpdateCurrentSlideCommand;
 	import com.jxl.shareslides.rl.mediators.ConnectionLightMediator;
 	import com.jxl.shareslides.rl.mediators.CreateSlideshowViewMediator;
 	import com.jxl.shareslides.rl.mediators.MainViewMediator;
+	import com.jxl.shareslides.rl.mediators.SlideshowViewMediator;
 	import com.jxl.shareslides.rl.mediators.TabNavigationBarMediator;
-	import com.jxl.shareslides.rl.mediators.TransferViewMediator;
 	import com.jxl.shareslides.rl.models.NetworkModel;
 	import com.jxl.shareslides.rl.models.SlideshowModel;
-	import com.jxl.shareslides.rl.models.TransferModel;
 	import com.jxl.shareslides.views.MainView;
-	import com.jxl.shareslides.views.TransferView;
-	import com.jxl.shareslides.views.transferviews.CreateSlideshowView;
+	import com.jxl.shareslides.views.CreateSlideshowView;
+	import com.jxl.shareslides.views.SlideshowView;
 	import com.projectcocoon.p2p.LocalNetworkDiscovery;
 	
 	import flash.display.DisplayObjectContainer;
@@ -40,17 +46,22 @@ package com.jxl.shareslides.rl
 			
 			injector.mapSingleton(NetworkModel);
 			injector.mapSingleton(SlideshowModel);
-			injector.mapSingleton(TransferModel);
-			
-			commandMap.mapEvent(NetworkModelEvent.MESSAGE, MessageCommand, NetworkModelEvent);
+
 			commandMap.mapEvent(CreateSlideshowViewEvent.SAVE_SLIDESHOW, SaveSlideshowCommand, CreateSlideshowViewEvent);
-			commandMap.mapEvent(PhoneItemEvent.SEND_SLIDES, SendSlideshowCommand, PhoneItemEvent);
-			
+			commandMap.mapEvent(SlideshowModelEvent.SLIDESHOW_CREATED, ShareSlideshowCommand, SlideshowModelEvent);
+			commandMap.mapEvent(SetCurrentSlideEvent.HOST_UPDATED_CURRENT_SLIDE, UpdateCurrentSlideCommand, SetCurrentSlideEvent);
+
+			commandMap.mapEvent(MainViewEvent.JOIN_SLIDESHOW, JoinSlideshowCommand, MainViewEvent);
+
+			commandMap.mapEvent(NetworkModelEvent.CLIENT_UPDATE, AskIfClientNeedsSlideshowCommand, NetworkModelEvent);
+			commandMap.mapEvent(NetworkModelEvent.RECEIVED_REQUEST_SLIDESHOW_MESSAGE, RequestSlideshowIfNeededCommand, NetworkModelEvent);
+			commandMap.mapEvent(NetworkModelEvent.CLIENT_NEEDS_SLIDESHOW, ShareSlideshowWithClientCommand, NetworkModelEvent);
+
 			mediatorMap.mapView(MainView, MainViewMediator);
 			mediatorMap.mapView(TabNavigationBar, TabNavigationBarMediator);
 			mediatorMap.mapView(ConnectionLight, ConnectionLightMediator);
 			mediatorMap.mapView(CreateSlideshowView, CreateSlideshowViewMediator);
-			mediatorMap.mapView(TransferView, TransferViewMediator);
+			mediatorMap.mapView(SlideshowView, SlideshowViewMediator);
 			
 			
 			super.startup();

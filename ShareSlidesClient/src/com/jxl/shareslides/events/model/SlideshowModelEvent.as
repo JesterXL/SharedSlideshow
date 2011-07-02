@@ -12,6 +12,8 @@ package com.jxl.shareslides.events.model
 	public class SlideshowModelEvent extends Event
 	{
 		public static const SLIDESHOW_CREATED:String = "slideshowCreated";
+		public static const CURRENT_SLIDE_CHANGED:String = "currentSlideChanged";
+		public static const SLIDESHOW_CHANGED:String = "slideshowChanged";
 
 		public function SlideshowModelEvent(type:String,  bubbles:Boolean = false, cancelable:Boolean = true)
 		{

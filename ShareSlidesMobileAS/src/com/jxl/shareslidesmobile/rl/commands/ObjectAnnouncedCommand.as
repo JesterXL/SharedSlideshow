@@ -1,12 +1,15 @@
 package com.jxl.shareslidesmobile.rl.commands
 {
+	import com.jxl.shareslides.vo.SlideshowVO;
 	import com.jxl.shareslidesmobile.events.model.NetworkModelEvent;
 	import com.jxl.shareslidesmobile.rl.models.NetworkModel;
 	import com.jxl.shareslidesmobile.rl.models.SlideshowModel;
-	
+	import com.jxl.shareslidesmobile.rl.services.SaveSlideshowService;
+	import com.projectcocoon.p2p.vo.ObjectMetadataVO;
+
 	import org.robotlegs.mvcs.Command;
 	
-	public class ObjectAnnouncedCommand extends Command
+	public class ObjectAnnouncedCommand extends AsyncCommand
 	{
 		[Inject]
 		public var event:NetworkModelEvent;
@@ -16,21 +19,34 @@ package com.jxl.shareslidesmobile.rl.commands
 		
 		[Inject]
 		public var networkModel:NetworkModel;
-		
+
+		[Inject]
+		public var saveSlideshowService:SaveSlideshowService;
+
+		private var metadata:ObjectMetadataVO;
+
 		public function ObjectAnnouncedCommand()
 		{
 			super();
 		}
-		
+
+		// [jwarden 7.2.2011] TODO/FIXME: Memory leak waiting to happen... (<-- see what I did thar)
 		public override function execute():void
 		{
 			Debug.log("ObjectAnnouncedCommand::execute");
-			//if(slideshowModel.containsObjectMetadata(event.metadata.info as String) == false)
-			//if(networkModel.containsObjectMetadata(event.metadata) == false)
-			//{
-			//	Debug.log("\tI don't have this metadata, requesting it.");
-				networkModel.localNetworkDiscovery.requestObject(event.metadata);
-			//}
+			metadata = event.metadata;
+			networkModel.localNetworkDiscovery.requestObject(metadata);
+			event.metadata.completedSignal.add(onComplete);
+		}
+
+		private function onComplete():void
+		{
+			if(metadata.object && metadata.object is SlideshowVO)
+			{
+				saveSlideshowService.saveSlideshow(metadata.object as SlideshowVO);
+			}
+			metadata = null;
+			finish();
 		}
 	}
 }

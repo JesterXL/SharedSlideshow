@@ -1,7 +1,7 @@
 package com.jxl.shareslides.rl.mediators
 {
 	import com.jxl.shareslides.events.view.CreateSlideshowViewEvent;
-	import com.jxl.shareslides.views.transferviews.CreateSlideshowView;
+	import com.jxl.shareslides.views.CreateSlideshowView;
 
 	import org.robotlegs.mvcs.Mediator;
 

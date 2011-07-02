@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:controls="com.jxl.shareslides.controls.*"
+		 xmlns:skins="com.jxl.shareslides.skins.*"
+		 width="100%" height="100%"
+		 xmlns:local="*"
+		show="onShow()">
+
+	<fx:Script>
+		<![CDATA[
+		import com.jxl.shareslides.vo.SlideshowVO;
+
+		private var _slideshow:SlideshowVO;
+		private var slideshowDirty:Boolean = false;
+		private var _currentSlide:int;
+		private var currentSlideDirty:Boolean = false;
+
+		[Bindable]
+		public function get currentSlide():int { return _currentSlide; }
+		public function set currentSlide(value:int):void
+		{
+			_currentSlide = value;
+			currentSlideDirty = true;
+			invalidateProperties();
+		}
+
+		[Bindable]
+		public function get slideshow():SlideshowVO { return _slideshow; }
+		public function set slideshow(value:SlideshowVO):void
+		{
+			_slideshow = value;
+			slideshowDirty = true;
+			invalidateProperties();
+		}
+
+		[Bindable]
+		private var slideBytes:ByteArray;
+
+		private var lastHostSlide:int;
+
+		protected override function commitProperties():void
+		{
+			super.commitProperties();
+
+			if(slideshowDirty)
+			{
+				slideshowDirty = true;
+				if(_slideshow && isNaN(_currentSlide) || _currentSlide < 0)
+				{
+					_currentSlide = 0;
+					currentSlideDirty = true;
+				}
+
+				if(slideshow && slideshow.host)
+				{
+					currentState = "host";
+				}
+				else
+				{
+					currentState = "normal";
+				}
+
+				updateCurrentSlideBytes();
+			}
+
+			if(currentSlideDirty)
+			{
+				Debug.debug("\t_currentSlide: " + _currentSlide);
+				currentSlideDirty = false;
+
+				updateCurrentSlideBytes();
+			}
+		}
+		private function onShow():void
+		{
+			updateCurrentSlideBytes();
+		}
+
+		private function updateCurrentSlideBytes():void
+		{
+			if(slideshow == null || isNaN(currentSlide))
+				return;
+
+			slideBytes = slideshow.slideBytes[currentSlide] as ByteArray;
+
+			fadeIn.play();
+		}
+
+		private function nextSlide():void
+		{
+			if(slideshow && slideshow.slideBytes && isNaN(currentSlide) == false && currentSlide + 1 < slideshow.slideBytes.length)
+			{
+				++currentSlide;
+				updateCurrentSlideBytes();
+			}
+		}
+
+		private function previousSlide():void
+		{
+			if(slideshow && slideshow.slideBytes && isNaN(currentSlide) == false && currentSlide - 1 > -1)
+			{
+				--currentSlide;
+				updateCurrentSlideBytes();
+			}
+		}
+
+		private function onSyncChange():void
+		{
+			if(syncCheckBox.selected)
+			{
+				currentSlide = lastHostSlide;
+				updateCurrentSlideBytes();
+			}
+		}
+
+		]]></fx:Script>
+
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="host" />
+	</s:states>
+
+
+		<controls:PreviousSlideButton click="previousSlide()" left="8" verticalCenter="0" toolTip="Previous Slide" />
+		<s:Image id="image" source="{slideBytes}" left="88" top="66" right="88" bottom="66" />
+		<controls:NextSlideButton click="nextSlide()" right="8" verticalCenter="0" toolTip="Next Slide"/>
+		<s:HGroup left="8" bottom="8" height="21" verticalAlign="middle" gap="8">
+			<s:Label text="Slide {(currentSlide + 1)} of {slideshow.slideBytes.length}" paddingTop="2" />
+			<skins:FlashSymbolContainer width="1" height="18">
+				<local:DividerLineSymbol />
+			</skins:FlashSymbolContainer>
+			<controls:SyncCheckBox id="syncCheckBox" change="onSyncChange()" label="Sync With Host" toolTip="Keep checked to see the slide the host is currently on." />
+			<skins:FlashSymbolContainer width="1" height="18">
+				<local:DividerLineSymbol />
+			</skins:FlashSymbolContainer>
+			<controls:FullScreenToggleButton toolTip="Toggle Full Screen" />
+		</s:HGroup>
+
+	<fx:Declarations>
+		<s:Power id="power" exponent="4" />
+		<s:Fade id="fadeIn" alphaFrom="0" alphaTo="1" duration="300" easer="{power}" target="{image}" />
+	</fx:Declarations>
+
+</s:Group>
+

@@ -78,10 +78,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="NewSlideshowView.as" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/startslideshowviews/NewSlideshowView.as">
+      <file leaf-file-name="SlideshowViewMediator.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/mediators/SlideshowViewMediator.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="165" column="83" selection-start="5019" selection-end="5019" vertical-scroll-proportion="0.6703911">
+            <state line="41" column="21" selection-start="1046" selection-end="1046" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SlideshowView.mxml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/views/SlideshowView.mxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="98" column="77" selection-start="2233" selection-end="2233" vertical-scroll-proportion="0.05068226">
+              <folding>
+                <marker date="1309639660000" expanded="true" signature="311:319" placeholder="{...}" />
+                <marker date="1309639660000" expanded="true" signature="694:781" placeholder="{...}" />
+                <marker date="1309639660000" expanded="true" signature="923:1004" placeholder="{...}" />
+                <marker date="1309639660000" expanded="true" signature="1146:1684" placeholder="{...}" />
+                <marker date="1309639660000" expanded="true" signature="1203:1527" placeholder="{...}" />
+                <marker date="1309639660000" expanded="true" signature="1404:1439" placeholder="{...}" />
+                <marker date="1309639660000" expanded="true" signature="1453:1490" placeholder="{...}" />
+                <marker date="1309639660000" expanded="true" signature="1557:1680" placeholder="{...}" />
+                <marker date="1309639660000" expanded="true" signature="1720:1755" placeholder="{...}" />
+                <marker date="1309639660000" expanded="true" signature="1809:1959" placeholder="{...}" />
+                <marker date="1309639660000" expanded="true" signature="1999:2188" placeholder="{...}" />
+                <marker date="1309639660000" expanded="true" signature="2232:2396" placeholder="{...}" />
+                <marker date="1309639660000" expanded="true" signature="2439:2548" placeholder="{...}" />
+                <marker date="1309639660000" expanded="true" signature="2473:2544" placeholder="{...}" />
+                <marker date="1309639660000" expanded="true" signature="2689:2704" placeholder="{...}" />
+                <marker date="1309639660000" expanded="true" signature="2886:2897" placeholder="{...}" />
+                <marker date="1309639660000" expanded="true" signature="3295:3309" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SlideshowView.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/SlideshowView.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="170" column="11" selection-start="3249" selection-end="3951" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -97,22 +133,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/commands/SetNameCommand.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/controls/SkinButton.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/MainContext.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/view/ConfirmPasscodeViewEvent.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/startslideshowviews/ConfirmPasscodeView.as" />
-        <option value="$PROJECT_DIR$/Crypto/src/crypto/Pad.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesLib/src/com/jxl/shareslides/crypto/AES.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/ShareSlidesMobileAS.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesLib/src/com/jxl/shareslides/vo/SlideshowVO.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesLib/src/com/jxl/shareslides/services/ImagesToSlideshowService.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/controller/StartSlideshowEvent.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/SlideshowView.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/view/SavedSlideshowItemRendererEvent.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/controls/SavedSlideshowItemRenderer.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/StartSlideshowView.as" />
-        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/startslideshowviews/NewSlideshowView.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/commands/AskIfClientNeedsSlideshowCommand.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/commands/AskIfClientNeedsSlideshowCommand.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/commands/ShareSlideshowWithClientCommand.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/models/NetworkModel.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/commands/ShareSlideshowWithClientCommand.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/models/NetworkModel.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/commands/ObjectAnnouncedCommand.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/models/SlideshowModel.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/events/view/MainViewEvent.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/mediators/MainViewMediator.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/events/model/SlideshowModelEvent.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/commands/JoinSlideshowCommand.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/mediators/SlideshowViewMediator.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/MainContext.as" />
+        <option value="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/views/MainView.mxml" />
+        <option value="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/views/SlideshowView.mxml" />
       </list>
     </option>
   </component>
@@ -281,96 +317,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mainviews" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="transferviews" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Shared-Map-Workspace" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ShareSlidesMobileAS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="shareslidesmobile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mainviews" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="startslideshowviews" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Shared-Map-Workspace" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ShareSlidesMobileAS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="shareslidesmobile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mainviews" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="joinviewclasses" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Shared-Map-Workspace" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ShareSlidesMobileAS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="shareslidesmobile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="rl" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -427,6 +373,332 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesMobileAS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shareslidesmobile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="events" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesMobileAS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shareslidesmobile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="events" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shareslides" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shareslides" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shareslides" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shareslides" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shareslides" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mediators" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shareslides" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="commands" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shareslides" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="events" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shareslides" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="events" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shareslides" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="events" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="styles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared-Map-Workspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShareSlidesClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -450,12 +722,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/commands" />
       <recent name="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/skins" />
       <recent name="$PROJECT_DIR$/DebugWindowv2/src" />
       <recent name="$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/controls" />
       <recent name="$PROJECT_DIR$/ShareSlidesMobileAS/libs" />
     </key>
     <key name="CreateActionScriptClassDialog.DESTINATION_PACKAGE_RECENT_KEY">
+      <recent name="com.jxl.shareslides.events.controller" />
       <recent name="com.jxl.shareslidesmobile.events.view" />
       <recent name="com.jxl.shareslidesmobile.rl.commands" />
       <recent name="com.jxl.shareslides.rl.commands" />
@@ -597,19 +871,19 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="829" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Robotlegs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24753867" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32348806" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32957748" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28672317" sideWeight="0.814346" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.51054853" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18565401" sideWeight="0.0" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5527426" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18565401" sideWeight="0.0" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -662,115 +936,148 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/commands/CreateSlideshowCommand.as">
+    <entry file="file://$PROJECT_DIR$/CocoonP2P/src/com/projectcocoon/p2p/vo/ObjectMetadataVO.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="35" selection-start="983" selection-end="983" vertical-scroll-proportion="0.75454545">
+        <state line="24" column="34" selection-start="475" selection-end="490" vertical-scroll-proportion="0.2914692">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/startslideshowviews/ConfirmPasscodeView.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/models/NetworkModel.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="106" selection-start="636" selection-end="636" vertical-scroll-proportion="-1.0181818">
+        <state line="187" column="13" selection-start="4834" selection-end="5559" vertical-scroll-proportion="0.9004425">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/view/StartSlideshowViewEvent.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/models/NetworkModel.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="670" selection-end="670" vertical-scroll-proportion="0.4827586">
+        <state line="125" column="9" selection-start="3885" selection-end="3885" vertical-scroll-proportion="0.9336283">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/controller/StartSlideshowEvent.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/commands/ShareSlideshowWithClientCommand.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="79" selection-start="247" selection-end="247" vertical-scroll-proportion="0.16363636">
+        <state line="29" column="71" selection-start="769" selection-end="787" vertical-scroll-proportion="0.53539824">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/services/DeleteSavedSlideshowServiceEvent.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/commands/ObjectAnnouncedCommand.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="28" selection-start="168" selection-end="168" vertical-scroll-proportion="0.15861027">
+        <state line="41" column="36" selection-start="1200" selection-end="1200" vertical-scroll-proportion="0.56363636">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/services/DeleteSavedSlideshowService.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/events/view/MainViewEvent.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="102" selection-start="725" selection-end="725" vertical-scroll-proportion="0.4481132">
+        <state line="24" column="23" selection-start="614" selection-end="614" vertical-scroll-proportion="0.6545454">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/commands/DeleteSavedSlideshowCommand.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/events/model/SlideshowModelEvent.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="32" selection-start="751" selection-end="751" vertical-scroll-proportion="0.5278592">
+        <state line="15" column="14" selection-start="430" selection-end="430" vertical-scroll-proportion="0.4245283">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/MainContext.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/mediators/ConnectionLightMediator.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="81" selection-start="5059" selection-end="5059" vertical-scroll-proportion="0.47408536">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/rl/mediators/StartSlideshowViewMediator.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/commands/JoinSlideshowCommand.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="31" selection-start="1363" selection-end="1382" vertical-scroll-proportion="0.114503816">
+        <state line="0" column="39" selection-start="39" selection-end="39" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MinimalComps/src/com/bit101/components/Component.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/mediators/MainViewMediator.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="367" column="28" selection-start="9304" selection-end="9304" vertical-scroll-proportion="0.34078214">
+        <state line="74" column="51" selection-start="2273" selection-end="2273" vertical-scroll-proportion="0.8454546">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/MobileView.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/models/SlideshowModel.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="27" selection-start="1997" selection-end="1997" vertical-scroll-proportion="0.33333334">
+        <state line="25" column="28" selection-start="639" selection-end="639" vertical-scroll-proportion="0.33272728">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/StartSlideshowView.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/views/MainView.mxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="150" column="31" selection-start="4552" selection-end="4552" vertical-scroll-proportion="0.44227007">
+        <state line="119" column="53" selection-start="3004" selection-end="3004" vertical-scroll-proportion="0.08174905">
+          <folding>
+            <marker date="1309639251000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1309639251000" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1309639251000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1309639251000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1309639251000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1309639251000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1309639251000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1309639251000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1309639251000" expanded="true" signature="-1:-1" placeholder="/*...*/" />
+            <marker date="1309639251000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1309639251000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1309639251000" expanded="true" signature="-1:-1" placeholder="/*...*/" />
+            <marker date="1309639251000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1309639251000" expanded="true" signature="-1:-1" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/MainContext.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="82" selection-start="2497" selection-end="2517" vertical-scroll-proportion="0.60335195">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/controls/SavedSlideshowItemRenderer.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/rl/mediators/SlideshowViewMediator.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="36" selection-start="1631" selection-end="1631" vertical-scroll-proportion="0.51955307">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/events/view/SavedSlideshowItemRendererEvent.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="8" selection-start="516" selection-end="516" vertical-scroll-proportion="0.46363637">
+        <state line="41" column="21" selection-start="1046" selection-end="1046" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/SlideshowView.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="107" column="32" selection-start="2731" selection-end="2731" vertical-scroll-proportion="0.18590999">
+        <state line="170" column="11" selection-start="3249" selection-end="3951" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShareSlidesMobileAS/src/com/jxl/shareslidesmobile/views/mainviews/startslideshowviews/NewSlideshowView.as">
+    <entry file="file://$PROJECT_DIR$/ShareSlidesClient/src/com/jxl/shareslides/views/SlideshowView.mxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="165" column="83" selection-start="5019" selection-end="5019" vertical-scroll-proportion="0.6703911">
-          <folding />
+        <state line="98" column="77" selection-start="2233" selection-end="2233" vertical-scroll-proportion="0.05068226">
+          <folding>
+            <marker date="1309639660000" expanded="true" signature="311:319" placeholder="{...}" />
+            <marker date="1309639660000" expanded="true" signature="694:781" placeholder="{...}" />
+            <marker date="1309639660000" expanded="true" signature="923:1004" placeholder="{...}" />
+            <marker date="1309639660000" expanded="true" signature="1146:1684" placeholder="{...}" />
+            <marker date="1309639660000" expanded="true" signature="1203:1527" placeholder="{...}" />
+            <marker date="1309639660000" expanded="true" signature="1404:1439" placeholder="{...}" />
+            <marker date="1309639660000" expanded="true" signature="1453:1490" placeholder="{...}" />
+            <marker date="1309639660000" expanded="true" signature="1557:1680" placeholder="{...}" />
+            <marker date="1309639660000" expanded="true" signature="1720:1755" placeholder="{...}" />
+            <marker date="1309639660000" expanded="true" signature="1809:1959" placeholder="{...}" />
+            <marker date="1309639660000" expanded="true" signature="1999:2188" placeholder="{...}" />
+            <marker date="1309639660000" expanded="true" signature="2232:2396" placeholder="{...}" />
+            <marker date="1309639660000" expanded="true" signature="2439:2548" placeholder="{...}" />
+            <marker date="1309639660000" expanded="true" signature="2473:2544" placeholder="{...}" />
+            <marker date="1309639660000" expanded="true" signature="2689:2704" placeholder="{...}" />
+            <marker date="1309639660000" expanded="true" signature="2886:2897" placeholder="{...}" />
+            <marker date="1309639660000" expanded="true" signature="3295:3309" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>

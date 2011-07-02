@@ -96,6 +96,34 @@ package com.jxl.shareslidesmobile.rl.models
 				
 			return false;
 		}
+
+		public function getSlideshowByName(slideshowName:String):SlideshowVO
+		{
+			if(localNetworkDiscovery.receivedObjects == null)
+				return null;
+
+			var len:int = localNetworkDiscovery.receivedObjects.length;
+			while(len--)
+			{
+				var om:ObjectMetadataVO = localNetworkDiscovery.receivedObjects.getItemAt(len) as ObjectMetadataVO;
+				if(om.info as String == slideshowName)
+				{
+					return om.object as SlideshowVO;
+				}
+			}
+
+			len = localNetworkDiscovery.sharedObjects.length;
+			while(len--)
+			{
+				var om:ObjectMetadataVO = localNetworkDiscovery.sharedObjects.getItemAt(len) as ObjectMetadataVO;
+				if(om.info as String == slideshowName)
+				{
+					return om.object as SlideshowVO;
+				}
+			}
+
+			return null;
+		}
 		
 		private function onGroupConnected(event:GroupEvent):void
 		{

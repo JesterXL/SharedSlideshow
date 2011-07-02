@@ -28,7 +28,7 @@ package com.jxl.shareslides.rl.commands
 		public override function execute():void
 		{
 			Debug.log("SaveSlideshowCommand::execute");
-			slideshowModel.saveSlideshow(event.slideshowName, event.slides);
+			slideshowModel.saveSlideshow(event.slideshowName, event.slides, event.passcode);
 		}
 	}
 }
