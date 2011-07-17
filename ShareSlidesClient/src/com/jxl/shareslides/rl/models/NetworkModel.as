@@ -55,6 +55,7 @@ package com.jxl.shareslides.rl.models
 			localNetworkDiscovery.addEventListener(ClientEvent.CLIENT_ADDED, onClientAdded);
 			localNetworkDiscovery.addEventListener(ClientEvent.CLIENT_UPDATE, onClientUpdated);
 			localNetworkDiscovery.addEventListener("receivedObjectsChange", onReceivedObjectsChange);
+			localNetworkDiscovery.addEventListener("sharedObjectsChange", onSharedObjectsChange);
 			localNetworkDiscovery.connect();
 		}
 
@@ -141,15 +142,30 @@ package com.jxl.shareslides.rl.models
 			dispatch(new NetworkModelEvent(NetworkModelEvent.RECEIVED_OBJECTS_CHANGE));
 		}
 
+		private function onSharedObjectsChange(event:Event):void
+		{
+			dispatch(new NetworkModelEvent(NetworkModelEvent.SHARED_OBJECTS_CHANGE));
+		}
+
 		public function containsSlideshow(slideshowName:String):Boolean
 		{
-			if(localNetworkDiscovery.receivedObjects == null)
+			if(localNetworkDiscovery.receivedObjects == null && localNetworkDiscovery.sharedObjects == null)
 				return false;
 
 			var len:int = localNetworkDiscovery.receivedObjects.length;
 			while(len--)
 			{
 				var om:ObjectMetadataVO = localNetworkDiscovery.receivedObjects.getItemAt(len) as ObjectMetadataVO;
+				if(om.info as String == slideshowName)
+				{
+					return true;
+				}
+			}
+
+			len = localNetworkDiscovery.sharedObjects.length;
+			while(len--)
+			{
+				var om:ObjectMetadataVO = localNetworkDiscovery.sharedObjects.getItemAt(len) as ObjectMetadataVO;
 				if(om.info as String == slideshowName)
 				{
 					return true;

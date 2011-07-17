@@ -4,7 +4,9 @@
 		  xmlns:mx="library://ns.adobe.com/flex/mx" 
 		  width="800" height="600"
 		  systemChrome="none"
-		  maximizable="false" 
+		  transparent="true"
+		  maximizable="false"
+		  showStatusBar="false"
 		  xmlns:views="com.jxl.shareslides.views.*"
 		  creationComplete="init()" xmlns:rl="com.jxl.shareslides.rl.*">
 	
@@ -23,5 +25,6 @@
 	</fx:Script>
 	
 	<views:MainView left="0" top="0" right="0" bottom="0" />
-	
+
+
 </s:Window>

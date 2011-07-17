@@ -1,9 +1,5 @@
 package com.jxl.shareslides.vo
 {
-	import crypto.AES;
-	import crypto.AESErrors;
-	import crypto.AESKey;
-
 	import flash.utils.ByteArray;
 
 	[Bindable]

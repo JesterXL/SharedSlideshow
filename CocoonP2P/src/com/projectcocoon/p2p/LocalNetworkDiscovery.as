@@ -502,6 +502,14 @@ package com.projectcocoon.p2p
 		private function share(value:Object, groupID:String, metadata:Object):void
 		{
 			var msg:MessageVO = getObjectManager().share(value, groupID, metadata);
+			// [jwarden 7.16.2011] BUG: adds the item to the sharedObjects twice
+			var len:int = sharedObjects.length;
+			while(len--)
+			{
+				var message:MessageVO = sharedObjects.getItemAt(len) as MessageVO;
+				if(message.sequenceId == msg.sequenceId)
+					return;
+			}
 			sharedObjects.addItem(msg.data); // add the ObjectMetadataVO to the list of shared Objects
 		}
 		

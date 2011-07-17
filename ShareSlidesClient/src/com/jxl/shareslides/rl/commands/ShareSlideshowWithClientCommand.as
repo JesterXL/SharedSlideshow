@@ -28,6 +28,7 @@ package com.jxl.shareslides.rl.commands
 			Debug.log("\tslideshow found by that name: " + slideshow);
 			if(slideshow)
 			{
+				// BUG/TODO/FIXME: this adds it to the sharedObjects twice
 				networkModel.localNetworkDiscovery.shareWithClient(slideshow, event.message.client.groupID, slideshow.name);
 			}
 		}

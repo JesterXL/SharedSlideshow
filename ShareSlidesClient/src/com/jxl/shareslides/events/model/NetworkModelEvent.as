@@ -12,6 +12,7 @@ package com.jxl.shareslides.events.model
 		public static const DISCONNECTED:String 							= "disconnected";
 		public static const CLIENTS_CHANGE:String 							= "clientsChange";
 		public static const RECEIVED_OBJECTS_CHANGE:String 					= "receivedObjectsChange";
+		public static const SHARED_OBJECTS_CHANGE:String 					= "sharedObjectsChange";
 
 		public static const CLIENT_ADDED:String 							= "clientAdded";
 		public static const CLIENT_UPDATE:String 							= "clientUpdate";

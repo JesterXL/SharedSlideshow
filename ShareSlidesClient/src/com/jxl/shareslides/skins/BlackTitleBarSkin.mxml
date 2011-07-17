@@ -47,6 +47,9 @@
         <s:State name="disabledAndMaximized" stateGroups="maximizedGroup" />
     </s:states>
 
+
+
+
 	
 	<skins:FlashSymbolContainer>
 		<local:TitleBarSymbol width="{width}" />

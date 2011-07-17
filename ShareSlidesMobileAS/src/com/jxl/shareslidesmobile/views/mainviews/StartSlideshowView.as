@@ -45,7 +45,7 @@ package com.jxl.shareslidesmobile.views.mainviews
 		private var headerBar:HeaderBar;
 		private var headerLabel:HeaderField;
 		private var editButton:Button;
-		private var plusButton:PlusButton;
+		private var startButton:Button;
 		private var header:TextHeader;
 		private var slideshowList:DraggableList;
 		private var newSlideshowView:NewSlideshowView;
@@ -101,7 +101,7 @@ package com.jxl.shareslidesmobile.views.mainviews
 			headerBar = new HeaderBar(this);
 			headerLabel = new HeaderField(this, "Slideshows");
 			editButton = new Button(this, "Edit", onToggleEditSlideshows);
-			plusButton = new PlusButton(this, onCreateNewSlideshow);
+			startButton = new Button(this, "Start", onCreateNewSlideshow);
 
 			header = new TextHeader();
 			addChild(header);
@@ -148,8 +148,8 @@ package com.jxl.shareslidesmobile.views.mainviews
 			headerLabel.x = (width / 2) - ((headerLabel.textWidth + 4) / 2);
 			headerLabel.y =  headerBar.y + (headerBar.height / 2) - (headerLabel.height / 2);
 
-			plusButton.x = (width - plusButton.width - 8);
-			plusButton.y = headerBar.y + (headerBar.height / 2) - (plusButton.height / 2);
+			startButton.x = (width - startButton.width - 8);
+			startButton.y = headerBar.y + (headerBar.height / 2) - (startButton.height / 2);
 
 			header.width = width;
 			header.y = headerBar.y + headerBar.height;
@@ -311,8 +311,8 @@ package com.jxl.shareslidesmobile.views.mainviews
 					if(editButton.parent == null)
 						addChild(editButton);
 
-					if(plusButton.parent == null)
-						addChild(plusButton);
+					if(startButton.parent == null)
+						addChild(startButton);
 
 					if(header.parent == null)
 						addChild(header);
@@ -377,8 +377,8 @@ package com.jxl.shareslidesmobile.views.mainviews
 					if(editButton.parent)
 						removeChild(editButton);
 
-					if(plusButton.parent)
-						removeChild(plusButton);
+					if(startButton.parent)
+						removeChild(startButton);
 
 					if(header.parent)
 						removeChild(header);

@@ -23,16 +23,43 @@
 			import com.projectcocoon.p2p.vo.ObjectMetadataVO;
 			
 			import mx.collections.ArrayCollection;
-			
+			import mx.events.CollectionEvent;
+
 			import spark.components.Window;
 			
 			
 			
 
-			
-			// channel.receivedObjects
+			private var _sharedSlideshows:ArrayCollection;
+			private var sharedSlideshowDirty:Boolean = false;
+
 			[Bindable]
-			public var slideshows:ArrayCollection;
+			public function get sharedSlideshows():ArrayCollection { return _sharedSlideshows; }
+			public function set sharedSlideshows(value:ArrayCollection):void
+			{
+				if(value)
+					Debug.debug("MainView::sharedSlideshows setter, value.length: " + value.length);
+
+				if(_sharedSlideshows)
+				{
+					_sharedSlideshows.removeEventListener(CollectionEvent.COLLECTION_CHANGE, onChange);
+				}
+				_sharedSlideshows = value;
+				if(_sharedSlideshows)
+				{
+					_sharedSlideshows.addEventListener(CollectionEvent.COLLECTION_CHANGE, onChange);
+				}
+				sharedSlideshowDirty = true;
+				invalidateProperties();
+			}
+
+			private function onChange(event:CollectionEvent):void
+			{
+				Debug.debug("onChange: " + _sharedSlideshows.length);
+			}
+
+			[Bindable]
+			public var otherSlideshows:ArrayCollection;
 			
 			// channel.clients
 			[Bindable]
@@ -135,8 +162,11 @@
 	
 	
 	<s:VGroup width="100%" height="100%" includeIn="choose">
-		<controls:TextHeader label="Slideshows" />
-		<controls:SlideshowList dataProvider="{slideshows}" 
+		<controls:TextHeader label="Shared Slideshows" />
+		<controls:SlideshowList dataProvider="{sharedSlideshows}"
+								joinSlideshow="onJoinSlideshow(event)"/>
+		<controls:TextHeader label="Other Slideshows" />
+		<controls:SlideshowList dataProvider="{otherSlideshows}"
 								joinSlideshow="onJoinSlideshow(event)"/>
 		<controls:TextHeader label="Connected Participants" />
 		<controls:PhoneList dataProvider="{clients}" />

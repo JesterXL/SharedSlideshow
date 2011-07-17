@@ -32,6 +32,7 @@ package com.jxl.shareslides.rl.mediators
 			addContextListener(NavigationEvent.NAVIGATION_CHANGE, onNavChange, NavigationEvent);
 			addContextListener(NetworkModelEvent.CLIENTS_CHANGE, onClientsChange, NetworkModelEvent);
 			addContextListener(NetworkModelEvent.RECEIVED_OBJECTS_CHANGE, onReceivedObjectsChange, NetworkModelEvent);
+			addContextListener(NetworkModelEvent.SHARED_OBJECTS_CHANGE, onSharedObjectsChange, NetworkModelEvent);
 			addContextListener(SlideshowModelEvent.SLIDESHOW_CREATED, onSlideshowCreated, SlideshowModelEvent);
 
 			addViewListener(MainViewEvent.JOIN_SLIDESHOW, onJoinSlideshow, MainViewEvent);
@@ -66,10 +67,15 @@ package com.jxl.shareslides.rl.mediators
 		{
 			mainView.clients = networkModel.localNetworkDiscovery.clients;
 		}
+
+		private function onSharedObjectsChange(event:NetworkModelEvent):void
+		{
+			mainView.sharedSlideshows = networkModel.localNetworkDiscovery.sharedObjects;
+		}
 		
 		private function onReceivedObjectsChange(event:NetworkModelEvent=null):void
 		{
-			mainView.slideshows = networkModel.localNetworkDiscovery.receivedObjects;
+			mainView.otherSlideshows = networkModel.localNetworkDiscovery.receivedObjects;
 		}
 
 		private function onJoinSlideshow(event:MainViewEvent):void
