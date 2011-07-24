@@ -122,14 +122,14 @@
 
 
 		<controls:PreviousSlideButton click="previousSlide()" left="8" verticalCenter="0" toolTip="Previous Slide" />
-		<s:Image id="image" source="{slideBytes}" left="88" top="66" right="88" bottom="66" />
+		<s:Image id="image" source="{slideBytes}" left="88" top="66" right="88" bottom="83" />
 		<controls:NextSlideButton click="nextSlide()" right="8" verticalCenter="0" toolTip="Next Slide"/>
-		<s:HGroup left="8" bottom="8" height="21" verticalAlign="middle" gap="8">
+		<s:HGroup left="8" bottom="8" height="71" verticalAlign="middle" gap="8">
 			<s:Label text="Slide {(currentSlide + 1)} of {slideshow.slideBytes.length}" paddingTop="2" />
 			<skins:FlashSymbolContainer width="1" height="18">
 				<local:DividerLineSymbol />
 			</skins:FlashSymbolContainer>
-			<controls:SyncCheckBox id="syncCheckBox" change="onSyncChange()" label="Sync With Host" toolTip="Keep checked to see the slide the host is currently on." />
+			<controls:SyncCheckBox id="syncCheckBox" selected="true" change="onSyncChange()" label="Sync With Host" toolTip="Keep checked to see the slide the host is currently on." />
 			<skins:FlashSymbolContainer width="1" height="18">
 				<local:DividerLineSymbol />
 			</skins:FlashSymbolContainer>

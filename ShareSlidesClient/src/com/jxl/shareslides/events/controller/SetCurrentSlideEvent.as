@@ -10,6 +10,7 @@ package com.jxl.shareslides.events.controller
 
 
 		public var currentSlide:int;
+		public var slideshowHash:String;
 
 		public function SetCurrentSlideEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = true)
 		{

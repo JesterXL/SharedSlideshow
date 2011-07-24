@@ -19,6 +19,8 @@ package com.jxl.shareslides.rl.mediators
 			super.onRegister();
 
 			addViewListener(CreateSlideshowViewEvent.SAVE_SLIDESHOW, onSaveSlideshow, CreateSlideshowViewEvent);
+
+			createSlideshowView.reset();
 		}
 
 		private function onSaveSlideshow(event:CreateSlideshowViewEvent):void

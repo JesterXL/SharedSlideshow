@@ -86,6 +86,7 @@ package com.jxl.shareslides.rl.models
 				case "setCurrentSlide":
 					var evt:SetCurrentSlideEvent = new SetCurrentSlideEvent(SetCurrentSlideEvent.HOST_UPDATED_CURRENT_SLIDE);
 					evt.currentSlide = event.message.data.currentSlide;
+					evt.slideshowHash = event.message.data.slideshowHash;
 					dispatch(evt);
 				break;
 

@@ -27,7 +27,7 @@ package com.jxl.shareslidesmobile.rl.commands
 			if(slideshowModel.slideshow && slideshowModel.slideshow.host)
 			{
 				slideshowModel.currentSlide = event.currentSlide;
-				networkModel.localNetworkDiscovery.sendMessageToAll({message: "setCurrentSlide", currentSlide: event.currentSlide});
+				networkModel.localNetworkDiscovery.sendMessageToAll({message: "setCurrentSlide", currentSlide: event.currentSlide, slideshowHash: slideshowModel.slideshowHash});
 			}
 		}
 	}

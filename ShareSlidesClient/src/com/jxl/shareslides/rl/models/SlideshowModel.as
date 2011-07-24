@@ -7,9 +7,12 @@
  */
 package com.jxl.shareslides.rl.models
 {
+	import com.adobe.crypto.MD5;
 	import com.jxl.shareslides.events.model.SlideshowModelEvent;
 	import com.jxl.shareslides.services.ImagesToSlideshowService;
 	import com.jxl.shareslides.vo.SlideshowVO;
+
+	import flash.utils.ByteArray;
 
 	import org.robotlegs.mvcs.Actor;
 
@@ -21,6 +24,7 @@ package com.jxl.shareslides.rl.models
 
 		private var _currentSlide:int;
 		private var _slideshow:SlideshowVO;
+		private var _slideshowHash:String;
 
 
 		public function get slideshow():SlideshowVO
@@ -30,9 +34,19 @@ package com.jxl.shareslides.rl.models
 
 		public function set slideshow(value:SlideshowVO):void
 		{
+			_slideshowHash = null;
 			_slideshow = value;
+			if(_slideshow)
+			{
+				var bytes:ByteArray = new ByteArray();
+				bytes.writeObject(_slideshow);
+				bytes.position = 0;
+				_slideshowHash = MD5.hashBinary(bytes);
+			}
 			dispatch(new SlideshowModelEvent(SlideshowModelEvent.CURRENT_SLIDE_CHANGED));
 		}
+
+		public function get slideshowHash():String { return _slideshowHash; }
 
 		public function get currentSlide():int
 		{

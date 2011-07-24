@@ -23,7 +23,7 @@
 <s:SparkButtonSkin xmlns:fx="http://ns.adobe.com/mxml/2009" 
                    xmlns:s="library://ns.adobe.com/flex/spark" 
                    xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
-                   width="21" height="21" 
+                   width="71" height="71"
                    alpha.disabledStates="0.5" xmlns:skins="com.jxl.shareslides.skins.*" xmlns:local="*">
 	<fx:Metadata>[HostComponent("com.jxl.shareslides.controls.FullScreenToggleButton")]</fx:Metadata>
     

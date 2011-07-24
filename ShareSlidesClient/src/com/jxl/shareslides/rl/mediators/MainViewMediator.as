@@ -60,7 +60,9 @@ package com.jxl.shareslides.rl.mediators
 
 		private function onSlideshowCreated(event:SlideshowModelEvent):void
 		{
-			mainView.gotoSection("Slideshows");
+			var evt:NavigationEvent 	= new NavigationEvent(NavigationEvent.NAVIGATION_CHANGE);
+			evt.location 				= "Slideshows"
+			dispatch(evt);
 		}
 
 		private function onClientsChange(event:NetworkModelEvent=null):void

@@ -34,7 +34,8 @@ package com.jxl.shareslides.rl.mediators
 
 		private function onUpdateCurrentSlide(event:SlideshowModelEvent=null):void
 		{
-		   view.currentSlide = slideshowModel.currentSlide;
+			if(view.syncCheckBox.selected)
+		   		view.currentSlide = slideshowModel.currentSlide;
 		}
 
 		private function onSlideshowChanged(event:SlideshowModelEvent=null):void

@@ -506,8 +506,11 @@ package com.projectcocoon.p2p
 			var len:int = sharedObjects.length;
 			while(len--)
 			{
-				var message:MessageVO = sharedObjects.getItemAt(len) as MessageVO;
-				if(message.sequenceId == msg.sequenceId)
+				var obj:Object = sharedObjects.getItemAt(len);
+				//var message:MessageVO = sharedObjects.getItemAt(len) as MessageVO;
+				//if(message.sequenceId == msg.sequenceId)
+				//	return;
+				if(obj == value)
 					return;
 			}
 			sharedObjects.addItem(msg.data); // add the ObjectMetadataVO to the list of shared Objects

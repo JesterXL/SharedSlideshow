@@ -1,8 +1,11 @@
 package com.jxl.shareslidesmobile.rl.models
 {
+	import com.adobe.crypto.MD5;
 	import com.jxl.shareslidesmobile.events.model.SlideshowModelEvent;
 	import com.jxl.shareslides.vo.SlideshowVO;
 	import com.projectcocoon.p2p.vo.ObjectMetadataVO;
+
+	import flash.utils.ByteArray;
 
 	import mx.collections.ArrayCollection;
 
@@ -15,13 +18,24 @@ package com.jxl.shareslidesmobile.rl.models
 		private var _host:Boolean = false;
 		private var _currentSlide:int;
 		private var _slideshows:ArrayCollection;
+		private var _slideshowHash:String;
 		
 		public function get slideshow():SlideshowVO { return _slideshow; }
 		public function set slideshow(value:SlideshowVO):void
 		{
+			_slideshowHash = null;
 			_slideshow = value;
+			if(_slideshow)
+			{
+				var bytes:ByteArray = new ByteArray();
+				bytes.writeObject(_slideshow);
+				bytes.position = 0;
+				_slideshowHash = MD5.hashBinary(bytes);
+			}
 			dispatch(new SlideshowModelEvent(SlideshowModelEvent.SLIDESHOW_CHANGED));
 		}
+
+		public function get slideshowHash():String { return _slideshowHash; }
 		
 		public function get currentSlide():int { return _currentSlide; }
 		public function set currentSlide(value:int):void

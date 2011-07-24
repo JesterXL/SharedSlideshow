@@ -5,6 +5,7 @@
 					   showStatusBar="false"
 					   visible="false"
 					   width="100%" height="100%"
+					   scriptTimeLimit="2"
 					   applicationComplete="init();">
 	
 	<fx:Style source="assets/styles/defaults.css" />

@@ -22,6 +22,7 @@ package com.jxl.shareslides.rl.mediators
 			super.onRegister();
 			
 			addViewListener(IndexChangeEvent.CHANGE, onIndexChange, IndexChangeEvent);
+			addContextListener(NavigationEvent.NAVIGATION_CHANGE, onNavigationChanged, NavigationEvent);
 		}
 		
 		private function onIndexChange(event:IndexChangeEvent):void
@@ -29,6 +30,11 @@ package com.jxl.shareslides.rl.mediators
 			var evt:NavigationEvent 	= new NavigationEvent(NavigationEvent.NAVIGATION_CHANGE);
 			evt.location 				= tabNavigationBar.selectedItem;
 			dispatch(evt);
+		}
+
+		private function onNavigationChanged(event:NavigationEvent):void
+		{
+			tabNavigationBar.selectedItem = event.location;
 		}
 	}
 }

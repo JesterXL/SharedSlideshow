@@ -9,7 +9,6 @@
 		<![CDATA[
 		import com.jxl.shareslides.events.view.CreateSlideshowViewEvent;
 		import com.jxl.shareslides.events.view.SlideItemRendererEvent;
-			import com.jxl.shareslides.services.ImagesToSlideshowService;
 			
 			import mx.collections.ArrayCollection;
 			
@@ -18,9 +17,16 @@
 			
 			[Bindable]
 			private var slides:ArrayCollection;
-			
-			private var slideshowService:ImagesToSlideshowService;
-			
+
+
+			public function reset():void
+			{
+				slides = null;
+				currentState = "main";
+				slideshowNameTextInput.text = "";
+				passcodeTextInput.text = "";
+			}
+
 			private function onBrowseForSlides():void
 			{
 				if(file == null)

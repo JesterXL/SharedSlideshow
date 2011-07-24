@@ -31,7 +31,7 @@ package
 		
 		private static var backLog:Array = [];
 		
-		public static var debugging:Boolean = true;
+		public static var debugging:Boolean = false;
 		
 		private var background:Sprite;
 		private var autoScrollCheckBox:CheckBox;

@@ -21,7 +21,8 @@ package com.jxl.shareslides.rl.commands
 
 		public override function execute():void
 		{
-			model.currentSlide = event.currentSlide;
+			if(model.slideshowHash == event.slideshowHash)
+				model.currentSlide = event.currentSlide;
 		}
 
 	}
