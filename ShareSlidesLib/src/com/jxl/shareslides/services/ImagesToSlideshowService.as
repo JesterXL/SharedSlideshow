@@ -11,14 +11,14 @@ package com.jxl.shareslides.services
 	import flash.filesystem.FileStream;
 	import flash.utils.ByteArray;
 	
-	import org.osflash.signals.Signal;
+	//import org.osflash.signals.Signal;
 	
 	public class ImagesToSlideshowService extends EventDispatcher
 	{
 		
 		public var slideshow:SlideshowVO;
 		
-		public var conversionCompleteSignal:Signal = new Signal();
+		//public var conversionCompleteSignal:Signal = new Signal();
 		
 		private var streams:Array;
 		private var currentFileStream:Object;
@@ -104,7 +104,7 @@ package com.jxl.shareslides.services
 		private function onCompletedLoadingFiles():void
 		{
 			Debug.log("ImagesToSlideshowService::onCompletedLoadingFiles");
-			this.conversionCompleteSignal.dispatch();
+			//this.conversionCompleteSignal.dispatch();
 		}
 	}
 }

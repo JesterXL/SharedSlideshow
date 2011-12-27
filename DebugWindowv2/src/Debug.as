@@ -31,7 +31,7 @@ package
 		
 		private static var backLog:Array = [];
 		
-		public static var debugging:Boolean = false;
+		public static var debugging:Boolean = true;
 		
 		private var background:Sprite;
 		private var autoScrollCheckBox:CheckBox;
@@ -111,6 +111,7 @@ package
 
 			if(backLog)
 			{
+				trace("backLog: " + backLog + ", len: " + backLog.length);
 				var len:int = backLog.length;
 				for(var index:uint = 0; index < len; index++)
 				{

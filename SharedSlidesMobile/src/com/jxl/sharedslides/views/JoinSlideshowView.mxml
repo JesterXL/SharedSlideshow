@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		title="Join Slideshow">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.jxl.sharedslides.events.view.JoinSlideshowViewEvent;
+			import com.projectcocoon.p2p.vo.ClientVO;
+			
+			import mx.collections.ArrayCollection;
+			
+			[Bindable]
+			public var participants:ArrayCollection;
+			
+			[Bindable]
+			public var slideshows:ArrayCollection;
+			
+			private function onChangeMyName():void
+			{
+				var evt:JoinSlideshowViewEvent 	= new JoinSlideshowViewEvent(JoinSlideshowViewEvent.CHANGE_NAME);
+				evt.name 						= usernameTextInput.text;
+				dispatchEvent(evt);
+			}
+			
+			private function getUserLabel(value:ClientVO):String
+			{
+				if (value.isLocal)
+				{
+					if(value.clientName == null || value.clientName == "")
+					{
+						return "(You)";
+					}
+					else
+					{
+						return value.clientName + " (You)";
+					}
+				}
+				
+				return value.clientName;
+			};
+			
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+	
+	<s:Label text="{'Connected Participants (' + participants.length + ')'}" />
+	
+	<s:List width="100%" height="50%" dataProvider="{participants}" labelFunction="getUserLabel" />
+	
+	<s:Label text="Joinnable Slideshows" />
+	
+	<s:List width="100%" height="50%" dataProvider="{slideshows}" />
+	
+	<s:TextInput text="Default User" id="usernameTextInput" />
+	<s:Button label="Change My Name" click="onChangeMyName()" />
+	
+	
+</s:View>
