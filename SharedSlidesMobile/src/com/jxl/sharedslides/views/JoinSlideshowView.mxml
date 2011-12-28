@@ -22,26 +22,27 @@
 			
 		]]>
 	</fx:Script>
-	
+	<!--
 	<s:states>
 		<s:State name="noSlideshows" />
 		<s:State name="slideshows" />
 	</s:states>
-	
+	-->
 	<s:layout>
 		<s:VerticalLayout />
 	</s:layout>
-	
+	<!--
 	<s:Group includeIn="noSlideshows" width="100%" height="100%">
 		<s:Label horizontalCenter="0" top="44">
 			<s:text>No slideshows shared yet.
 Looking for some...</s:text>
 		</s:Label>
 	</s:Group>
+	-->
 	
-	
-	<s:Label text="Joinnable Slideshows" includeIn="slideshows" />
-	<s:List width="100%" height="100%" dataProvider="{slideshows}" includeIn="slideshows" />
+	<s:Label text="Joinnable Slideshows" />
+	<s:List width="100%" height="100%" dataProvider="{slideshows}"
+			itemRenderer="com.jxl.sharedslides.controls.ReceivedSlideshowItemRenderer"/>
 	
 	<s:TextInput text="Default User" id="usernameTextInput" />
 	<s:Button label="Change My Name" click="onChangeMyName()" />

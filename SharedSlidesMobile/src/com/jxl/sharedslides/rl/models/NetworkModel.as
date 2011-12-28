@@ -9,8 +9,10 @@ package com.jxl.sharedslides.rl.models
 	import com.projectcocoon.p2p.events.ObjectEvent;
 	
 	import flash.events.Event;
+	import flash.utils.ByteArray;
 	
 	import mx.collections.ArrayCollection;
+	import mx.utils.SHA256;
 	
 	import org.robotlegs.mvcs.Actor;
 	
@@ -45,6 +47,11 @@ package com.jxl.sharedslides.rl.models
 		[Bindable(event="receivedObjectsChange")]
 		public function get receivedObjects():ArrayCollection { return localNetworkDiscovery.receivedObjects; }
 		
+		/*
+		[Bindable(event="nearIDChanged")]
+		public function get nearID():String { return localNetworkDiscovery.connection.nearID; }
+		*/
+		
 		public function NetworkModel()
 		{
 			super();
@@ -57,27 +64,24 @@ package com.jxl.sharedslides.rl.models
 			
 			localNetworkDiscovery.loopback = false;
 			localNetworkDiscovery.groupName = "com.jxl.shareslides";
-			//localNetworkDiscovery.addEventListener(GroupEvent.GROUP_CONNECTED, onGroupConnected);
-			localNetworkDiscovery.addEventListener("groupConnected", onGroupConnected);
+			localNetworkDiscovery.addEventListener(GroupEvent.GROUP_CONNECTED, onGroupConnected);
 			localNetworkDiscovery.addEventListener(GroupEvent.GROUP_CLOSED, onGroupClosed);
-			
-			//localNetworkDiscovery.addEventListener(ObjectEvent.OBJECT_ANNOUNCED, onObjectAnnounced);
-			
+			localNetworkDiscovery.addEventListener(ObjectEvent.OBJECT_ANNOUNCED, onObjectAnnounced);
+			localNetworkDiscovery.addEventListener(ObjectEvent.OBJECT_PROGRESS, onObjectProgress);
+			localNetworkDiscovery.addEventListener(ObjectEvent.OBJECT_COMPLETE, onObjectComplete);
 			localNetworkDiscovery.addEventListener("sharedObjectsChange", onSharedObjectsChanged);
 			//localNetworkDiscovery.addEventListener("receivedObjectsChange", onReceivedObjectsChanged);
 			//localNetworkDiscovery.addEventListener("clientsConnectedChange", onClientsConnectedChanged);
 			//localNetworkDiscovery.addEventListener("clientsChange", onClientsChanged);
-			
 			localNetworkDiscovery.addEventListener(ClientEvent.CLIENT_ADDED, onClientAdded);
 			localNetworkDiscovery.addEventListener(ClientEvent.CLIENT_UPDATE, onClientUpdate);
 			localNetworkDiscovery.addEventListener(ClientEvent.CLIENT_REMOVED, onClientRemoved);
-			
 			//localNetworkDiscovery.addEventListener(MessageEvent.DATA_RECEIVED, onMessageEvent);
 			
 			if(localNetworkDiscovery.clientName == "" || localNetworkDiscovery.clientName == null)
 				localNetworkDiscovery.clientName = "Default User";
 			
-			trace("NetworkModel::connect");
+			Debug.log("NetworkModel::connect");
 			localNetworkDiscovery.connect();
 		}
 		
@@ -89,6 +93,11 @@ package com.jxl.sharedslides.rl.models
 		
 		public function shareSlideshow(slideshow:SlideshowVO):void
 		{
+			var bytes:ByteArray = new ByteArray();
+			bytes.writeObject(slideshow);
+			var hash:String = SHA256.computeDigest(bytes);
+			slideshow.hash = hash;
+			Debug.debug("NetworkModel::shareSlideshow, hash: " + hash);
 			localNetworkDiscovery.shareWithAll(slideshow, slideshow.name);
 		}
 		
@@ -96,19 +105,41 @@ package com.jxl.sharedslides.rl.models
 		{
 			Debug.info("NetworkModel::onGroupConnected");
 			connected = true;
-			Debug.info("localNetworkDiscovery.clientName: " + localNetworkDiscovery.clientName);
+			Debug.info("localNetworkDiscovery.clientName: " + localNetworkDiscovery.clientName + ", nearID: " + localNetworkDiscovery.connection.nearID);
 			
 		}
 		
 		private function onGroupClosed(event:GroupEvent):void
 		{
-			Debug.error("NetworkModel::onGroupClosed");
+			Debug.info("NetworkModel::onGroupClosed");
 			connected = false;
+		}
+		
+		private function onObjectAnnounced(event:ObjectEvent):void
+		{
+			Debug.info("NetworkModel::onObjectAnnounced");
+			localNetworkDiscovery.requestObject(event.metadata);
+		}
+		
+		private function onObjectProgress(event:ObjectEvent):void
+		{
+			localNetworkDiscovery.receivedObjects.refresh();
+		}
+		
+		private function onObjectComplete(event:ObjectEvent):void
+		{
+			localNetworkDiscovery.receivedObjects.refresh();
+		}
+		
+		private function onSharedObjectsChanged(event:Event):void
+		{
+			Debug.info("NetworkModel::onSharedObjectsChanged");
+			dispatch(new Event("sharedObjectsChange"));
 		}
 		
 		private function onClientAdded(event:ClientEvent):void
 		{
-			Debug.log("NetworkModel::onClientAdded, event.client.clientName: " + event.client.clientName);
+			Debug.info("NetworkModel::onClientAdded, event.client.clientName: " + event.client.clientName);
 			if(event.client.isLocal)
 				return;
 			
@@ -139,11 +170,6 @@ package com.jxl.sharedslides.rl.models
 				return;
 			
 			dispatch(new Event("clientRemoved"));
-		}
-		
-		private function onSharedObjectsChanged(event:Event):void
-		{
-			dispatch(new Event("sharedObjectsChange"));
 		}
 	}
 }

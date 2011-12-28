@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:IconItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					xmlns:s="library://ns.adobe.com/flex/spark"  
+					labelFunction="slideshowLabelFunction"
+					iconFunction="slideshowIconFunction"
+					iconWidth="64" iconHeight="64" >
+	
+	<fx:Script>
+		<![CDATA[
+			import com.jxl.shareslides.vo.SlideshowVO;
+			import com.projectcocoon.p2p.vo.ObjectMetadataVO;
+			
+			import flash.debugger.enterDebugger;
+			
+			private function slideshowLabelFunction(obj:Object):String
+			{
+				if(obj == null)
+					return "";
+				
+				
+				if(obj is ObjectMetadataVO && obj.object != null)
+				{
+					var meta:ObjectMetadataVO = obj as ObjectMetadataVO;
+					var slideshow:SlideshowVO = meta.object as SlideshowVO;
+					if(slideshow == null)
+					{
+						return "Unknown Slideshow Name"
+					}
+					else
+					{
+						return slideshow.name;
+					}
+				}
+				else
+				{
+					return "???";
+				}
+			}
+			
+			private function slideshowIconFunction(obj:Object):Object
+			{
+				if(obj == null)
+					return null;
+				
+				if(obj is ObjectMetadataVO && obj.object != null)
+				{
+					var meta:ObjectMetadataVO = obj as ObjectMetadataVO;
+					var slideshow:SlideshowVO = meta.object as SlideshowVO;
+					if(slideshow == null)
+					{
+						if(slideshow.slideBytes && slideshow.slideBytes.length > 0)
+						{
+							return slideshow.slideBytes[0];
+						}
+						else
+						{
+							return null;
+						}
+					}
+					else
+					{
+						return null;
+					}
+				}
+				else
+				{
+					return null;
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+</s:IconItemRenderer>

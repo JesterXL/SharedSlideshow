@@ -23,11 +23,13 @@ package com.jxl.sharedslides.rl.mediators
 		
 		public override function onRegister():void
 		{
-			addContextListener("sharedObjectsChange", onUpdateState);
+			//addContextListener("sharedObjectsChange", onUpdateState);
 			
 			addViewListener(JoinSlideshowViewEvent.CHANGE_NAME, onChangeName, JoinSlideshowViewEvent);
 			
-			onUpdateState();
+			//onUpdateState();
+			
+			view.slideshows = model.receivedObjects;
 		}
 		
 		private function onChangeName(event:JoinSlideshowViewEvent):void
@@ -37,6 +39,7 @@ package com.jxl.sharedslides.rl.mediators
 		
 		private function onUpdateState(event:Event=null):void
 		{
+			/*
 			if(model.receivedObjects.length < 1)
 			{
 				view.currentState = "noSlideshows";
@@ -45,6 +48,7 @@ package com.jxl.sharedslides.rl.mediators
 			{
 				view.currentState = "slideshows";
 			}
+			*/
 		}
 	}
 }

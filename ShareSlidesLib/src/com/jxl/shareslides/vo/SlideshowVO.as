@@ -18,6 +18,9 @@ package com.jxl.shareslides.vo
 		[Transient]
 		public var edit:Boolean = false;
 		
+		[Transient]
+		public var hash:String;
+		
 		
 		public function SlideshowVO()
 		{

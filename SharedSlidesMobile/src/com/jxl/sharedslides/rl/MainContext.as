@@ -2,6 +2,7 @@ package com.jxl.sharedslides.rl
 {
 	import com.jxl.sharedslides.rl.mediators.BrowseForSlidesViewMediator;
 	import com.jxl.sharedslides.rl.mediators.JoinSlideshowViewMediator;
+	import com.jxl.sharedslides.rl.mediators.StartSlideshowViewMediator;
 	import com.jxl.sharedslides.rl.models.NetworkModel;
 	import com.jxl.sharedslides.views.JoinSlideshowView;
 	import com.jxl.sharedslides.views.StartSlideshowView;
@@ -29,6 +30,7 @@ package com.jxl.sharedslides.rl
 			injector.mapSingleton(NetworkModel);
 			
 			mediatorMap.mapView(JoinSlideshowView, JoinSlideshowViewMediator);
+			mediatorMap.mapView(StartSlideshowView, StartSlideshowViewMediator);
 			mediatorMap.mapView(BrowseForSlidesView, BrowseForSlidesViewMediator);
 		}
 	}

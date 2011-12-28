@@ -37,6 +37,7 @@
 	</s:layout>
 	
 	<s:Label text="Your Shared Slideshows" />
-	<s:List width="100%" height="100%" dataProvider="{yourSlideshows}" />
+	<s:List width="100%" height="100%" dataProvider="{yourSlideshows}"
+			itemRenderer="com.jxl.sharedslides.controls.SharedSlideshowItemRenderer"/>
 	
 </s:View>
