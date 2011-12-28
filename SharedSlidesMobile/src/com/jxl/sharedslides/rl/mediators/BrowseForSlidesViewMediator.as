@@ -6,6 +6,7 @@ package com.jxl.sharedslides.rl.mediators
 	import com.jxl.shareslides.services.ImagesToSlideshowService;
 	
 	import flash.events.Event;
+	import flash.utils.getTimer;
 	
 	import org.robotlegs.mvcs.Mediator;
 	
@@ -39,7 +40,7 @@ package com.jxl.sharedslides.rl.mediators
 		
 		private function onLoadingFilesComplete(event:Event):void
 		{
-			Debug.log("BrowseForSlidesViewMediator::onLoadingFilesComplete");
+			Debug.log(getTimer() + " BrowseForSlidesViewMediator::onLoadingFilesComplete");
 			view.onCreateSlideshowComplete();
 			model.shareSlideshow(service.slideshow);
 		}

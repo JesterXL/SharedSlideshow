@@ -3,7 +3,8 @@
 					xmlns:s="library://ns.adobe.com/flex/spark"  
 					labelFunction="slideshowLabelFunction"
 					iconFunction="slideshowIconFunction"
-					iconWidth="64" iconHeight="64" >
+					messageFunction="slideshowMessageFunction"
+					iconWidth="64" iconHeight="64" xmlns:controls="com.jxl.sharedslides.controls.*" >
 	
 	<fx:Script>
 		<![CDATA[
@@ -68,7 +69,65 @@
 				}
 			}
 			
+			/*
+			public override function set data(value:Object):void
+			{
+				super.data = value;
+				
+				if(value is ObjectMetadataVO)
+				{
+					var om:ObjectMetadataVO = value as ObjectMetadataVO;
+					if(om.isComplete == false || om.progress < 1)
+					{
+						progressBar.visible = true;
+						if(om.progress > 0)
+						{
+							progressBar.indeterminate = false;
+							progressBar.progress = om.progress;
+						}
+						return;
+					}
+					else
+					{
+						progressBar.visible = false;
+					}
+				}
+			}
+			*/
+			
+			private function slideshowMessageFunction(obj:Object):String
+			{
+				if(obj is ObjectMetadataVO)
+				{
+					var om:ObjectMetadataVO = obj as ObjectMetadataVO;
+					if(om.isComplete == false || om.progress < 1)
+					{
+						if(om.progress > 0)
+						{
+							return "Downloaded " + Math.round(om.progress * 100) + "%";
+						}
+						else
+						{
+							return "Waiting for transfer...";
+						}
+						return;
+					}
+					else
+					{
+						return "";
+					}
+				}
+				else
+				{
+					return "";
+				}
+			}
+			
 		]]>
 	</fx:Script>
+	
+	<!--
+	<controls:ProgressBar id="progressBar" indeterminate="true" />
+	-->
 	
 </s:IconItemRenderer>

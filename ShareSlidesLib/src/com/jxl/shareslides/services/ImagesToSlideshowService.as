@@ -16,7 +16,9 @@ package com.jxl.shareslides.services
 	import flash.geom.Matrix;
 	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
+	import flash.utils.getTimer;
 	
+	import mx.graphics.codec.JPEGEncoder;
 	import mx.graphics.codec.PNGEncoder;
 	
 	[Event(name="loadingFilesComplete", type="flash.events.Event")]
@@ -30,6 +32,7 @@ package com.jxl.shareslides.services
 		private var streams:Array;
 		private var currentLoader:Object;
 		private var png:PNGEncoder;
+		private var jpg:JPEGEncoder;
 		
 		public function ImagesToSlideshowService()
 		{
@@ -46,6 +49,9 @@ package com.jxl.shareslides.services
 			
 			if(png == null)
 				png = new PNGEncoder();
+			
+			if(jpg == null)
+				jpg = new JPEGEncoder();
 			
 			var len:int = slideshow.slides.length;
 			streams = [];
@@ -100,7 +106,8 @@ package com.jxl.shareslides.services
 		
 		private function onLoaderComplete(event:Event):void
 		{
-			Debug.log("ImagesToSlideshowService::onLoaderComplete");
+			Debug.log(getTimer() + " ImagesToSlideshowService::onLoaderComplete");
+			var st:int = getTimer();
 			var loader:Loader				= currentLoader.loader as Loader;
 			loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, onLoaderComplete);
 			loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onLoaderError);
@@ -127,12 +134,14 @@ package com.jxl.shareslides.services
 					}
 				}
 				
-				var bytes:ByteArray = png.encode(moddedBitmapData);
+				//var bytes:ByteArray = png.encode(moddedBitmapData);
+				var bytes:ByteArray = jpg.encode(moddedBitmapData);
 				slideshow.slideBytes.push(bytes);
 			}
-			
+			bitmap.bitmapData.dispose();
 			loader.unloadAndStop();
 			currentLoader = null;
+			Debug.log(getTimer() - st);
 			processNext();
 		}
 		
@@ -147,7 +156,7 @@ package com.jxl.shareslides.services
 		
 		private function onCompletedLoadingFiles():void
 		{
-			Debug.log("ImagesToSlideshowService::onCompletedLoadingFiles");
+			Debug.log(getTimer() + " ImagesToSlideshowService::onCompletedLoadingFiles");
 			dispatchEvent(new Event("loadingFilesComplete"));
 		}
 	}

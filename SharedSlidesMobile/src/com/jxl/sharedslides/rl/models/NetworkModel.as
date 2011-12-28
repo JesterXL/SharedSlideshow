@@ -10,6 +10,7 @@ package com.jxl.sharedslides.rl.models
 	
 	import flash.events.Event;
 	import flash.utils.ByteArray;
+	import flash.utils.getTimer;
 	
 	import mx.collections.ArrayCollection;
 	import mx.utils.SHA256;
@@ -93,12 +94,20 @@ package com.jxl.sharedslides.rl.models
 		
 		public function shareSlideshow(slideshow:SlideshowVO):void
 		{
+			Debug.debug(getTimer() + " NetworkModel::shareSlideshow");
 			var bytes:ByteArray = new ByteArray();
 			bytes.writeObject(slideshow);
+			Debug.debug(getTimer() + " write done at " + bytes.length + " bytes, computing digest...");
 			var hash:String = SHA256.computeDigest(bytes);
+			Debug.debug(getTimer() + " computing digest done, compressing...");
 			slideshow.hash = hash;
-			Debug.debug("NetworkModel::shareSlideshow, hash: " + hash);
+			bytes.position = 0;
+			bytes.compress();
+			Debug.debug(getTimer() + " compression done at " + bytes.length + " bytes.");
+			Debug.debug(getTimer() + " hash: " + hash);
+			Debug.debug(getTimer() + " sharing with all...");
 			localNetworkDiscovery.shareWithAll(slideshow, slideshow.name);
+			Debug.debug(getTimer() + " done sharing with all.");
 		}
 		
 		private function onGroupConnected(event:GroupEvent):void
