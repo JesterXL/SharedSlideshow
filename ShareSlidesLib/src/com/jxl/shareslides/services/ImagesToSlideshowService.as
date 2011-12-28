@@ -2,6 +2,10 @@ package com.jxl.shareslides.services
 {
 	import com.jxl.shareslides.vo.SlideshowVO;
 	
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
+	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
@@ -9,19 +13,23 @@ package com.jxl.shareslides.services
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
+	import flash.geom.Matrix;
+	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
 	
-	//import org.osflash.signals.Signal;
+	import mx.graphics.codec.PNGEncoder;
 	
+	[Event(name="loadingFilesComplete", type="flash.events.Event")]
 	public class ImagesToSlideshowService extends EventDispatcher
 	{
+		private static const MAX_WIDTH:Number = 640;
+		private static const MAX_HEIGHT:Number = 480;
 		
 		public var slideshow:SlideshowVO;
 		
-		//public var conversionCompleteSignal:Signal = new Signal();
-		
 		private var streams:Array;
-		private var currentFileStream:Object;
+		private var currentLoader:Object;
+		private var png:PNGEncoder;
 		
 		public function ImagesToSlideshowService()
 		{
@@ -36,13 +44,16 @@ package com.jxl.shareslides.services
 			slideshow.slides							= files;
 			slideshow.passcode							= passcode;
 			
+			if(png == null)
+				png = new PNGEncoder();
+			
 			var len:int = slideshow.slides.length;
 			streams = [];
 			for(var index:int = 0; index < len; index++)
 			{
 				var file:File = slideshow.slides[index] as File;
-				var stream:FileStream = new FileStream();
-				streams.push({stream: stream, file: file});
+				var loader:Loader = new Loader();
+				streams.push({loader: loader, file: file});
 			}
 			processNext();
 		}
@@ -50,11 +61,11 @@ package com.jxl.shareslides.services
 		private function processNext():void
 		{
 			Debug.log("ImagesToSlideshowService::processNext");
-			if(currentFileStream == null)
+			if(currentLoader == null)
 			{
 				if(streams && streams.length > 0)
 				{
-					currentFileStream = streams.shift();
+					currentLoader = streams.shift();
 					processCurrent();
 				}
 				else
@@ -67,12 +78,12 @@ package com.jxl.shareslides.services
 		private function processCurrent():void
 		{
 			Debug.log("ImagesToSlideshowService::processCurrent");
-			if(currentFileStream)
+			if(currentLoader)
 			{
-				var stream:FileStream = currentFileStream.stream as FileStream;
-				stream.addEventListener(IOErrorEvent.IO_ERROR, onFileStreamError);
-				stream.addEventListener(Event.COMPLETE, onFileStreamComplete);
-				stream.openAsync(currentFileStream.file, FileMode.READ);
+				var loader:Loader = currentLoader.loader as Loader;
+				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaderComplete);
+				loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onLoaderError);
+				loader.load(new URLRequest(currentLoader.file.url));
 			}
 			else
 			{
@@ -80,31 +91,64 @@ package com.jxl.shareslides.services
 			}
 		}
 		
-		private function onFileStreamError(event:IOErrorEvent):void
+		private function onLoaderError(event:IOErrorEvent):void
 		{
-			Debug.error("ImagesToSlideshowService::onFileStreamError: " + event);
-			currentFileStream = null;
+			Debug.error("ImagesToSlideshowService::onLoaderError: " + event);
+			currentLoader = null;
 			processNext();
 		}
 		
-		private function onFileStreamComplete(event:Event):void
+		private function onLoaderComplete(event:Event):void
 		{
-			Debug.log("ImagesToSlideshowService::onFileStreamComplete");
-			var stream:FileStream 		= currentFileStream.stream as FileStream;
-			stream.removeEventListener(IOErrorEvent.IO_ERROR, onFileStreamError);
-			stream.removeEventListener(Event.COMPLETE, onFileStreamComplete);
-			var file:File 				= currentFileStream.file as File;
-			var bytes:ByteArray 		= new ByteArray();
-			stream.readBytes(bytes);
-			slideshow.slideBytes.push(bytes);
-			currentFileStream = null;
+			Debug.log("ImagesToSlideshowService::onLoaderComplete");
+			var loader:Loader				= currentLoader.loader as Loader;
+			loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, onLoaderComplete);
+			loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onLoaderError);
+			var bitmap:Bitmap 				= loader.content as Bitmap;
+			var moddedBitmapData:BitmapData = bitmap.bitmapData;
+			var aspect:Number;
+			if(bitmap)
+			{
+				if(bitmap.bitmapData.width > MAX_WIDTH || bitmap.bitmapData.height > MAX_HEIGHT)
+				{
+					if(bitmap.bitmapData.width > bitmap.bitmapData.height)
+					{
+						aspect = bitmap.bitmapData.width / MAX_WIDTH;
+						moddedBitmapData = scaleBitmap(bitmap, MAX_WIDTH, Math.round(bitmap.bitmapData.height * aspect));
+					}
+					else if(bitmap.bitmapData.height > bitmap.bitmapData.width)
+					{
+						aspect = bitmap.bitmapData.height / MAX_HEIGHT;
+						moddedBitmapData = scaleBitmap(bitmap, Math.round(bitmap.bitmapData.width * aspect), MAX_HEIGHT);
+					}
+					else
+					{
+						moddedBitmapData = scaleBitmap(bitmap, MAX_WIDTH, MAX_HEIGHT);
+					}
+				}
+				
+				var bytes:ByteArray = png.encode(moddedBitmapData);
+				slideshow.slideBytes.push(bytes);
+			}
+			
+			loader.unloadAndStop();
+			currentLoader = null;
 			processNext();
+		}
+		
+		private function scaleBitmap(source:DisplayObject, thumbWidth:Number, thumbHeight:Number):BitmapData
+		{
+			var mat:Matrix = new Matrix();
+			mat.scale(thumbWidth / source.width, thumbHeight / source.height);
+			var bitmapData:BitmapData = new BitmapData(thumbWidth, thumbHeight, false);
+			bitmapData.draw(source, mat, null, null, null, true);
+			return bitmapData;
 		}
 		
 		private function onCompletedLoadingFiles():void
 		{
 			Debug.log("ImagesToSlideshowService::onCompletedLoadingFiles");
-			//this.conversionCompleteSignal.dispatch();
+			dispatchEvent(new Event("loadingFilesComplete"));
 		}
 	}
 }

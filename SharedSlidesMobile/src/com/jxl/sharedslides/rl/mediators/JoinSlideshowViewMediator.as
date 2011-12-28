@@ -1,4 +1,4 @@
-package com.jxl.sharedslides.rl
+package com.jxl.sharedslides.rl.mediators
 {
 	import com.jxl.sharedslides.events.view.JoinSlideshowViewEvent;
 	import com.jxl.sharedslides.rl.models.NetworkModel;
@@ -23,23 +23,28 @@ package com.jxl.sharedslides.rl
 		
 		public override function onRegister():void
 		{
-			//addContextListener("clientAdded", onClientsUpdate);
-			//addContextListener("clientUpdate", onClientsUpdate);
-			//addContextListener("clientRemoved", onClientsUpdate);
+			addContextListener("sharedObjectsChange", onUpdateState);
 			
 			addViewListener(JoinSlideshowViewEvent.CHANGE_NAME, onChangeName, JoinSlideshowViewEvent);
 			
-			view.participants = model.clients;
+			onUpdateState();
 		}
-		
-		//private function onClientsUpdate(event:Event):void
-		//{
-		//	view.participants = model.clients;
-		//}
 		
 		private function onChangeName(event:JoinSlideshowViewEvent):void
 		{
 			model.changeName(event.name);
+		}
+		
+		private function onUpdateState(event:Event=null):void
+		{
+			if(model.receivedObjects.length < 1)
+			{
+				view.currentState = "noSlideshows";
+			}
+			else
+			{
+				view.currentState = "slideshows";
+			}
 		}
 	}
 }

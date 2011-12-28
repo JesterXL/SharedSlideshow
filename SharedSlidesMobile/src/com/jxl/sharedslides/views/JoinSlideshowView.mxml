@@ -11,9 +11,6 @@
 			import mx.collections.ArrayCollection;
 			
 			[Bindable]
-			public var participants:ArrayCollection;
-			
-			[Bindable]
 			public var slideshows:ArrayCollection;
 			
 			private function onChangeMyName():void
@@ -23,37 +20,28 @@
 				dispatchEvent(evt);
 			}
 			
-			private function getUserLabel(value:ClientVO):String
-			{
-				if (value.isLocal)
-				{
-					if(value.clientName == null || value.clientName == "")
-					{
-						return "(You)";
-					}
-					else
-					{
-						return value.clientName + " (You)";
-					}
-				}
-				
-				return value.clientName;
-			};
-			
 		]]>
 	</fx:Script>
+	
+	<s:states>
+		<s:State name="noSlideshows" />
+		<s:State name="slideshows" />
+	</s:states>
 	
 	<s:layout>
 		<s:VerticalLayout />
 	</s:layout>
 	
-	<s:Label text="{'Connected Participants (' + participants.length + ')'}" />
+	<s:Group includeIn="noSlideshows" width="100%" height="100%">
+		<s:Label horizontalCenter="0" top="44">
+			<s:text>No slideshows shared yet.
+Looking for some...</s:text>
+		</s:Label>
+	</s:Group>
 	
-	<s:List width="100%" height="50%" dataProvider="{participants}" labelFunction="getUserLabel" />
 	
-	<s:Label text="Joinnable Slideshows" />
-	
-	<s:List width="100%" height="50%" dataProvider="{slideshows}" />
+	<s:Label text="Joinnable Slideshows" includeIn="slideshows" />
+	<s:List width="100%" height="100%" dataProvider="{slideshows}" includeIn="slideshows" />
 	
 	<s:TextInput text="Default User" id="usernameTextInput" />
 	<s:Button label="Change My Name" click="onChangeMyName()" />

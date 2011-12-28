@@ -1,6 +1,7 @@
 package com.jxl.sharedslides.rl.models
 {
 	import com.jxl.sharedslides.events.model.NetworkModelEvent;
+	import com.jxl.shareslides.vo.SlideshowVO;
 	import com.projectcocoon.p2p.LocalNetworkDiscovery;
 	import com.projectcocoon.p2p.events.ClientEvent;
 	import com.projectcocoon.p2p.events.GroupEvent;
@@ -38,6 +39,12 @@ package com.jxl.sharedslides.rl.models
 		[Bindable(event="clientsChange")]
 		public function get clients():ArrayCollection { return localNetworkDiscovery.clients; }
 		
+		[Bindable(event="sharedObjectsChange")]
+		public function get sharedObjects():ArrayCollection { return localNetworkDiscovery.sharedObjects; }
+		
+		[Bindable(event="receivedObjectsChange")]
+		public function get receivedObjects():ArrayCollection { return localNetworkDiscovery.receivedObjects; }
+		
 		public function NetworkModel()
 		{
 			super();
@@ -56,7 +63,7 @@ package com.jxl.sharedslides.rl.models
 			
 			//localNetworkDiscovery.addEventListener(ObjectEvent.OBJECT_ANNOUNCED, onObjectAnnounced);
 			
-			//localNetworkDiscovery.addEventListener("sharedObjectsChange", onSharedObjectsChanged);
+			localNetworkDiscovery.addEventListener("sharedObjectsChange", onSharedObjectsChanged);
 			//localNetworkDiscovery.addEventListener("receivedObjectsChange", onReceivedObjectsChanged);
 			//localNetworkDiscovery.addEventListener("clientsConnectedChange", onClientsConnectedChanged);
 			//localNetworkDiscovery.addEventListener("clientsChange", onClientsChanged);
@@ -80,7 +87,10 @@ package com.jxl.sharedslides.rl.models
 				localNetworkDiscovery.clientName = name;
 		}
 		
-		
+		public function shareSlideshow(slideshow:SlideshowVO):void
+		{
+			localNetworkDiscovery.shareWithAll(slideshow, slideshow.name);
+		}
 		
 		private function onGroupConnected(event:GroupEvent):void
 		{
@@ -129,6 +139,11 @@ package com.jxl.sharedslides.rl.models
 				return;
 			
 			dispatch(new Event("clientRemoved"));
+		}
+		
+		private function onSharedObjectsChanged(event:Event):void
+		{
+			dispatch(new Event("sharedObjectsChange"));
 		}
 	}
 }
