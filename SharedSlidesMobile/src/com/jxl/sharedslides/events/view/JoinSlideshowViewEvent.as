@@ -1,5 +1,7 @@
 package com.jxl.sharedslides.events.view
 {
+	import com.projectcocoon.p2p.vo.ObjectMetadataVO;
+	
 	import flash.events.Event;
 	
 	public class JoinSlideshowViewEvent extends Event

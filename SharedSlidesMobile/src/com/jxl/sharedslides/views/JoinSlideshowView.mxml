@@ -6,7 +6,10 @@
 	<fx:Script>
 		<![CDATA[
 			import com.jxl.sharedslides.events.view.JoinSlideshowViewEvent;
+			import com.jxl.sharedslides.views.joinslideshowviews.ConfirmJoinSlideshowView;
+			import com.jxl.shareslides.vo.SlideshowVO;
 			import com.projectcocoon.p2p.vo.ClientVO;
+			import com.projectcocoon.p2p.vo.ObjectMetadataVO;
 			
 			import mx.collections.ArrayCollection;
 			
@@ -18,6 +21,14 @@
 				var evt:JoinSlideshowViewEvent 	= new JoinSlideshowViewEvent(JoinSlideshowViewEvent.CHANGE_NAME);
 				evt.name 						= usernameTextInput.text;
 				dispatchEvent(evt);
+			}
+			
+			private function onChange():void
+			{
+				var om:ObjectMetadataVO = slideshowsList.selectedItem as ObjectMetadataVO;
+				if(om && om.isComplete && om.object && om.object is SlideshowVO)
+					navigator.pushView(ConfirmJoinSlideshowView, om);
+				
 			}
 			
 		]]>
@@ -41,8 +52,11 @@ Looking for some...</s:text>
 	-->
 	
 	<s:Label text="Joinnable Slideshows" />
-	<s:List width="100%" height="100%" dataProvider="{slideshows}"
-			itemRenderer="com.jxl.sharedslides.controls.ReceivedSlideshowItemRenderer"/>
+	<s:List width="100%" height="100%"
+			id="slideshowsList"
+			dataProvider="{slideshows}"
+			itemRenderer="com.jxl.sharedslides.controls.ReceivedSlideshowItemRenderer"
+			change="onChange()"/>
 	
 	<s:TextInput text="Default User" id="usernameTextInput" />
 	<s:Button label="Change My Name" click="onChangeMyName()" />

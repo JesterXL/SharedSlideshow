@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		title="{slideshow.name}">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.jxl.shareslides.vo.SlideshowVO;
+			import com.projectcocoon.p2p.vo.ObjectMetadataVO;
+			
+			
+			[Bindable]
+			public var currentImage:*;
+			
+			[Bindable]
+			public function get currentIndex():int { return _currentIndex; }
+			public function set currentIndex(value:int):void
+			{
+				if(value !== _currentIndex)
+				{
+					_currentIndex = value;
+					slidesDirty = true;
+					invalidateProperties();
+				}
+			}
+			
+			[Bindable]
+			public var currentSlideText:String = "";
+			
+			[Bindable]
+			public var syncToHost:Boolean = true;
+			
+			[Bindable]
+			private var slideshow:SlideshowVO;
+			private var _currentIndex:int = 0;
+			private var slidesDirty:Boolean = false;
+			
+			[Bindable]
+			public var host:Boolean = false;
+			
+			public override function set data(value:Object):void
+			{
+				if(value !== super.data)
+				{
+					super.data = value;
+					
+					if(navigator.context == "host")
+					{
+						host = true;
+					}
+					else
+					{
+						host = false;
+					}
+					
+					if(value && value is ObjectMetadataVO && value.object && value.object is SlideshowVO)
+					{
+						var om:ObjectMetadataVO = value as ObjectMetadataVO;
+						slideshow = om.object as SlideshowVO;
+						currentIndex = 0;
+					}
+					else
+					{
+						slideshow = null;
+						currentImage = null;
+						currentSlideText = "--";
+					}
+					slidesDirty = true;
+					invalidateProperties();
+				}
+			}
+			
+			protected override function commitProperties():void
+			{
+				super.commitProperties();
+				
+				if(slidesDirty)
+				{
+					slidesDirty = false;
+					if(currentIndex < 0)
+					{
+						currentImage = null;
+						currentSlideText = "--";
+					}
+					else if(slideshow && slideshow.slideBytes && slideshow.slideBytes.length > 0)
+					{
+						currentImage = slideshow.slideBytes[currentIndex];
+						currentSlideText = "Slide " + (currentIndex + 1) + " of " + slideshow.slideBytes.length;
+					}
+				}
+			}
+			
+			private function onToggleSyncToHost():void
+			{
+				syncToHost = syncToHostCheckbox.selected;
+				dispatchEvent(new Event("syncToHostChanged"));
+			}
+			
+			private function onGestureSwipe(event:TransformGestureEvent):void
+			{
+				if(event.offsetX == -1)
+				{
+					if(slideshow && slideshow.slideBytes && isNaN(currentIndex) == false && currentIndex + 1 < slideshow.slideBytes.length)
+					{
+						currentIndex++;
+						if(host)
+							dispatchEvent(new Event("currentIndexChanged"));
+					}
+				}
+				else if(event.offsetX == 1)
+				{
+					if(slideshow && slideshow.slideBytes && isNaN(currentIndex) == false && currentIndex - 1 > -1)
+					{
+						currentIndex--;
+						if(host)
+							dispatchEvent(new Event("currentIndexChanged"));
+					}
+				}
+			}
+			
+			private function onBack():void
+			{
+				navigator.popToFirstView();
+				
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<s:actionContent>
+		<s:Button label="&lt;&lt; Back" click="onBack()" />
+	</s:actionContent>
+	
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+	
+	<s:Image width="100%" height="100%"
+			 source="{currentImage}"
+			 scaleMode="letterbox"
+			 gestureSwipe="onGestureSwipe(event)"
+			 showEffect="fadeIn"/>
+	<s:Label horizontalCenter="0" text="{currentSlideText}" />
+	<s:CheckBox id="syncToHostCheckbox" 
+				enabled="{slideshow != null}" 
+				label="Sync To Host" selected="{syncToHost}" 
+				change="onToggleSyncToHost()"
+				visible="{host == false}"/>
+	
+	<fx:Declarations>
+		<s:Fade id="fadeIn" alphaFrom="0" alphaTo="1" duration="300" />
+	</fx:Declarations>
+	
+</s:View>

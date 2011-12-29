@@ -2,10 +2,12 @@ package com.jxl.sharedslides.rl
 {
 	import com.jxl.sharedslides.rl.mediators.BrowseForSlidesViewMediator;
 	import com.jxl.sharedslides.rl.mediators.JoinSlideshowViewMediator;
+	import com.jxl.sharedslides.rl.mediators.SlideshowViewMediator;
 	import com.jxl.sharedslides.rl.mediators.StartSlideshowViewMediator;
 	import com.jxl.sharedslides.rl.models.NetworkModel;
 	import com.jxl.sharedslides.views.JoinSlideshowView;
 	import com.jxl.sharedslides.views.StartSlideshowView;
+	import com.jxl.sharedslides.views.joinslideshowviews.SlideshowView;
 	import com.jxl.sharedslides.views.startslideshowviews.BrowseForSlidesView;
 	import com.jxl.shareslides.services.ImagesToSlideshowService;
 	import com.projectcocoon.p2p.LocalNetworkDiscovery;
@@ -32,6 +34,7 @@ package com.jxl.sharedslides.rl
 			mediatorMap.mapView(JoinSlideshowView, JoinSlideshowViewMediator);
 			mediatorMap.mapView(StartSlideshowView, StartSlideshowViewMediator);
 			mediatorMap.mapView(BrowseForSlidesView, BrowseForSlidesViewMediator);
+			mediatorMap.mapView(SlideshowView, SlideshowViewMediator);
 		}
 	}
 }

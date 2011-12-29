@@ -15,6 +15,7 @@ package com.jxl.shareslides.services
 	import flash.filesystem.FileStream;
 	import flash.geom.Matrix;
 	import flash.net.URLRequest;
+	import flash.net.dns.AAAARecord;
 	import flash.utils.ByteArray;
 	import flash.utils.getTimer;
 	
@@ -114,35 +115,66 @@ package com.jxl.shareslides.services
 			var bitmap:Bitmap 				= loader.content as Bitmap;
 			var moddedBitmapData:BitmapData = bitmap.bitmapData;
 			var aspect:Number;
+			var bytes:ByteArray;
 			if(bitmap)
 			{
 				if(bitmap.bitmapData.width > MAX_WIDTH || bitmap.bitmapData.height > MAX_HEIGHT)
 				{
+					Debug.log("Bitmap is too big, resizing");
 					if(bitmap.bitmapData.width > bitmap.bitmapData.height)
 					{
 						aspect = bitmap.bitmapData.width / MAX_WIDTH;
-						moddedBitmapData = scaleBitmap(bitmap, MAX_WIDTH, Math.round(bitmap.bitmapData.height * aspect));
+						moddedBitmapData = scaleBitmap(bitmap, MAX_WIDTH, Math.round(bitmap.bitmapData.height / aspect));
 					}
 					else if(bitmap.bitmapData.height > bitmap.bitmapData.width)
 					{
 						aspect = bitmap.bitmapData.height / MAX_HEIGHT;
-						moddedBitmapData = scaleBitmap(bitmap, Math.round(bitmap.bitmapData.width * aspect), MAX_HEIGHT);
+						moddedBitmapData = scaleBitmap(bitmap, Math.round(bitmap.bitmapData.width / aspect), MAX_HEIGHT);
 					}
 					else
 					{
 						moddedBitmapData = scaleBitmap(bitmap, MAX_WIDTH, MAX_HEIGHT);
 					}
+					//bytes = png.encode(moddedBitmapData);
+					bytes = jpg.encode(moddedBitmapData);
+					slideshow.slideBytes.push(bytes);
+				}
+				else
+				{
+					Debug.log("Bitmap is within size requirements.");
+					//slideshow.slideBytes.push(loader.contentLoaderInfo.bytes);
+					
+					//var bytes:ByteArray = jpg.encode(moddedBitmapData);
+					//slideshow.slideBytes.push(bytes);
+					
+					var stream:FileStream = new FileStream();
+					stream.addEventListener(IOErrorEvent.IO_ERROR, onStreamError, false, 0, true);
+					try
+					{
+						stream.open(currentLoader.file,  FileMode.READ);
+						bytes = new ByteArray();
+						stream.readBytes(bytes);
+						stream.close();
+						stream.removeEventListener(IOErrorEvent.IO_ERROR, onStreamError);
+						slideshow.slideBytes.push(bytes);
+					}
+					catch(err:Error)
+					{
+						Debug.error("ImagesToSlideshowService::onLoaderComplete, read error: " + err);
+					}
 				}
 				
-				//var bytes:ByteArray = png.encode(moddedBitmapData);
-				var bytes:ByteArray = jpg.encode(moddedBitmapData);
-				slideshow.slideBytes.push(bytes);
 			}
 			bitmap.bitmapData.dispose();
 			loader.unloadAndStop();
 			currentLoader = null;
 			Debug.log(getTimer() - st);
 			processNext();
+		}
+		
+		private function onStreamError(event:IOErrorEvent):void
+		{
+			Debug.error("ImagesToSlideshowService::onStreamError, read error: " + event);
 		}
 		
 		private function scaleBitmap(source:DisplayObject, thumbWidth:Number, thumbHeight:Number):BitmapData

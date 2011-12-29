@@ -10,6 +10,8 @@ package com.jxl.sharedslides.events.model
 	{
 		public static const GROUP_CONNECTED:String = "groupConnected";
 		public static const GROUP_DISCONNECTED:String = "groupDisconnected";
+		public static const HOST_CURRENT_SLIDE_INDEX_CHANGED:String = "hostCurrentSlideIndexChanged";
+		
 		/*
 		public static const CLIENTS_CONNECTED_CHANGED:String = "clientsConnectedChanged";
 		public static const CLIENTS_CHANGED:String = "clientsChanged";

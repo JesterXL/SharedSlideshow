@@ -1,6 +1,8 @@
 package com.jxl.shareslides.vo
 {
 	import flash.utils.ByteArray;
+	
+	import mx.utils.SHA256;
 
 	[Bindable]
 	public class SlideshowVO
@@ -35,6 +37,17 @@ package com.jxl.shareslides.vo
 				return false;
 
 			return true;
+		}
+		
+		[Transient]
+		public function updateHashIfNeeded():void
+		{
+			if(hash == null || hash == "")
+			{
+				var bytes:ByteArray = new ByteArray();
+				bytes.writeObject(this);
+				hash = SHA256.computeDigest(bytes);
+			}
 		}
 
 		/*

@@ -6,6 +6,7 @@
 	<fx:Script>
 		<![CDATA[
 			import com.jxl.sharedslides.views.startslideshowviews.BrowseForSlidesView;
+			import com.jxl.sharedslides.views.startslideshowviews.ConfirmHostSlideshowView;
 			
 			import mx.collections.ArrayCollection;
 			
@@ -24,6 +25,10 @@
 				navigator.pushView(BrowseForSlidesView, null, null, tran);
 			}
 			
+			private function onHostSlideshow():void
+			{
+				navigator.pushView(ConfirmHostSlideshowView, slideshowsList.selectedItem);
+			}
 			
 			
 		]]>
@@ -37,7 +42,10 @@
 	</s:layout>
 	
 	<s:Label text="Your Shared Slideshows" />
-	<s:List width="100%" height="100%" dataProvider="{yourSlideshows}"
-			itemRenderer="com.jxl.sharedslides.controls.SharedSlideshowItemRenderer"/>
+	<s:List width="100%" height="100%" 
+			id="slideshowsList"
+			dataProvider="{yourSlideshows}"
+			itemRenderer="com.jxl.sharedslides.controls.SharedSlideshowItemRenderer"
+			change="onHostSlideshow()"/>
 	
 </s:View>
