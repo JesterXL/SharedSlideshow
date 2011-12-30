@@ -1,5 +1,7 @@
 package com.jxl.shareslides.vo
 {
+	import com.adobe.crypto.MD5;
+	
 	import flash.utils.ByteArray;
 	
 	import mx.utils.SHA256;
@@ -46,7 +48,8 @@ package com.jxl.shareslides.vo
 			{
 				var bytes:ByteArray = new ByteArray();
 				bytes.writeObject(this);
-				hash = SHA256.computeDigest(bytes);
+				//hash = SHA256.computeDigest(bytes);
+				hash = MD5.hashBinary(bytes);
 			}
 		}
 

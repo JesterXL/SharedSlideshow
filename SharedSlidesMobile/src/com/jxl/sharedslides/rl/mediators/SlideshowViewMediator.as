@@ -36,6 +36,11 @@ package com.jxl.sharedslides.rl.mediators
 			updateToHostSlide();
 		}
 		
+		public override function onRemove():void
+		{
+			model.currentSlideshowHash = null;
+		}
+		
 		private function onHostIndexChanged(event:NetworkModelEvent):void
 		{
 			updateToHostSlide();

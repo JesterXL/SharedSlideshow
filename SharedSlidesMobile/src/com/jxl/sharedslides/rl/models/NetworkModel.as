@@ -14,7 +14,6 @@ package com.jxl.sharedslides.rl.models
 	import flash.utils.getTimer;
 	
 	import mx.collections.ArrayCollection;
-	import mx.utils.SHA256;
 	
 	import org.robotlegs.mvcs.Actor;
 	
@@ -26,6 +25,7 @@ package com.jxl.sharedslides.rl.models
 		
 		private var _connected:Boolean = false;
 		private var _currentSlide:int = 0;
+		private var awaitingSlideshows:Object = {};
 		
 		public function get connected():Boolean { return _connected; }
 		public function set connected(value:Boolean):void
@@ -108,20 +108,8 @@ package com.jxl.sharedslides.rl.models
 		
 		public function shareSlideshow(slideshow:SlideshowVO):void
 		{
-			//Debug.debug(getTimer() + " NetworkModel::shareSlideshow");
-			var bytes:ByteArray = new ByteArray();
-			bytes.writeObject(slideshow);
-			//Debug.debug(getTimer() + " write done at " + bytes.length + " bytes, computing digest...");
-			var hash:String = SHA256.computeDigest(bytes);
-			//Debug.debug(getTimer() + " computing digest done, compressing...");
-			slideshow.hash = hash;
-			//bytes.position = 0;
-			//bytes.compress();
-			//Debug.debug(getTimer() + " compression done at " + bytes.length + " bytes.");
-			//Debug.debug(getTimer() + " hash: " + hash);
-			//Debug.debug(getTimer() + " sharing with all...");
-			localNetworkDiscovery.shareWithAll(slideshow, slideshow.name);
-			//Debug.debug(getTimer() + " done sharing with all.");
+			slideshow.updateHashIfNeeded();
+			localNetworkDiscovery.shareWithAll(slideshow, {name: slideshow.name, hash: slideshow.hash});
 		}
 		
 		public function setHostCurrentIndex(slideshowHash:String, index:int):void
@@ -145,8 +133,17 @@ package com.jxl.sharedslides.rl.models
 		
 		private function onObjectAnnounced(event:ObjectEvent):void
 		{
-			Debug.info("NetworkModel::onObjectAnnounced");
-			localNetworkDiscovery.requestObject(event.metadata);
+			Debug.info("NetworkModel::onObjectAnnounced, hash: " + event.metadata.info.hash);
+			if(awaitingSlideshows[event.metadata.info.hash] != null)
+			{
+				Debug.info("I was awaiting this slideshow, thank you, requesting...");
+				delete awaitingSlideshows[event.metadata.info.hash];
+				localNetworkDiscovery.requestObject(event.metadata);
+			}
+			else
+			{
+				Debug.info("Thanks, I already have this slideshow.");
+			}
 		}
 		
 		private function onObjectProgress(event:ObjectEvent):void
@@ -156,17 +153,6 @@ package com.jxl.sharedslides.rl.models
 		
 		private function onObjectComplete(event:ObjectEvent):void
 		{
-			/*
-			var len:int = localNetworkDiscovery.receivedObjects.length;
-			while(len--)
-			{
-				var om:ObjectMetadataVO = localNetworkDiscovery.receivedObjects[len];
-				if(om.object && obj.object is SlideshowVO)
-				{
-					var slideshow:SlideshowVO = 
-				}
-			}
-			*/
 			localNetworkDiscovery.receivedObjects.refresh();
 		}
 		
@@ -182,11 +168,32 @@ package com.jxl.sharedslides.rl.models
 			if(event.client.isLocal)
 				return;
 			
-			dispatch(new Event("clientAdded"));
+			var hash:Object = {};
+			var len:int = localNetworkDiscovery.receivedObjects.length;
+			var om:ObjectMetadataVO;
+			var slideshow:SlideshowVO;
+			while(len--)
+			{
+				om = localNetworkDiscovery.receivedObjects[len];
+				hash[om.info.hash] = om.info.hash;
+			}
 			
-			//var evt:NetworkModelEvent 		= new NetworkModelEvent(NetworkModelEvent.CLIENT_ADDED);
-			//evt.client 						= event.client;
-			//dispatch(evt);
+			len = localNetworkDiscovery.sharedObjects.length;
+			while(len--)
+			{
+				om = localNetworkDiscovery.sharedObjects[len];
+				hash[om.info.hash] = om.info.hash;
+			}
+			
+			var hashes:Array = [];
+			for(var prop:String in hash)
+			{
+				hashes.push(prop);
+			}
+			
+			localNetworkDiscovery.sendMessageToClient({message: "doYouNeedSlideshow", hashes: hashes}, event.client.groupID);
+			
+			dispatch(new Event("clientAdded"));
 		}
 		
 		private function onClientUpdate(event:ClientEvent):void
@@ -196,10 +203,6 @@ package com.jxl.sharedslides.rl.models
 				return;
 			
 			dispatch(new Event("clientUpdate"));
-			
-			//var evt:NetworkModelEvent 		= new NetworkModelEvent(NetworkModelEvent.CLIENT_UPDATED);
-			//evt.client 						= event.client;
-			//dispatch(evt);
 		}
 		
 		private function onClientRemoved(event:ClientEvent):void
@@ -228,21 +231,98 @@ package com.jxl.sharedslides.rl.models
 					break;
 				
 				case "doYouNeedSlideshow":
-					//networkModelEvent = new NetworkModelEvent(NetworkModelEvent.RECEIVED_REQUEST_SLIDESHOW_MESSAGE);
-					//networkModelEvent.message = event.message;
-					//dispatch(networkModelEvent);
+					onVerifyIfINeedSlideshows(event);
 					break;
 				
 				case "doYouNeedSlideshowAck":
-					//if(event.message.data.request == true)
-					//{
-					//	networkModelEvent = new NetworkModelEvent(NetworkModelEvent.CLIENT_NEEDS_SLIDESHOW);
-					//	networkModelEvent.message = event.message;
-					//	dispatch(networkModelEvent);
-					//}
+					onSendNeededSlideshows(event);
 					break;
 				
 				
+			}
+		}
+		
+		private function onVerifyIfINeedSlideshows(messageEvent:MessageEvent):void
+		{
+			var hashes:Array = messageEvent.message.data.hashes as Array;
+			var missing:Array = [];
+			var len:int = hashes.length;
+			var hashObject:Object = {};
+			while(len--)
+			{
+				var hashString:String = hashes[len];
+				hashObject[hashString] = false;
+			}
+			
+			var om:ObjectMetadataVO;
+			var slideshow:SlideshowVO;
+			len = localNetworkDiscovery.receivedObjects.length;
+			while(len--)
+			{
+				om = localNetworkDiscovery.receivedObjects[len];
+				hashObject[om.info.hash] = true;
+			}
+			
+			len = localNetworkDiscovery.sharedObjects.length;
+			while(len--)
+			{
+				om = localNetworkDiscovery.sharedObjects[len];
+				slideshow = om.object as SlideshowVO;
+				slideshow.updateHashIfNeeded();
+				hashObject[slideshow.hash] = true;
+			}
+			
+			for(var prop:String in hashObject)
+			{
+				if(hashObject[prop] == false)
+				{
+					missing.push(prop);
+					awaitingSlideshows[prop] = prop;
+				}
+			}
+			
+			if(missing.length > 0)
+			{
+				localNetworkDiscovery.sendMessageToClient({message: "doYouNeedSlideshowAck", missing: missing}, messageEvent.message.client.groupID);
+			}
+		}
+		
+		private function onSendNeededSlideshows(event:MessageEvent):void
+		{
+			var missing:Array = event.message.data.missing as Array;
+			var missingHash:Object = {};
+			var len:int = missing.length;
+			var hash:String;
+			while(len--)
+			{
+				hash = missing[len] as String;
+				missingHash[hash] = true;
+			}
+			
+			len = localNetworkDiscovery.receivedObjects.length;
+			var om:ObjectMetadataVO;
+			var slideshow:SlideshowVO;
+			while(len--)
+			{
+				om = localNetworkDiscovery.receivedObjects[len];
+				slideshow = om.object as SlideshowVO;
+				if(missingHash[slideshow.hash] == true)
+				{
+					missingHash[slideshow.hash] = false;
+					localNetworkDiscovery.shareWithClient(slideshow, event.message.client.groupID, {name: slideshow.name, hash: slideshow.hash});
+				}
+			}
+			
+			len = localNetworkDiscovery.sharedObjects.length;
+			while(len--)
+			{
+				om = localNetworkDiscovery.sharedObjects[len];
+				slideshow = om.object as SlideshowVO;
+				if(missingHash[slideshow.hash] == true)
+				{
+					missingHash[slideshow.hash] = false;
+					localNetworkDiscovery.shareWithClient(slideshow, event.message.client.groupID, {name: slideshow.name, hash: slideshow.hash});
+				}
 			}
 		}
 	}
