@@ -50,6 +50,7 @@ package com.jxl.shareslides.vo
 				bytes.writeObject(this);
 				//hash = SHA256.computeDigest(bytes);
 				hash = MD5.hashBinary(bytes);
+				
 			}
 		}
 

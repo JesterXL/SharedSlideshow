@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" title="Submit Feedback">
-	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
-	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.jxl.sharedslides.views.submitfeedbackviews.ThankYouView;
+			
+			private function onSubmit():void
+			{
+				if(feedbackTextArea.text.length > 0)
+				{
+					dispatchEvent(new Event("submitFeedback"));
+					navigator.pushView(ThankYouView);
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout paddingLeft="44" paddingTop="44" paddingRight="44" />
+	</s:layout>
+	
+	
+	<s:Label text="We appreciate and read all feedback!" />
+	<s:TextArea id="feedbackTextArea" width="100%" height="50%" />
+	<s:Button label="Submit" click="onSubmit()" width="100%" />
+	
 </s:View>
