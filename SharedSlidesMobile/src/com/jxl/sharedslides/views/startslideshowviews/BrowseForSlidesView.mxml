@@ -79,7 +79,12 @@
 					filesCollection = new ArrayCollection();
 				
 				var imagePromise:MediaPromise = event.data;
-				filesCollection.addItem(imagePromise.file);
+				//filesCollection.addItem(imagePromise.file);
+				var files:Array = imagePromise.file.parent.getDirectoryListing();
+				if(files && files.length > 0)
+				{
+					filesCollection = new ArrayCollection(files);
+				}
 			}
 			
 			private function onFileError(event:IOErrorEvent):void
@@ -145,22 +150,26 @@
 		<s:Button label="Cancel" click="onCancel()" includeIn="main" />
 	</s:actionContent>
 	
-	<s:Form width="100%" includeIn="main">
-		<s:FormItem label="Name:" width="100%">
-			<s:TextInput id="nameTextInput" width="100%" />
-		</s:FormItem>
-		<s:FormItem label="Passcode:" width="100%">
-			<s:TextInput id="passcodeTextInput" width="100%" />
-		</s:FormItem>
-		<s:FormItem label="Slides:" width="100%" height="100%">
-			<s:Button label="Browse" click="onBrowse()"/>
-			<s:List dataProvider="{filesCollection}" itemRenderer="com.jxl.sharedslides.controls.SlideItemRenderer" height="260" />
-		</s:FormItem>
-		<s:FormItem width="100%">
-			<s:Button label="Create" width="100%" click="onCreateSlideshow()"/>
-		</s:FormItem>
+	<s:Rect width="100%" height="100%">
+		<s:fill>
+			<s:SolidColor color="#000000" />
+		</s:fill>
+	</s:Rect>
+	
+	<s:VGroup width="100%" height="100%" includeIn="main" paddingLeft="22" paddingRight="22" paddingTop="22">
+		<s:Label text="Name:" />
+		<s:TextInput id="nameTextInput" width="100%" />
 		
-	</s:Form>
+		<s:Label text="Passcode:" />
+		<s:TextInput id="passcodeTextInput" width="100%" />
+		
+		<s:Label text="Slides:" />
+		<s:Button label="Browse" click="onBrowse()"/>
+		<s:List dataProvider="{filesCollection}" itemRenderer="com.jxl.sharedslides.controls.SlideItemRenderer" height="100%" />
+		
+	</s:VGroup>
+	
+	<s:Button label="Create" left="22" right="22" click="onCreateSlideshow()" includeIn="main" bottom="22" horizontalCenter="0"/>
 	
 	<s:Label text="Processing..." horizontalCenter="0" top="44" includeIn="processing" />
 	

@@ -2,10 +2,14 @@
 <s:IconItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 					xmlns:s="library://ns.adobe.com/flex/spark"   
 					labelFunction="getLabel"
+					iconFunction="getIcon"
 					iconWidth="64" iconHeight="64" >
 	
 	<fx:Script>
 		<![CDATA[
+			
+			private var bottomLine:ListDividerSymbol;
+			
 			private function getLabel(obj:Object):String
 			{
 				if(data && data.info)
@@ -17,6 +21,39 @@
 					return "???";
 				}
 			}
+			
+			private function getIcon(obj:Object):*
+			{
+				return ButtonArrowUpSymbol;
+			}
+			
+			protected override function createChildren():void
+			{
+				super.createChildren();
+				
+				bottomLine = new ListDividerSymbol();
+				addChild(bottomLine);
+				bottomLine.mouseEnabled = false;
+			}
+			
+			protected override function updateDisplayList(w:Number, h:Number):void
+			{
+				super.updateDisplayList(w, h);
+				
+				bottomLine.width = width * .8;
+				bottomLine.x = (width - bottomLine.width) / 2;
+				bottomLine.y = height - (bottomLine.height + 2);
+			}
+			
+			protected override function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
+			{
+				var g:Graphics = graphics;
+				g.clear();
+				g.beginFill(0x000000);
+				g.drawRect(0, 0, width, height);
+				g.endFill();
+			}
+			
 		]]>
 	</fx:Script>
 	

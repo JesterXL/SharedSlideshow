@@ -1,5 +1,6 @@
 package com.jxl.sharedslides.rl.models
 {
+	import com.adobe.crypto.MD5;
 	import com.jxl.sharedslides.events.model.NetworkModelEvent;
 	import com.jxl.shareslides.vo.SlideshowVO;
 	import com.projectcocoon.p2p.LocalNetworkDiscovery;
@@ -142,7 +143,33 @@ package com.jxl.sharedslides.rl.models
 			}
 			else
 			{
-				Debug.info("Thanks, I already have this slideshow.");
+				// verify I don't have it
+				var len:int = localNetworkDiscovery.receivedObjects.length;
+				var om:ObjectMetadataVO;
+				var slideshow:SlideshowVO;
+				while(len--)
+				{
+					om = localNetworkDiscovery.receivedObjects[len];
+					if(om.info.hash == event.metadata.info.hash)
+					{
+						Debug.info("Thanks, I already have this slideshow in received.");
+						return;
+					}
+				}
+				
+				len = localNetworkDiscovery.sharedObjects.length;
+				while(len--)
+				{
+					om = localNetworkDiscovery.sharedObjects[len];
+					if(om.info.hash == event.metadata.info.hash)
+					{
+						Debug.info("Thanks, I already have this slideshow, I'm hosting it.");
+						return;
+					}
+				}
+				
+				Debug.info("I have no record of requesting this, so thanks, requesting it now!");
+				localNetworkDiscovery.requestObject(event.metadata);
 			}
 		}
 		
@@ -153,6 +180,11 @@ package com.jxl.sharedslides.rl.models
 		
 		private function onObjectComplete(event:ObjectEvent):void
 		{
+			Debug.debug("NetworkModel::onObjectComplete");
+			// [jwarden 12.30.2011] HACK: My hashes aren't matching up... whether MD5 or SHA256.
+			Debug.debug("hash on info: "+ event.metadata.info.hash);
+			var slideshow:SlideshowVO = event.metadata.object as SlideshowVO;
+			slideshow.hash = event.metadata.info.hash;
 			localNetworkDiscovery.receivedObjects.refresh();
 		}
 		

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark"
-		title="{slideshow.name}">
+		title="{slideshow.name} {currentSlideText}">
 	
 	<fx:Script>
 		<![CDATA[
@@ -141,12 +141,16 @@
 			 scaleMode="letterbox"
 			 gestureSwipe="onGestureSwipe(event)"
 			 showEffect="fadeIn"/>
-	<s:Label horizontalCenter="0" text="{currentSlideText}" />
-	<s:CheckBox id="syncToHostCheckbox" 
-				enabled="{slideshow != null}" 
-				label="Sync To Host" selected="{syncToHost}" 
-				change="onToggleSyncToHost()"
-				visible="{host == false}"/>
+	
+	<s:HGroup paddingLeft="8" paddingBottom="8" paddingTop="8">
+		<s:CheckBox id="syncToHostCheckbox"
+					enabled="{slideshow != null}" 
+					label="Sync To Host" selected="{syncToHost}" 
+					change="onToggleSyncToHost()"
+					visible="{host == false}"
+					includeInLayout="{host == false}"/>
+	</s:HGroup>
+	
 	
 	<fx:Declarations>
 		<s:Fade id="fadeIn" alphaFrom="0" alphaTo="1" duration="300" />

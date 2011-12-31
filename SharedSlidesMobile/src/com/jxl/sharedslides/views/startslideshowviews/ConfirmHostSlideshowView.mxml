@@ -46,10 +46,14 @@
 		]]>
 	</fx:Script>
 	
+	<s:actionContent>
+		<s:Button label="Cancel" click="onBack()" />
+	</s:actionContent>
 	
-	<s:VGroup width="100%" height="100%" top="44">
-		<s:Label id="confirmLabel" horizontalCenter="0" />
-		<s:Button label="Host" click="onConfirmJoin()" horizontalCenter="0" />
+	
+	<s:VGroup width="100%" height="100%" top="88" gap="22" horizontalAlign="center">
+		<s:Label id="confirmLabel"/>
+		<s:Button label="Host" click="onConfirmJoin()" width="80%"  />
 	</s:VGroup>
 	
 </s:View>

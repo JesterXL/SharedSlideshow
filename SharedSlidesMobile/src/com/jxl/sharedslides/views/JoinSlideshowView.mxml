@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
-		title="Join Slideshow">
+		title="Joinnable Slideshows" xmlns:skinnedcomponents="com.jxl.sharedslides.skinnedcomponents.*"
+		xmlns:shareslides="com.jxl.shareslides.*" xmlns:local="*">
 	
 	<fx:Script>
 		<![CDATA[
@@ -16,12 +17,14 @@
 			[Bindable]
 			public var slideshows:ArrayCollection;
 			
+			/*
 			private function onChangeMyName():void
 			{
 				var evt:JoinSlideshowViewEvent 	= new JoinSlideshowViewEvent(JoinSlideshowViewEvent.CHANGE_NAME);
 				evt.name 						= usernameTextInput.text;
 				dispatchEvent(evt);
 			}
+			*/
 			
 			private function onChange():void
 			{
@@ -51,15 +54,19 @@ Looking for some...</s:text>
 	</s:Group>
 	-->
 	
-	<s:Label text="Joinnable Slideshows" />
+	<!--
+	<skinnedcomponents:LabelHeader text="Joinnable Slideshows" width="100%" />
+	-->
 	<s:List width="100%" height="100%"
 			id="slideshowsList"
 			dataProvider="{slideshows}"
 			itemRenderer="com.jxl.sharedslides.controls.ReceivedSlideshowItemRenderer"
 			change="onChange()"/>
 	
+	<!--
 	<s:TextInput text="Default User" id="usernameTextInput" />
 	<s:Button label="Change My Name" click="onChangeMyName()" />
+	-->
 	
 	
 </s:View>

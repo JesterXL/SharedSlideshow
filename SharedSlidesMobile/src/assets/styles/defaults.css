@@ -1,7 +1,80 @@
 /* CSS file */
 @namespace s "library://ns.adobe.com/flex/spark";
+@namespace skinnedcomponents "com.jxl.sharedslides.skinnedcomponents.*";
+@namespace views "com.jxl.sharedslides.views.*";
+
+global
+{
+	chromeColor: #333333;
+}
+
+s|Label
+{
+	color: #EEEEEE;
+}
+
+s|Form
+{
+	backgroundAlpha: 0;
+}
+
+s|FormItem
+{
+	backgroundAlpha: 0;
+}
+
+s|CheckBox
+{
+	color: #EEEEEE;
+}
+
+s|IconItemRenderer
+{
+	color: #EEEEEE;
+}
+
+s|TabbedViewNavigator
+{
+	skinClass: ClassReference("com.jxl.sharedslides.skins.TabbedViewNavigatorSkin");
+}
+
+s|ButtonBarButton
+{
+	skinClass: ClassReference("com.jxl.sharedslides.skins.ButtonBarButtonSkin");
+}
+
+s|View
+{
+	skinClass: ClassReference("com.jxl.sharedslides.skins.ViewSkin");
+}
 
 s|TabbedViewNavigator #tabBar
 {
-	fontSize: 21px;
+	skinClass: ClassReference("com.jxl.sharedslides.skins.ButtonBarSkin");
+	iconPlacement: bottom;
+}
+
+s|List
+{
+	skinClass: ClassReference("com.jxl.sharedslides.skins.ListSkin");
+}
+
+s|TextInput
+{
+	skinClass: ClassReference("com.jxl.sharedslides.skins.TextInputSkin");
+	paddingBottom: 9;
+	paddingLeft: 9;
+	paddingRight: 9;
+	paddingTop: 9;
+	showPromptWhenFocused: true;
+}
+
+s|Button
+{
+	color: #DDDDDD;
+}
+
+skinnedcomponents|LabelHeader
+{
+	skinClass: ClassReference("com.jxl.sharedslides.skins.LabelHeaderSkin");
 }

@@ -29,7 +29,8 @@ package com.jxl.shareslides.vo
 		public function SlideshowVO()
 		{
 		}
-
+		
+		[Transient]
 		public function hasPasscode():Boolean
 		{
 			if(passcode == null)
@@ -50,7 +51,6 @@ package com.jxl.shareslides.vo
 				bytes.writeObject(this);
 				//hash = SHA256.computeDigest(bytes);
 				hash = MD5.hashBinary(bytes);
-				
 			}
 		}
 

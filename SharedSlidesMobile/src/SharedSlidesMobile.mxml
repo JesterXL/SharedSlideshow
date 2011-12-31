@@ -2,14 +2,22 @@
 <s:TabbedViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 								  xmlns:s="library://ns.adobe.com/flex/spark" applicationDPI="320" xmlns:rl="com.jxl.sharedslides.rl.*"
 								  creationComplete="init()"
-								  addedToStage="onAdded()"
+								  addedToStage="onAdded()" xmlns:shareslides="com.jxl.shareslides.*" xmlns:local="*"
 								  >
 	
 	<fx:Style source="assets/styles/defaults.css" />
 	
-	<s:ViewNavigator label="Join Slideshow" width="100%" height="100%" firstView="com.jxl.sharedslides.views.JoinSlideshowView"/>
-	<s:ViewNavigator label="Start A Slideshow" width="100%" height="100%" firstView="com.jxl.sharedslides.views.StartSlideshowView"/>
-	<s:ViewNavigator label="Submit Feedback" width="100%" height="100%" firstView="com.jxl.sharedslides.views.SubmitFeedbackView"/>
+	<s:ViewNavigator label="Join Slideshow" 
+					 icon="{IconStartSymbol}"
+					 width="100%" height="100%" 
+					 firstView="com.jxl.sharedslides.views.JoinSlideshowView"/>
+	<s:ViewNavigator label="Host Slideshow" 
+					 icon="{IconJoinSymbol}"
+					 width="100%" height="100%" firstView="com.jxl.sharedslides.views.StartSlideshowView"/>
+	<s:ViewNavigator label="Feedback?" 
+					 icon="{IconBugSymbol}"
+					 width="100%" height="100%" 
+					 firstView="com.jxl.sharedslides.views.SubmitFeedbackView"/>
 	<fx:Declarations>
 		<rl:MainContext contextView="{this}" />
 	</fx:Declarations>
@@ -18,7 +26,11 @@
 		<![CDATA[
 			import com.jxl.shareslides.vo.SlideshowVO;
 			
+			import flash.debugger.enterDebugger;
+			
+			import mx.core.UIComponent;
 			import mx.managers.PopUpManager;
+			
 			private function init():void
 			{
 				if(Capabilities.os.toLowerCase().indexOf("mac") != -1)
@@ -38,6 +50,8 @@
 			{
 				Debug.error("Global Error: " + event);
 			}
+			
 		]]>
 	</fx:Script>
+	
 </s:TabbedViewNavigatorApplication>

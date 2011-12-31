@@ -11,19 +11,20 @@
 			import com.jxl.shareslides.vo.SlideshowVO;
 			import com.projectcocoon.p2p.vo.ObjectMetadataVO;
 			
+			private var bottomLine:ListDividerSymbol;
+			
 			private function slideshowLabelFunction(obj:Object):String
 			{
 				if(obj == null)
 					return "";
 				
-				
-				if(obj is ObjectMetadataVO && obj.object != null)
+				var meta:ObjectMetadataVO = obj as ObjectMetadataVO;
+				if(meta && meta.object != null)
 				{
-					var meta:ObjectMetadataVO = obj as ObjectMetadataVO;
 					var slideshow:SlideshowVO = meta.object as SlideshowVO;
 					if(slideshow == null)
 					{
-						return "Unknown Slideshow Name"
+						return "Unknown Slideshow Name";
 					}
 					else
 					{
@@ -32,33 +33,36 @@
 				}
 				else
 				{
-					return "???";
+					if(meta && meta.info && meta.info.name)
+					{
+						return meta.info.name;
+					}
+					else
+					{
+						if(meta && meta.info)
+						{
+							return String(meta.info);
+						}
+						else
+						{
+							return "???";
+						}
+					}
 				}
 			}
 			
 			private function slideshowIconFunction(obj:Object):Object
 			{
-				if(obj == null)
-					return null;
-				
-				if(obj is ObjectMetadataVO && obj.object != null)
+				if(obj is ObjectMetadataVO)
 				{
-					var meta:ObjectMetadataVO = obj as ObjectMetadataVO;
-					var slideshow:SlideshowVO = meta.object as SlideshowVO;
-					if(slideshow == null)
+					var om:ObjectMetadataVO = obj as ObjectMetadataVO;
+					if(om.isComplete == false || om.progress < 1)
 					{
-						if(slideshow.slideBytes && slideshow.slideBytes.length > 0)
-						{
-							return slideshow.slideBytes[0];
-						}
-						else
-						{
-							return null;
-						}
+						return null;
 					}
 					else
 					{
-						return null;
+						return ButtonArrowUpSymbol;
 					}
 				}
 				else
@@ -123,6 +127,33 @@
 					enabled = false;
 					return "";
 				}
+			}
+			
+			protected override function createChildren():void
+			{
+				super.createChildren();
+				
+				bottomLine = new ListDividerSymbol();
+				addChild(bottomLine);
+				bottomLine.mouseEnabled = false;
+			}
+			
+			protected override function updateDisplayList(w:Number, h:Number):void
+			{
+				super.updateDisplayList(w, h);
+				
+				bottomLine.width = width * .8;
+				bottomLine.x = (width - bottomLine.width) / 2;
+				bottomLine.y = height - (bottomLine.height + 2);
+			}
+			
+			protected override function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
+			{
+				var g:Graphics = graphics;
+				g.clear();
+				g.beginFill(0x000000);
+				g.drawRect(0, 0, width, height);
+				g.endFill();
 			}
 			
 		]]>
